@@ -1,0 +1,220 @@
+{
+  "evidence_id": "EV-796308",
+  "file": {
+    "evidence_id": "EV-796308",
+    "file_name": "tmphl4wdfso.png",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\reports\\uploads\\tmphl4wdfso.png",
+    "file_type": "image",
+    "file_extension": ".png",
+    "size_bytes": 78961,
+    "sha256": "1b0142d02e78ca4bd777116316f425a96c541996c6ea51671a33e9c5be7660f0",
+    "mime_type": "image/png",
+    "submitted_by": "investigator_1",
+    "submitted_at": "2026-08-11T14:40:36.633404+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-796308",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T14:40:36.695696+00:00",
+    "duration_seconds": 0.022,
+    "result": {
+      "sha256": "1b0142d02e78ca4bd777116316f425a96c541996c6ea51671a33e9c5be7660f0",
+      "registered_at": "2026-08-11T14:40:36.681499+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 1,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-796308",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T14:40:36.704845+00:00",
+    "duration_seconds": 0.012,
+    "result": {
+      "metadata_score": 80,
+      "flags": [
+        "camera_model_missing",
+        "camera_make_missing"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [
+        "file modified after creation"
+      ],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 0,
+        "gps_present": 0,
+        "metadata_length": 6,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "image_format": "PNG",
+        "image_mode": "RGBA",
+        "image_width": 1018,
+        "image_height": 598,
+        "png_srgb": 0,
+        "png_gamma": 0.45455
+      }
+    },
+    "error": null
+  },
+  "image_forgery": {
+    "evidence_id": "EV-796308",
+    "analysis_type": "image_forgery",
+    "status": "success",
+    "timestamp": "2026-08-11T14:40:37.033417+00:00",
+    "duration_seconds": 0.327,
+    "result": {
+      "prediction": "AUTHENTIC",
+      "confidence": 0.9998,
+      "scores": {
+        "authentic": 0.9998,
+        "tampered": 0.0002
+      },
+      "model": "ResNet50 + EfficientNet-B0 + Logistic Regression"
+    },
+    "error": null
+  },
+  "deepfake": null,
+  "fake_news": {
+    "evidence_id": "EV-796308",
+    "analysis_type": "fake_news_detection",
+    "status": "success",
+    "timestamp": "2026-08-11T14:40:51.488238+00:00",
+    "duration_seconds": 14.451,
+    "result": {
+      "final_decision": "Fake",
+      "confidence": "Medium",
+      "score": -0.1111,
+      "claim": "breaking: massive superquake devastates colombi ' blame secret underwater nuclear tests after thousands feared dead bogota - zin a catastrophic escalation oft the morning seismic : activity, asecond, farn more powerful magnitude: 89 earthquake hast reportedly ripped through western colombia just hours after: the initial tremor, flattening entire neighborhoods in cali and pereira and sending a massive tsunami racing toward the pacific coast.",
+      "extracted_text_preview": "BREAKING: Massive 8.9 Superquake Devastates Colombi 's Blame \u201cSecret Underwater\nNuclear Tests\u201d After Thousands Feared Dead\n\nBOGOTA - zin a catastrophic escalation oft the > morning\u2019 \u2019s seismic : activity, asecond, farn more powerful\nmagnitude: 89 earthquake hast reportedly ripped through western Colombia just hours \u00e9 after: the initial 7.4\ntremor, flattening entire neighborhoods in Cali and Pereira and sending a massive tsunami racing toward\nthe Pacific coast.\n\nLocal I emergency services claim t",
+      "api_results": {
+        "roberta": "Real",
+        "similarity": "Uncertain",
+        "google_fact_check": "Unknown",
+        "news_api": "Uncertain",
+        "groq": "Fake",
+        "heuristic": "Uncertain",
+        "source": "Uncertain"
+      },
+      "source_score": 0.5,
+      "explanation": {
+        "verdict": "Fake",
+        "confidence": "Medium",
+        "confidence_pct": 11,
+        "reasons": [
+          "The weighted analysis of 2 verification signals produced a weak consensus verdict of FAKE (score: -0.1111), indicating this content exhibits characteristics of misinformation.",
+          "The local RoBERTa transformer model (carrying 20% weight) classified this article as 'Real' based on linguistic and semantic patterns learned from 44,898 labelled articles.",
+          "Groq LLM (carrying 25% weight) identified this claim as false or misleading based on factual analysis."
+        ],
+        "evidence": {
+          "roberta_evidence": {
+            "label": "Real",
+            "model": "RoBERTa (fine-tuned on WELFake dataset)",
+            "description": "Local transformer-based classifier trained on 44,898 news articles. Evaluates linguistic patterns, phrasing, and semantic content."
+          },
+          "similarity_evidence": {
+            "label": "Uncertain",
+            "top_matches": [
+              {
+                "title": "In Mexican slum, a decades-long wait for quake relief",
+                "label": "Real",
+                "score": 0.5571
+              },
+              {
+                "title": "Magnitude 5.4 quake rumbles southern Mexico, no reports of damage",
+                "label": "Real",
+                "score": 0.548
+              },
+              {
+                "title": "Strong quake hits Costa Rica, no reports of major damage",
+                "label": "Real",
+                "score": 0.5445
+              },
+              {
+                "title": "Mexico's strongest quake in 85 years kills dozens in the poor south",
+                "label": "Real",
+                "score": 0.5359
+              },
+              {
+                "title": "Strong quake near Mexico City kills at least 226, rescuers dig through collapsed buildings",
+                "label": "Real",
+                "score": 0.5354
+              }
+            ],
+            "match_count": 5,
+            "description": "FAISS semantic similarity search over 44,898 labelled news claims using all-MiniLM-L6-v2 dense embeddings (384-dim cosine similarity)."
+          },
+          "factcheck_evidence": {
+            "label": "Unknown",
+            "source": "Google Fact Check Tools API",
+            "description": "Cross-references the claim against a global database of verified fact-check articles published by registered fact-checkers worldwide."
+          },
+          "newsapi_evidence": {
+            "label": "Uncertain",
+            "article_count": 0,
+            "articles": [],
+            "description": "Searches NewsAPI.org for recent news articles related to the claim and checks coverage by trusted international news outlets."
+          },
+          "groq_evidence": {
+            "label": "Fake",
+            "source": "Groq LLM (Llama 3.3 70B)",
+            "description": "Evaluates claim authenticity using Groq's high-speed Llama 3.3 70B reasoning model."
+          },
+          "source_evidence": {
+            "source_score": 0.5,
+            "sources_found": [],
+            "description": "Average credibility of the news domains cited by API results, scored from 0.0 (low credibility) to 1.0 (highest credibility)."
+          }
+        },
+        "confidence_breakdown": {
+          "roberta": {
+            "weight_pct": 20,
+            "label": "Real",
+            "contributed": true,
+            "direction": "REAL"
+          },
+          "similarity": {
+            "weight_pct": 20,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "google": {
+            "weight_pct": 20,
+            "label": "Unknown",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "news": {
+            "weight_pct": 10,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "groq": {
+            "weight_pct": 25,
+            "label": "Fake",
+            "contributed": true,
+            "direction": "FAKE"
+          },
+          "heuristic": {
+            "weight_pct": 5,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          }
+        }
+      }
+    },
+    "error": null
+  },
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T14:40:51.493348+00:00"
+}

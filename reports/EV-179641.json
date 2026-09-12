@@ -1,0 +1,87 @@
+{
+  "evidence_id": "EV-179641",
+  "file": {
+    "evidence_id": "EV-179641",
+    "file_name": "tmphtmm10lz.mp4",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\reports\\uploads\\tmphtmm10lz.mp4",
+    "file_type": "video",
+    "file_extension": ".mp4",
+    "size_bytes": 1276862,
+    "sha256": "a2ed1f5b8a74994af07adfce133adffc153f44d0bc8844bd5cb76568c51e32e5",
+    "mime_type": "video/mp4",
+    "submitted_by": "investigator_1",
+    "submitted_at": "2026-08-11T14:43:27.953270+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-179641",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T14:43:28.014598+00:00",
+    "duration_seconds": 0.018,
+    "result": {
+      "sha256": "a2ed1f5b8a74994af07adfce133adffc153f44d0bc8844bd5cb76568c51e32e5",
+      "registered_at": "2026-08-11T14:43:27.994266+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 2,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-179641",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T14:43:28.073369+00:00",
+    "duration_seconds": 0.058,
+    "result": {
+      "metadata_score": 0,
+      "flags": [
+        "empty_metadata",
+        "editing_software_detected",
+        "encoder_info_missing",
+        "duration_info_missing",
+        "creation_date_missing",
+        "writing_application_missing",
+        "no_extraction_tool_available"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 1,
+        "gps_present": 0,
+        "metadata_length": 2,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "_extractor": "none",
+        "note": "Neither exiftool, ffprobe, nor pymediainfo could extract metadata"
+      }
+    },
+    "error": null
+  },
+  "image_forgery": null,
+  "deepfake": {
+    "evidence_id": "EV-179641",
+    "analysis_type": "deepfake_detection",
+    "status": "success",
+    "timestamp": "2026-08-11T14:43:38.668497+00:00",
+    "duration_seconds": 10.58,
+    "result": {
+      "prediction": "REAL",
+      "confidence_pct": 79.39,
+      "real_prob": 79.39,
+      "fake_prob": 20.63,
+      "frames_analyzed": 15,
+      "model": "EfficientNet-B3 + BiLSTM + Attention",
+      "device": "cuda"
+    },
+    "error": null
+  },
+  "fake_news": null,
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T14:43:38.673389+00:00"
+}

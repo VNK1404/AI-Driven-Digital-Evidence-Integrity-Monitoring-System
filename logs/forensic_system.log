@@ -1,0 +1,1102 @@
+2026-08-11 20:00:41,244 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-08-11 20:00:41,253 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-08-11 20:00:41,276 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:00:41,280 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-224360  sha256=1663c73d366cd23a…
+2026-08-11 20:00:41,281 [INFO] orchestration.analysis_orchestrator — [EV-224360][blockchain] status=success
+2026-08-11 20:00:41,281 [INFO] orchestration.analysis_orchestrator — [EV-224360][metadata] status=success
+2026-08-11 20:00:41,281 [INFO] orchestration.analysis_orchestrator — [EV-224360][image_forgery] status=success
+2026-08-11 20:00:41,281 [INFO] orchestration.analysis_orchestrator — [EV-224360] ANALYSIS COMPLETE in 0.01s — overall_status=completed
+2026-08-11 20:00:41,283 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-224360.json
+2026-08-11 20:00:41,290 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:00:41,306 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-076456  sha256=3ec774d072e2e1b7…
+2026-08-11 20:00:41,306 [INFO] orchestration.analysis_orchestrator — [EV-076456][blockchain] status=success
+2026-08-11 20:00:41,306 [ERROR] orchestration.analysis_orchestrator — [EV-076456][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 125, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-08-11 20:00:41,333 [INFO] orchestration.analysis_orchestrator — [EV-076456][image_forgery] status=success
+2026-08-11 20:00:41,333 [WARNING] orchestration.result_aggregator — evidence_id=EV-076456 — 1 module(s) failed: ['metadata_forensics']
+2026-08-11 20:00:41,333 [INFO] orchestration.analysis_orchestrator — [EV-076456] ANALYSIS COMPLETE in 0.05s — overall_status=partial
+2026-08-11 20:00:41,333 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-076456.json
+2026-08-11 20:01:23,226 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 20:01:23,226 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 20:01:38,135 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:01:38] "GET / HTTP/1.1" 200 -
+2026-08-11 20:01:38,616 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:01:38] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:01:38,627 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:01:38] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:01:39,822 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:01:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-08-11 20:02:13,021 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp1f7oeppq.jpg (submitted_by=investigator_1)
+2026-08-11 20:02:13,028 [INFO] orchestration.analysis_orchestrator — [tmp1f7oeppq.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:02:13,073 [INFO] orchestration.analysis_orchestrator — [tmp1f7oeppq.jpg] evidence_id=EV-817509  sha256=32437c756cc8899a…
+2026-08-11 20:02:13,113 [INFO] orchestration.analysis_orchestrator — [EV-817509][blockchain] status=success
+2026-08-11 20:02:45,644 [INFO] orchestration.analysis_orchestrator — [EV-817509][metadata] status=success
+2026-08-11 20:03:17,548 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-08-11 20:03:21,203 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-08-11 20:03:23,068 [ERROR] integrations.image_forgery.adapter — image_forgery.analyze_image_forgery failed for EV-817509: 'LogisticRegression' object has no attribute 'multi_class'
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\integrations\image_forgery\adapter.py", line 95, in analyze_image_forgery
+    raw = predictor.predict_from_path(str(file_path))
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\image_forgery_detection\forgery_detection\core\predictor.py", line 144, in predict_from_path
+    result = self.predict(image)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\image_forgery_detection\forgery_detection\core\predictor.py", line 119, in predict
+    probs    = self.meta.predict_proba(stacked)[0]   # (2,)
+  File "D:\CVNN on soil data\env2\lib\site-packages\sklearn\linear_model\_logistic.py", line 1457, in predict_proba
+    ovr = self.multi_class in ["ovr", "warn"] or (
+AttributeError: 'LogisticRegression' object has no attribute 'multi_class'
+2026-08-11 20:03:23,118 [INFO] orchestration.analysis_orchestrator — [EV-817509][image_forgery] status=failed
+2026-08-11 20:03:27,810 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-08-11 20:04:02,943 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:04:02] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:04:22,273 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-08-11 20:04:22,273 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-08-11 20:04:23,722 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-08-11 20:04:23,722 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-08-11 20:04:23,829 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:04:23,829 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp1f7oeppq.jpg
+2026-08-11 20:04:23,829 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:04:23,829 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:04:23,829 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmp1f7oeppq.jpg
+2026-08-11 20:04:23,829 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmp1f7oeppq.jpg
+2026-08-11 20:04:25,487 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-08-11 20:04:25,487 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:04:25,487 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:04:25,487 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:04:25,487 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-817509: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:04:25,487 [INFO] orchestration.analysis_orchestrator — [EV-817509][fake_news] status=skipped
+2026-08-11 20:04:25,487 [WARNING] orchestration.result_aggregator — evidence_id=EV-817509 — 1 module(s) failed: ['image_forgery']
+2026-08-11 20:04:25,487 [INFO] orchestration.analysis_orchestrator — [EV-817509] ANALYSIS COMPLETE in 132.47s — overall_status=partial
+2026-08-11 20:04:25,487 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-817509.json
+2026-08-11 20:04:25,533 [ERROR] api.app — analyze endpoint error: Object of type IFDRational is not JSON serializable
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\api\app.py", line 160, in analyze
+    return jsonify(report.to_dict()), 200
+  File "D:\CVNN on soil data\env2\lib\site-packages\flask\json\__init__.py", line 170, in jsonify
+    return current_app.json.response(*args, **kwargs)  # type: ignore[return-value]
+  File "D:\CVNN on soil data\env2\lib\site-packages\flask\json\provider.py", line 214, in response
+    f"{self.dumps(obj, **dump_args)}\n", mimetype=self.mimetype
+  File "D:\CVNN on soil data\env2\lib\site-packages\flask\json\provider.py", line 179, in dumps
+    return json.dumps(obj, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\CVNN on soil data\env2\lib\site-packages\flask\json\provider.py", line 121, in _default
+    raise TypeError(f"Object of type {type(o).__name__} is not JSON serializable")
+TypeError: Object of type IFDRational is not JSON serializable
+
+2026-08-11 20:04:25,533 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:04:25] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2026-08-11 20:05:52,172 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-08-11 20:05:52,176 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-08-11 20:05:52,183 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:05:52,184 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-095002  sha256=1663c73d366cd23a…
+2026-08-11 20:05:52,184 [INFO] orchestration.analysis_orchestrator — [EV-095002][blockchain] status=success
+2026-08-11 20:05:52,184 [INFO] orchestration.analysis_orchestrator — [EV-095002][metadata] status=success
+2026-08-11 20:05:52,184 [INFO] orchestration.analysis_orchestrator — [EV-095002][image_forgery] status=success
+2026-08-11 20:05:52,184 [INFO] orchestration.analysis_orchestrator — [EV-095002] ANALYSIS COMPLETE in 0.00s — overall_status=completed
+2026-08-11 20:05:52,185 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-095002.json
+2026-08-11 20:05:52,190 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:05:52,193 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-399355  sha256=3ec774d072e2e1b7…
+2026-08-11 20:05:52,193 [INFO] orchestration.analysis_orchestrator — [EV-399355][blockchain] status=success
+2026-08-11 20:05:52,193 [ERROR] orchestration.analysis_orchestrator — [EV-399355][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 125, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-08-11 20:05:52,196 [INFO] orchestration.analysis_orchestrator — [EV-399355][image_forgery] status=success
+2026-08-11 20:05:52,196 [WARNING] orchestration.result_aggregator — evidence_id=EV-399355 — 1 module(s) failed: ['metadata_forensics']
+2026-08-11 20:05:52,196 [INFO] orchestration.analysis_orchestrator — [EV-399355] ANALYSIS COMPLETE in 0.01s — overall_status=partial
+2026-08-11 20:05:52,197 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-399355.json
+2026-08-11 20:08:01,623 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 20:08:01,623 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 20:08:04,422 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:04] "GET / HTTP/1.1" 200 -
+2026-08-11 20:08:04,821 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:04] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:08:04,833 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:04] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:08:13,406 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpns1cwuot.jpg (submitted_by=investigator_1)
+2026-08-11 20:08:13,408 [INFO] orchestration.analysis_orchestrator — [tmpns1cwuot.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:08:13,444 [INFO] orchestration.analysis_orchestrator — [tmpns1cwuot.jpg] evidence_id=EV-615628  sha256=32437c756cc8899a…
+2026-08-11 20:08:13,494 [INFO] orchestration.analysis_orchestrator — [EV-615628][blockchain] status=success
+2026-08-11 20:08:19,426 [INFO] orchestration.analysis_orchestrator — [EV-615628][metadata] status=success
+2026-08-11 20:08:32,243 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-08-11 20:08:33,863 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-08-11 20:08:34,148 [INFO] orchestration.analysis_orchestrator — [EV-615628][image_forgery] status=success
+2026-08-11 20:08:34,503 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-08-11 20:08:36,107 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-08-11 20:08:36,107 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-08-11 20:08:36,915 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-08-11 20:08:36,915 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-08-11 20:08:36,918 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:08:36,918 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpns1cwuot.jpg
+2026-08-11 20:08:36,918 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:08:36,918 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:08:36,918 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmpns1cwuot.jpg
+2026-08-11 20:08:36,918 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmpns1cwuot.jpg
+2026-08-11 20:08:37,153 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-08-11 20:08:37,153 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:08:37,153 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:08:37,153 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:08:37,153 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-615628: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:08:37,153 [INFO] orchestration.analysis_orchestrator — [EV-615628][fake_news] status=skipped
+2026-08-11 20:08:37,153 [INFO] orchestration.analysis_orchestrator — [EV-615628] ANALYSIS COMPLETE in 23.75s — overall_status=completed
+2026-08-11 20:08:37,153 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-615628.json
+2026-08-11 20:08:37,157 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:37] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:08:37,365 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:37] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:08:37,365 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:08:37] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:10:36,627 [INFO] api.app — Received upload: 'Screenshot 2026-08-11 010714.png' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmphl4wdfso.png (submitted_by=investigator_1)
+2026-08-11 20:10:36,633 [INFO] orchestration.analysis_orchestrator — [tmphl4wdfso.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:10:36,673 [INFO] orchestration.analysis_orchestrator — [tmphl4wdfso.png] evidence_id=EV-796308  sha256=1b0142d02e78ca4b…
+2026-08-11 20:10:36,695 [INFO] orchestration.analysis_orchestrator — [EV-796308][blockchain] status=success
+2026-08-11 20:10:36,704 [INFO] orchestration.analysis_orchestrator — [EV-796308][metadata] status=success
+2026-08-11 20:10:37,033 [INFO] orchestration.analysis_orchestrator — [EV-796308][image_forgery] status=success
+2026-08-11 20:10:37,033 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:10:37,033 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmphl4wdfso.png
+2026-08-11 20:10:37,033 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:10:37,033 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:10:37,043 [INFO] fake_news_module.ocr.extractor — Detected file type '.png' for: tmphl4wdfso.png
+2026-08-11 20:10:37,043 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmphl4wdfso.png
+2026-08-11 20:10:38,153 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 1460 characters.
+2026-08-11 20:10:38,153 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:10:38,163 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:10:38,163 [INFO] fake_news_module.core.pipeline — [Step 4/6] Extracting main claim …
+2026-08-11 20:10:38,163 [INFO] fake_news_module.processing.claim_extractor — Claim selected (score=6.50): 'breaking: massive superquake devastates colombi ' blame secret underwater nuclear tests after thousa...'
+2026-08-11 20:10:38,205 [INFO] fake_news_module.cache.cache_manager — CacheManager: Redis not available — using in-memory cache fallback
+2026-08-11 20:10:38,205 [INFO] fake_news_module.core.pipeline — [Step 5/6] Running RoBERTa + APIs in parallel …
+2026-08-11 20:10:38,233 [INFO] fake_news_module.processing.heuristic_detector — heuristic_detector: triggered=0 credibility=0 score=0.0000 label=Uncertain
+2026-08-11 20:10:38,253 [INFO] fake_news_module.apis.async_client — Google Fact Check API start (attempt 1/3)
+2026-08-11 20:10:38,263 [INFO] fake_news_module.apis.async_client — NewsAPI API start (attempt 1/3)
+2026-08-11 20:10:38,273 [INFO] faiss.loader — Loading faiss with AVX2 support.
+2026-08-11 20:10:38,588 [INFO] fake_news_module.apis.async_client — Groq async response: 'fake'
+2026-08-11 20:10:38,683 [INFO] fake_news_module.apis.async_client — NewsAPI API finish in 0.42s
+2026-08-11 20:10:38,729 [INFO] fake_news_module.apis.async_client — async NewsAPI analysis: no articles -> Uncertain
+2026-08-11 20:10:38,763 [INFO] fake_news_module.apis.async_client — NewsAPI async result: 'Uncertain' from 0 article(s)
+2026-08-11 20:10:39,123 [INFO] faiss.loader — Successfully loaded faiss with AVX2 support.
+2026-08-11 20:10:39,147 [INFO] fake_news_module.similarity.searcher — Searcher: loading FAISS index from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\similarity\index\faiss_index.bin' ...
+2026-08-11 20:10:39,573 [INFO] fake_news_module.similarity.searcher — Searcher: index loaded. 44898 vectors, 44898 labels.
+2026-08-11 20:10:40,014 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa predict: label='Real' confidence=0.9997 (fake=0.0003 real=0.9997)
+2026-08-11 20:10:40,014 [INFO] fake_news_module.ml.inference — call_roberta: label='Real' confidence=0.9997 (fake=0.0003 real=0.9997)
+2026-08-11 20:10:41,337 [INFO] datasets — Disabling Tensorflow because USE_TORCH is set
+2026-08-11 20:10:41,833 [INFO] fake_news_module.apis.async_client — Google Fact Check API finish in 3.59s
+2026-08-11 20:10:44,233 [INFO] fake_news_module.similarity.embedder — Embedder: loading model 'all-MiniLM-L6-v2' ...
+2026-08-11 20:10:44,246 [INFO] sentence_transformers.base.model — No device provided, using cuda:0
+2026-08-11 20:10:44,588 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:44,593 [WARNING] huggingface_hub.utils._http — Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-08-11 20:10:44,612 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:44,887 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:44,899 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:44,937 [INFO] sentence_transformers.base.model — Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-08-11 20:10:45,146 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:45,163 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:45,423 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:45,437 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+2026-08-11 20:10:45,736 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:45,753 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:46,013 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:46,023 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:46,293 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:46,513 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:46,533 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:47,236 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:47,487 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:47,719 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:47,963 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:48,183 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:48,203 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:48,473 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:48,493 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:48,713 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:48,728 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:49,105 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:49,113 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:49,378 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-08-11 20:10:49,603 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-08-11 20:10:50,093 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-08-11 20:10:50,113 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-08-11 20:10:50,394 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-08-11 20:10:50,853 [INFO] fake_news_module.similarity.embedder — Embedder: model loaded. Embedding dim = 384.
+2026-08-11 20:10:51,378 [INFO] fake_news_module.similarity.searcher — Searcher.search: top score=0.5571 | 0/5 matches above min_score=0.60
+2026-08-11 20:10:51,378 [INFO] fake_news_module.similarity.searcher — Searcher.search: no matches above threshold — Uncertain
+2026-08-11 20:10:51,418 [INFO] fake_news_module.core.pipeline — [Step 6/6] Computing score and final decision …
+2026-08-11 20:10:51,419 [INFO] fake_news_module.core.decision_engine — compute_score: weighted_sum=-0.050 active_weight=0.45 final=-0.1111
+2026-08-11 20:10:51,420 [INFO] fake_news_module.core.decision_engine — final_decision: score=-0.1111 → decision='Fake' confidence='Medium'
+2026-08-11 20:10:51,420 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generating explanation for verdict='Fake' score=-0.1111
+2026-08-11 20:10:51,420 [INFO] fake_news_module.explainability.evidence_builder — evidence_builder: built evidence for claim='breaking: massive superquake devastates colombi ' blame secr...' with 6 sections.
+2026-08-11 20:10:51,423 [INFO] fake_news_module.explainability.confidence_breakdown — confidence_breakdown: built breakdown for 6 signals.
+2026-08-11 20:10:51,423 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generated 3 reason(s) for verdict='Fake' confidence_pct=11.
+2026-08-11 20:10:51,423 [INFO] fake_news_module.core.pipeline — PIPELINE COMPLETE in 13.26s | decision='Fake' | confidence='Medium' | score=-0.1111
+2026-08-11 20:10:51,423 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:10:51,488 [INFO] orchestration.analysis_orchestrator — [EV-796308][fake_news] status=success
+2026-08-11 20:10:51,493 [INFO] orchestration.analysis_orchestrator — [EV-796308] ANALYSIS COMPLETE in 14.86s — overall_status=completed
+2026-08-11 20:10:51,495 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-796308.json
+2026-08-11 20:10:51,503 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:10:51] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:10:51,534 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:10:51] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:10:51,537 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:10:51] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:11:31,443 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:11:31] "POST /approve/EV-796308 HTTP/1.1" 200 -
+2026-08-11 20:11:47,490 [INFO] api.app — Received upload: 'Screenshot 2026-08-11 010646.png' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpfmp74fyb.png (submitted_by=investigator_1)
+2026-08-11 20:11:47,493 [INFO] orchestration.analysis_orchestrator — [tmpfmp74fyb.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:11:47,546 [INFO] orchestration.analysis_orchestrator — [tmpfmp74fyb.png] evidence_id=EV-412264  sha256=857a5874a9a02d05…
+2026-08-11 20:11:47,563 [INFO] orchestration.analysis_orchestrator — [EV-412264][blockchain] status=success
+2026-08-11 20:11:47,577 [INFO] orchestration.analysis_orchestrator — [EV-412264][metadata] status=success
+2026-08-11 20:11:47,951 [INFO] orchestration.analysis_orchestrator — [EV-412264][image_forgery] status=success
+2026-08-11 20:11:47,953 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:11:47,953 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpfmp74fyb.png
+2026-08-11 20:11:47,953 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:11:47,953 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:11:47,953 [INFO] fake_news_module.ocr.extractor — Detected file type '.png' for: tmpfmp74fyb.png
+2026-08-11 20:11:47,953 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmpfmp74fyb.png
+2026-08-11 20:11:49,083 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 1136 characters.
+2026-08-11 20:11:49,086 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:11:49,086 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:11:49,086 [INFO] fake_news_module.core.pipeline — [Step 4/6] Extracting main claim …
+2026-08-11 20:11:49,095 [INFO] fake_news_module.processing.claim_extractor — Claim selected (score=4.50): 'death toll reports have varied as information is updated ranging from at least 22 in some early offi...'
+2026-08-11 20:11:49,095 [INFO] fake_news_module.core.pipeline — [Step 5/6] Running RoBERTa + APIs in parallel …
+2026-08-11 20:11:49,113 [INFO] fake_news_module.processing.heuristic_detector — heuristic_detector: triggered=0 credibility=1 score=0.0000 label=Uncertain
+2026-08-11 20:11:49,135 [INFO] fake_news_module.apis.async_client — Google Fact Check API start (attempt 1/3)
+2026-08-11 20:11:49,135 [INFO] fake_news_module.apis.async_client — NewsAPI API start (attempt 1/3)
+2026-08-11 20:11:49,413 [INFO] fake_news_module.apis.async_client — Groq async response: 'uncertain'
+2026-08-11 20:11:49,445 [INFO] fake_news_module.similarity.searcher — Searcher.search: top score=0.5394 | 0/5 matches above min_score=0.60
+2026-08-11 20:11:49,445 [INFO] fake_news_module.similarity.searcher — Searcher.search: no matches above threshold — Uncertain
+2026-08-11 20:11:49,480 [INFO] fake_news_module.apis.async_client — NewsAPI API finish in 0.34s
+2026-08-11 20:11:49,480 [INFO] fake_news_module.apis.async_client — async NewsAPI analysis: no articles -> Uncertain
+2026-08-11 20:11:49,480 [INFO] fake_news_module.apis.async_client — NewsAPI async result: 'Uncertain' from 0 article(s)
+2026-08-11 20:11:49,485 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa predict: label='Real' confidence=0.9999 (fake=0.0001 real=0.9999)
+2026-08-11 20:11:49,485 [INFO] fake_news_module.ml.inference — call_roberta: label='Real' confidence=0.9999 (fake=0.0001 real=0.9999)
+2026-08-11 20:11:50,360 [INFO] fake_news_module.apis.async_client — Google Fact Check API finish in 1.22s
+2026-08-11 20:11:50,373 [INFO] fake_news_module.core.pipeline — [Step 6/6] Computing score and final decision …
+2026-08-11 20:11:50,373 [INFO] fake_news_module.core.decision_engine — compute_score: weighted_sum=0.200 active_weight=0.20 final=1.0000
+2026-08-11 20:11:50,377 [INFO] fake_news_module.core.decision_engine — final_decision: score=1.0000 → decision='Real' confidence='High'
+2026-08-11 20:11:50,377 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generating explanation for verdict='Real' score=1.0000
+2026-08-11 20:11:50,377 [INFO] fake_news_module.explainability.evidence_builder — evidence_builder: built evidence for claim='death toll reports have varied as information is updated ran...' with 6 sections.
+2026-08-11 20:11:50,377 [INFO] fake_news_module.explainability.confidence_breakdown — confidence_breakdown: built breakdown for 6 signals.
+2026-08-11 20:11:50,377 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generated 2 reason(s) for verdict='Real' confidence_pct=100.
+2026-08-11 20:11:50,383 [INFO] fake_news_module.core.pipeline — PIPELINE COMPLETE in 1.30s | decision='Real' | confidence='High' | score=1.0000
+2026-08-11 20:11:50,385 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:11:50,393 [INFO] orchestration.analysis_orchestrator — [EV-412264][fake_news] status=success
+2026-08-11 20:11:50,403 [INFO] orchestration.analysis_orchestrator — [EV-412264] ANALYSIS COMPLETE in 2.90s — overall_status=completed
+2026-08-11 20:11:50,408 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-412264.json
+2026-08-11 20:11:50,415 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:11:50] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:11:50,443 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:11:50] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:11:50,443 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:11:50] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:12:38,376 [INFO] api.app — Received upload: 'Screenshot 2026-06-09 172315.png' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmph02mzev9.png (submitted_by=investigator_1)
+2026-08-11 20:12:38,377 [INFO] orchestration.analysis_orchestrator — [tmph02mzev9.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:12:38,420 [INFO] orchestration.analysis_orchestrator — [tmph02mzev9.png] evidence_id=EV-574990  sha256=872601076ba348d2…
+2026-08-11 20:12:38,447 [INFO] orchestration.analysis_orchestrator — [EV-574990][blockchain] status=success
+2026-08-11 20:12:38,453 [INFO] orchestration.analysis_orchestrator — [EV-574990][metadata] status=success
+2026-08-11 20:12:38,786 [INFO] orchestration.analysis_orchestrator — [EV-574990][image_forgery] status=success
+2026-08-11 20:12:38,786 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:12:38,786 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmph02mzev9.png
+2026-08-11 20:12:38,786 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:12:38,793 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:12:38,795 [INFO] fake_news_module.ocr.extractor — Detected file type '.png' for: tmph02mzev9.png
+2026-08-11 20:12:38,795 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmph02mzev9.png
+2026-08-11 20:12:39,094 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 0 characters.
+2026-08-11 20:12:39,094 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-574990: Text extraction returned empty output. Check the input file.
+2026-08-11 20:12:39,094 [INFO] orchestration.analysis_orchestrator — [EV-574990][fake_news] status=skipped
+2026-08-11 20:12:39,094 [INFO] orchestration.analysis_orchestrator — [EV-574990] ANALYSIS COMPLETE in 0.72s — overall_status=completed
+2026-08-11 20:12:39,103 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-574990.json
+2026-08-11 20:12:39,103 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:12:39] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:12:39,122 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:12:39] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:12:39,123 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:12:39] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:13:27,944 [INFO] api.app — Received upload: 'khara1.mp4' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmphtmm10lz.mp4 (submitted_by=investigator_1)
+2026-08-11 20:13:27,953 [INFO] orchestration.analysis_orchestrator — [tmphtmm10lz.mp4] Routing: VIDEO [.mp4] → blockchain → metadata → deepfake
+2026-08-11 20:13:27,993 [INFO] orchestration.analysis_orchestrator — [tmphtmm10lz.mp4] evidence_id=EV-179641  sha256=a2ed1f5b8a74994a…
+2026-08-11 20:13:28,014 [INFO] orchestration.analysis_orchestrator — [EV-179641][blockchain] status=success
+2026-08-11 20:13:28,073 [INFO] orchestration.analysis_orchestrator — [EV-179641][metadata] status=success
+2026-08-11 20:13:28,113 [INFO] integrations.deepfake.adapter — Loading deepfake model from D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\models\best_model_ffpp.pth on cuda…
+2026-08-11 20:13:30,395 [INFO] integrations.deepfake.adapter — Deepfake model loaded.
+2026-08-11 20:13:30,395 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmphtmm10lz.mp4
+2026-08-11 20:13:38,668 [INFO] orchestration.analysis_orchestrator — [EV-179641][deepfake] status=success
+2026-08-11 20:13:38,673 [INFO] orchestration.analysis_orchestrator — [EV-179641] ANALYSIS COMPLETE in 10.72s — overall_status=completed
+2026-08-11 20:13:38,673 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-179641.json
+2026-08-11 20:13:38,677 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:13:38] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:13:38,703 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:13:38] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:13:38,710 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:13:38] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:14:16,314 [INFO] api.app — Received upload: 'khota1.mp4' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpxh6vwr3h.mp4 (submitted_by=investigator_1)
+2026-08-11 20:14:16,314 [INFO] orchestration.analysis_orchestrator — [tmpxh6vwr3h.mp4] Routing: VIDEO [.mp4] → blockchain → metadata → deepfake
+2026-08-11 20:14:16,483 [INFO] orchestration.analysis_orchestrator — [tmpxh6vwr3h.mp4] evidence_id=EV-112621  sha256=a558bdbf66efc3fc…
+2026-08-11 20:14:16,512 [INFO] orchestration.analysis_orchestrator — [EV-112621][blockchain] status=success
+2026-08-11 20:14:16,554 [INFO] orchestration.analysis_orchestrator — [EV-112621][metadata] status=success
+2026-08-11 20:14:16,554 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpxh6vwr3h.mp4
+2026-08-11 20:14:25,686 [INFO] orchestration.analysis_orchestrator — [EV-112621][deepfake] status=success
+2026-08-11 20:14:25,686 [INFO] orchestration.analysis_orchestrator — [EV-112621] ANALYSIS COMPLETE in 9.37s — overall_status=completed
+2026-08-11 20:14:25,686 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-112621.json
+2026-08-11 20:14:25,696 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:14:25] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:14:25,717 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:14:25] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:14:25,720 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:14:25] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:14:55,748 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:14:55] "GET /report/EV-412264 HTTP/1.1" 200 -
+2026-08-11 20:25:03,260 [WARNING] database.db_service — [EV-576518] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:03,269 [WARNING] database.db_service — [EV-052278] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:03,275 [WARNING] database.db_service — [EV-052278] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:03,284 [WARNING] database.db_service — [EV-165616] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:03,308 [WARNING] database.db_service — [EV-165616] SQLite save_tamper_alert warning: No module named 'database.db'
+2026-08-11 20:25:03,309 [WARNING] database.db_service — [EV-165616] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:03,311 [ERROR] database.db_service — [EV-NONEXISTENT] SQLite get_custody_log failed: No module named 'database.db'
+2026-08-11 20:25:03,313 [WARNING] database.db_service — [EV-DOESNOTEXIST] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:05,177 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-08-11 20:25:05,181 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-08-11 20:25:05,187 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:25:05,189 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-869539  sha256=1663c73d366cd23a…
+2026-08-11 20:25:05,189 [INFO] orchestration.analysis_orchestrator — [EV-869539][blockchain] status=success
+2026-08-11 20:25:05,189 [INFO] orchestration.analysis_orchestrator — [EV-869539][metadata] status=success
+2026-08-11 20:25:05,189 [INFO] orchestration.analysis_orchestrator — [EV-869539][image_forgery] status=success
+2026-08-11 20:25:05,189 [INFO] orchestration.analysis_orchestrator — [EV-869539] ANALYSIS COMPLETE in 0.00s — overall_status=completed
+2026-08-11 20:25:05,190 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-869539.json
+2026-08-11 20:25:05,194 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:25:05,196 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-359634  sha256=3ec774d072e2e1b7…
+2026-08-11 20:25:05,196 [INFO] orchestration.analysis_orchestrator — [EV-359634][blockchain] status=success
+2026-08-11 20:25:05,196 [ERROR] orchestration.analysis_orchestrator — [EV-359634][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 125, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-08-11 20:25:05,197 [INFO] orchestration.analysis_orchestrator — [EV-359634][image_forgery] status=success
+2026-08-11 20:25:05,197 [WARNING] orchestration.result_aggregator — evidence_id=EV-359634 — 1 module(s) failed: ['metadata_forensics']
+2026-08-11 20:25:05,197 [INFO] orchestration.analysis_orchestrator — [EV-359634] ANALYSIS COMPLETE in 0.00s — overall_status=partial
+2026-08-11 20:25:05,198 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-359634.json
+2026-08-11 20:25:05,227 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:25:05,228 [ERROR] database.db_service — [EV-SUPA-TEST-001] SQLite get_custody_log failed: No module named 'database.db'
+2026-08-11 20:36:40,505 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 20:36:40,505 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 20:36:43,519 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:36:43] "GET / HTTP/1.1" 200 -
+2026-08-11 20:36:43,888 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:36:43] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:36:43,904 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:36:43] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:36:55,869 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmph1c5kl_z.jpg (submitted_by=investigator_1)
+2026-08-11 20:36:55,873 [INFO] orchestration.analysis_orchestrator — [tmph1c5kl_z.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:36:55,914 [INFO] orchestration.analysis_orchestrator — [tmph1c5kl_z.jpg] evidence_id=EV-292884  sha256=32437c756cc8899a…
+2026-08-11 20:36:55,944 [WARNING] database.db_service — [EV-292884] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:36:55,944 [INFO] orchestration.analysis_orchestrator — [EV-292884][blockchain] status=success
+2026-08-11 20:37:02,103 [INFO] orchestration.analysis_orchestrator — [EV-292884][metadata] status=success
+2026-08-11 20:37:15,983 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-08-11 20:37:20,548 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-08-11 20:37:21,391 [INFO] orchestration.analysis_orchestrator — [EV-292884][image_forgery] status=success
+2026-08-11 20:37:21,823 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-08-11 20:37:23,593 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-08-11 20:37:23,593 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-08-11 20:37:24,937 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-08-11 20:37:24,937 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-08-11 20:37:24,943 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:37:24,943 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmph1c5kl_z.jpg
+2026-08-11 20:37:24,943 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:37:24,943 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:37:24,943 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmph1c5kl_z.jpg
+2026-08-11 20:37:24,943 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmph1c5kl_z.jpg
+2026-08-11 20:37:25,193 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-08-11 20:37:25,193 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:37:25,193 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:37:25,193 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:37:25,193 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-292884: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:37:25,193 [INFO] orchestration.analysis_orchestrator — [EV-292884][fake_news] status=skipped
+2026-08-11 20:37:25,193 [INFO] orchestration.analysis_orchestrator — [EV-292884] ANALYSIS COMPLETE in 29.32s — overall_status=completed
+2026-08-11 20:37:25,193 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-292884.json
+2026-08-11 20:37:25,197 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:37:25] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:37:25,333 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:37:25] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:37:25,340 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:37:25] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:42:41,403 [WARNING] database.db_service — [EV-371570] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:41,414 [WARNING] database.db_service — [EV-987747] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:41,420 [WARNING] database.db_service — [EV-987747] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:41,428 [WARNING] database.db_service — [EV-227977] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:41,433 [WARNING] database.db_service — [EV-227977] SQLite save_tamper_alert warning: No module named 'database.db'
+2026-08-11 20:42:41,433 [WARNING] database.db_service — [EV-227977] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:41,436 [ERROR] database.db_service — [EV-NONEXISTENT] SQLite get_custody_log failed: No module named 'database.db'
+2026-08-11 20:42:41,438 [WARNING] database.db_service — [EV-DOESNOTEXIST] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:43,543 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-08-11 20:42:43,546 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-08-11 20:42:43,552 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:42:43,553 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-921514  sha256=1663c73d366cd23a…
+2026-08-11 20:42:43,554 [INFO] orchestration.analysis_orchestrator — [EV-921514][blockchain] status=success
+2026-08-11 20:42:43,554 [INFO] orchestration.analysis_orchestrator — [EV-921514][metadata] status=success
+2026-08-11 20:42:43,554 [INFO] orchestration.analysis_orchestrator — [EV-921514][image_forgery] status=success
+2026-08-11 20:42:43,554 [INFO] orchestration.analysis_orchestrator — [EV-921514] ANALYSIS COMPLETE in 0.00s — overall_status=completed
+2026-08-11 20:42:43,555 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-921514.json
+2026-08-11 20:42:43,561 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:42:43,563 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-582952  sha256=3ec774d072e2e1b7…
+2026-08-11 20:42:43,563 [INFO] orchestration.analysis_orchestrator — [EV-582952][blockchain] status=success
+2026-08-11 20:42:43,563 [ERROR] orchestration.analysis_orchestrator — [EV-582952][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 125, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-08-11 20:42:43,565 [INFO] orchestration.analysis_orchestrator — [EV-582952][image_forgery] status=success
+2026-08-11 20:42:43,565 [WARNING] orchestration.result_aggregator — evidence_id=EV-582952 — 1 module(s) failed: ['metadata_forensics']
+2026-08-11 20:42:43,565 [INFO] orchestration.analysis_orchestrator — [EV-582952] ANALYSIS COMPLETE in 0.00s — overall_status=partial
+2026-08-11 20:42:43,566 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-582952.json
+2026-08-11 20:42:43,594 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite save_evidence warning: UNIQUE constraint failed: evidence.evidence_id
+2026-08-11 20:42:43,597 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:42:43,598 [ERROR] database.db_service — [EV-SUPA-TEST-001] SQLite get_custody_log failed: No module named 'database.db'
+2026-08-11 20:45:15,657 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 20:45:15,657 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 20:45:25,234 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:45:25] "GET / HTTP/1.1" 200 -
+2026-08-11 20:45:26,300 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:45:26] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:45:26,305 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:45:26] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:45:28,843 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:45:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-08-11 20:45:36,906 [INFO] api.app — Received upload: 'khota1.mp4' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpa539o5xr.mp4 (submitted_by=investigator_1)
+2026-08-11 20:45:36,911 [INFO] orchestration.analysis_orchestrator — [tmpa539o5xr.mp4] Routing: VIDEO [.mp4] → blockchain → metadata → deepfake
+2026-08-11 20:45:36,981 [INFO] orchestration.analysis_orchestrator — [tmpa539o5xr.mp4] evidence_id=EV-628274  sha256=a558bdbf66efc3fc…
+2026-08-11 20:45:37,013 [WARNING] database.db_service — [EV-628274] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:45:37,013 [INFO] orchestration.analysis_orchestrator — [EV-628274][blockchain] status=success
+2026-08-11 20:45:41,898 [INFO] orchestration.analysis_orchestrator — [EV-628274][metadata] status=success
+2026-08-11 20:45:57,691 [INFO] integrations.deepfake.adapter — Loading deepfake model from D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\models\best_model_ffpp.pth on cuda…
+2026-08-11 20:45:59,419 [INFO] integrations.deepfake.adapter — Deepfake model loaded.
+2026-08-11 20:45:59,421 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpa539o5xr.mp4
+2026-08-11 20:46:11,646 [INFO] orchestration.analysis_orchestrator — [EV-628274][deepfake] status=success
+2026-08-11 20:46:11,646 [INFO] orchestration.analysis_orchestrator — [EV-628274] ANALYSIS COMPLETE in 34.74s — overall_status=completed
+2026-08-11 20:46:11,650 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-628274.json
+2026-08-11 20:46:11,666 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:46:11] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:46:11,723 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:46:11] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:46:11,725 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:46:11] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:53:40,530 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 20:53:40,530 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 20:54:07,150 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:07] "GET / HTTP/1.1" 200 -
+2026-08-11 20:54:08,200 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:08] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:54:08,209 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:08] "GET /health HTTP/1.1" 200 -
+2026-08-11 20:54:19,122 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp93onl05_.jpg (submitted_by=investigator_1)
+2026-08-11 20:54:19,127 [INFO] orchestration.analysis_orchestrator — [tmp93onl05_.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 20:54:19,157 [INFO] orchestration.analysis_orchestrator — [tmp93onl05_.jpg] evidence_id=EV-094575  sha256=32437c756cc8899a…
+2026-08-11 20:54:24,674 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-08-11 20:54:25,964 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-094575/tmp93onl05_.jpg "HTTP/2 200 OK"
+2026-08-11 20:54:25,974 [INFO] database.supabase_client — [EV-094575] Uploaded evidence file to Supabase Storage: EV-094575/tmp93onl05_.jpg
+2026-08-11 20:54:27,014 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 20:54:27,014 [INFO] database.db_service — [EV-094575] Evidence record saved to Supabase.
+2026-08-11 20:54:27,274 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 20:54:27,281 [WARNING] database.db_service — [EV-094575] SQLite custody log warning: No module named 'database.db'
+2026-08-11 20:54:27,284 [INFO] orchestration.analysis_orchestrator — [EV-094575][blockchain] status=success
+2026-08-11 20:54:32,774 [INFO] orchestration.analysis_orchestrator — [EV-094575][metadata] status=success
+2026-08-11 20:54:46,599 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-08-11 20:54:51,084 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-08-11 20:54:51,374 [INFO] orchestration.analysis_orchestrator — [EV-094575][image_forgery] status=success
+2026-08-11 20:54:51,627 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-08-11 20:54:53,126 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-08-11 20:54:53,126 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-08-11 20:54:54,444 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-08-11 20:54:54,444 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-08-11 20:54:54,451 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:54:54,451 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp93onl05_.jpg
+2026-08-11 20:54:54,451 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 20:54:54,451 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 20:54:54,451 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmp93onl05_.jpg
+2026-08-11 20:54:54,451 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmp93onl05_.jpg
+2026-08-11 20:54:54,689 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-08-11 20:54:54,689 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-08-11 20:54:54,689 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-08-11 20:54:54,692 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:54:54,693 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-094575: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-08-11 20:54:54,693 [INFO] orchestration.analysis_orchestrator — [EV-094575][fake_news] status=skipped
+2026-08-11 20:54:54,693 [INFO] orchestration.analysis_orchestrator — [EV-094575] ANALYSIS COMPLETE in 35.57s — overall_status=completed
+2026-08-11 20:54:55,577 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports "HTTP/2 201 Created"
+2026-08-11 20:54:55,585 [INFO] database.db_service — [EV-094575] Forensic report persisted to Supabase.
+2026-08-11 20:54:55,585 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-094575.json
+2026-08-11 20:54:55,592 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:55] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 20:54:55,724 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:55] "GET /reports HTTP/1.1" 200 -
+2026-08-11 20:54:55,728 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 20:54:55] "GET /health HTTP/1.1" 200 -
+2026-08-11 21:02:22,913 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 21:02:22,945 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] evidence_id=EV-499668  sha256=114631462ba5916d…
+2026-08-11 21:02:23,533 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-08-11 21:02:24,323 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-499668/dummy.jpg "HTTP/2 200 OK"
+2026-08-11 21:02:24,325 [INFO] database.supabase_client — [EV-499668] Uploaded evidence file to Supabase Storage: EV-499668/dummy.jpg
+2026-08-11 21:02:25,405 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:02:25,410 [INFO] database.db_service — [EV-499668] Evidence record saved to Supabase.
+2026-08-11 21:02:25,633 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:02:25,640 [WARNING] database.db_service — [EV-499668] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:02:25,642 [INFO] orchestration.analysis_orchestrator — [EV-499668][blockchain] status=success
+2026-08-11 21:02:27,613 [INFO] orchestration.analysis_orchestrator — [EV-499668][metadata] status=success
+2026-08-11 21:02:58,488 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-08-11 21:03:03,908 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-08-11 21:03:06,383 [INFO] orchestration.analysis_orchestrator — [EV-499668][image_forgery] status=success
+2026-08-11 21:03:08,463 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-08-11 21:03:13,758 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-08-11 21:03:13,760 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-08-11 21:03:17,126 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-08-11 21:03:17,127 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-08-11 21:03:17,139 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 21:03:17,139 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\metadata_forensics\dummy.jpg
+2026-08-11 21:03:17,139 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-08-11 21:03:17,139 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-08-11 21:03:17,143 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: dummy.jpg
+2026-08-11 21:03:17,144 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: dummy.jpg
+2026-08-11 21:03:17,526 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 0 characters.
+2026-08-11 21:03:17,526 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-499668: Text extraction returned empty output. Check the input file.
+2026-08-11 21:03:17,528 [INFO] orchestration.analysis_orchestrator — [EV-499668][fake_news] status=skipped
+2026-08-11 21:03:17,528 [INFO] orchestration.analysis_orchestrator — [EV-499668] ANALYSIS COMPLETE in 54.61s — overall_status=completed
+2026-08-11 21:03:17,829 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports "HTTP/2 201 Created"
+2026-08-11 21:03:17,834 [INFO] database.db_service — [EV-499668] Forensic report persisted to Supabase.
+2026-08-11 21:03:17,837 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-499668.json
+2026-08-11 21:05:01,615 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-08-11 21:05:02,598 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-330637/dummy_evidence.jpg "HTTP/2 200 OK"
+2026-08-11 21:05:02,598 [INFO] database.supabase_client — [EV-330637] Uploaded evidence file to Supabase Storage: EV-330637/dummy_evidence.jpg
+2026-08-11 21:05:03,557 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:05:03,557 [INFO] database.db_service — [EV-330637] Evidence record saved to Supabase.
+2026-08-11 21:05:04,048 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:04,048 [WARNING] database.db_service — [EV-330637] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:04,329 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-504371/dummy_evidence.jpg "HTTP/2 200 OK"
+2026-08-11 21:05:04,329 [INFO] database.supabase_client — [EV-504371] Uploaded evidence file to Supabase Storage: EV-504371/dummy_evidence.jpg
+2026-08-11 21:05:04,530 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:05:04,530 [INFO] database.db_service — [EV-504371] Evidence record saved to Supabase.
+2026-08-11 21:05:04,988 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:04,988 [WARNING] database.db_service — [EV-504371] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:05,210 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?select=%2A&evidence_id=eq.EV-504371 "HTTP/2 200 OK"
+2026-08-11 21:05:05,414 [INFO] httpx — HTTP Request: PATCH https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?evidence_id=eq.EV-504371 "HTTP/2 200 OK"
+2026-08-11 21:05:05,637 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:05,641 [WARNING] database.db_service — [EV-504371] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:05,939 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-164884/dummy_evidence.jpg "HTTP/2 200 OK"
+2026-08-11 21:05:05,939 [INFO] database.supabase_client — [EV-164884] Uploaded evidence file to Supabase Storage: EV-164884/dummy_evidence.jpg
+2026-08-11 21:05:06,131 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:05:06,131 [INFO] database.db_service — [EV-164884] Evidence record saved to Supabase.
+2026-08-11 21:05:06,448 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:06,458 [WARNING] database.db_service — [EV-164884] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:06,640 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?select=%2A&evidence_id=eq.EV-164884 "HTTP/2 200 OK"
+2026-08-11 21:05:07,148 [INFO] httpx — HTTP Request: PATCH https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?evidence_id=eq.EV-164884 "HTTP/2 200 OK"
+2026-08-11 21:05:07,617 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/tamper_alerts "HTTP/2 201 Created"
+2026-08-11 21:05:07,617 [WARNING] database.db_service — [EV-164884] SQLite save_tamper_alert warning: No module named 'database.db'
+2026-08-11 21:05:07,805 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:07,821 [WARNING] database.db_service — [EV-164884] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:08,005 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody?select=%2A&evidence_id=eq.EV-NONEXISTENT&order=timestamp.asc "HTTP/2 200 OK"
+2026-08-11 21:05:08,016 [ERROR] database.db_service — [EV-NONEXISTENT] SQLite get_custody_log failed: No module named 'database.db'
+2026-08-11 21:05:08,238 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 409 Conflict"
+2026-08-11 21:05:08,241 [ERROR] database.supabase_client — Supabase log_custody_event failed: {'message': 'insert or update on table "custody" violates foreign key constraint "custody_evidence_id_fkey"', 'code': '23503', 'hint': None, 'details': 'Key (evidence_id)=(EV-DOESNOTEXIST) is not present in table "evidence".'}
+2026-08-11 21:05:08,245 [WARNING] database.db_service — [EV-DOESNOTEXIST] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:09,530 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-08-11 21:05:09,534 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-08-11 21:05:09,542 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 21:05:09,547 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-195508  sha256=1663c73d366cd23a…
+2026-08-11 21:05:09,547 [INFO] orchestration.analysis_orchestrator — [EV-195508][blockchain] status=success
+2026-08-11 21:05:09,547 [INFO] orchestration.analysis_orchestrator — [EV-195508][metadata] status=success
+2026-08-11 21:05:09,547 [INFO] orchestration.analysis_orchestrator — [EV-195508][image_forgery] status=success
+2026-08-11 21:05:09,547 [INFO] orchestration.analysis_orchestrator — [EV-195508] ANALYSIS COMPLETE in 0.01s — overall_status=completed
+2026-08-11 21:05:09,738 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports "HTTP/2 409 Conflict"
+2026-08-11 21:05:09,738 [ERROR] database.supabase_client — Supabase save_report failed: {'message': 'insert or update on table "reports" violates foreign key constraint "reports_evidence_id_fkey"', 'code': '23503', 'hint': None, 'details': 'Key (evidence_id)=(EV-195508) is not present in table "evidence".'}
+2026-08-11 21:05:09,738 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-195508.json
+2026-08-11 21:05:09,763 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] → blockchain → metadata → image_forgery → fake_news[conditional]
+2026-08-11 21:05:09,765 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-223599  sha256=3ec774d072e2e1b7…
+2026-08-11 21:05:09,765 [INFO] orchestration.analysis_orchestrator — [EV-223599][blockchain] status=success
+2026-08-11 21:05:09,765 [ERROR] orchestration.analysis_orchestrator — [EV-223599][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 123, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-08-11 21:05:09,765 [INFO] orchestration.analysis_orchestrator — [EV-223599][image_forgery] status=success
+2026-08-11 21:05:09,765 [WARNING] orchestration.result_aggregator — evidence_id=EV-223599 — 1 module(s) failed: ['metadata_forensics']
+2026-08-11 21:05:09,765 [INFO] orchestration.analysis_orchestrator — [EV-223599] ANALYSIS COMPLETE in 0.01s — overall_status=partial
+2026-08-11 21:05:09,991 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports "HTTP/2 409 Conflict"
+2026-08-11 21:05:09,999 [ERROR] database.supabase_client — Supabase save_report failed: {'message': 'insert or update on table "reports" violates foreign key constraint "reports_evidence_id_fkey"', 'code': '23503', 'hint': None, 'details': 'Key (evidence_id)=(EV-223599) is not present in table "evidence".'}
+2026-08-11 21:05:09,999 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-223599.json
+2026-08-11 21:05:10,198 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports?select=%2A&evidence_id=eq.EV-NONEXISTENT "HTTP/2 200 OK"
+2026-08-11 21:05:10,754 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-SUPA-TEST-001/test.jpg "HTTP/2 200 OK"
+2026-08-11 21:05:10,767 [INFO] database.supabase_client — [EV-SUPA-TEST-001] Uploaded evidence file to Supabase Storage: EV-SUPA-TEST-001/test.jpg
+2026-08-11 21:05:10,964 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:05:10,964 [INFO] database.db_service — [EV-SUPA-TEST-001] Evidence record saved to Supabase.
+2026-08-11 21:05:10,974 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite save_evidence warning: UNIQUE constraint failed: evidence.evidence_id
+2026-08-11 21:05:11,175 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?select=%2A&evidence_id=eq.EV-SUPA-TEST-001 "HTTP/2 200 OK"
+2026-08-11 21:05:11,370 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:05:11,381 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:05:11,578 [INFO] httpx — HTTP Request: GET https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody?select=%2A&evidence_id=eq.EV-SUPA-TEST-001&order=timestamp.asc "HTTP/2 200 OK"
+2026-08-11 21:05:11,773 [INFO] httpx — HTTP Request: PATCH https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence?evidence_id=eq.EV-SUPA-TEST-001 "HTTP/2 200 OK"
+2026-08-11 21:05:49,453 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-08-11 21:05:49,453 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-08-11 21:05:53,566 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:05:53] "GET / HTTP/1.1" 200 -
+2026-08-11 21:05:53,832 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:05:53] "GET /reports HTTP/1.1" 200 -
+2026-08-11 21:05:53,837 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:05:53] "GET /health HTTP/1.1" 200 -
+2026-08-11 21:05:53,925 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:05:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-08-11 21:06:21,912 [INFO] api.app — Received upload: '01_04__kitchen_pan__GBC7ZGDP.mp4' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp8jymwyxs.mp4 (submitted_by=investigator_1)
+2026-08-11 21:06:21,920 [INFO] orchestration.analysis_orchestrator — [tmp8jymwyxs.mp4] Routing: VIDEO [.mp4] -> blockchain -> metadata -> deepfake
+2026-08-11 21:06:21,970 [INFO] orchestration.analysis_orchestrator — [tmp8jymwyxs.mp4] evidence_id=EV-441374  sha256=62f50d26745b92a8…
+2026-08-11 21:06:26,511 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-08-11 21:06:28,652 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/storage/v1/object/evidence-files/EV-441374/01_04__kitchen_pan__GBC7ZGDP.mp4 "HTTP/2 200 OK"
+2026-08-11 21:06:28,652 [INFO] database.supabase_client — [EV-441374] Uploaded evidence file to Supabase Storage: EV-441374/01_04__kitchen_pan__GBC7ZGDP.mp4
+2026-08-11 21:06:29,569 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/evidence "HTTP/2 201 Created"
+2026-08-11 21:06:29,577 [INFO] database.db_service — [EV-441374] Evidence record saved to Supabase.
+2026-08-11 21:06:29,818 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/custody "HTTP/2 201 Created"
+2026-08-11 21:06:29,819 [WARNING] database.db_service — [EV-441374] SQLite custody log warning: No module named 'database.db'
+2026-08-11 21:06:29,819 [INFO] orchestration.analysis_orchestrator — [EV-441374][blockchain] status=success
+2026-08-11 21:06:37,251 [INFO] orchestration.analysis_orchestrator — [EV-441374][metadata] status=success
+2026-08-11 21:06:58,131 [INFO] integrations.deepfake.adapter — Loading deepfake model from D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\models\best_model_ffpp.pth on cuda…
+2026-08-11 21:07:00,098 [INFO] integrations.deepfake.adapter — Deepfake model loaded.
+2026-08-11 21:07:00,106 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp8jymwyxs.mp4
+2026-08-11 21:07:22,069 [INFO] orchestration.analysis_orchestrator — [EV-441374][deepfake] status=success
+2026-08-11 21:07:22,069 [INFO] orchestration.analysis_orchestrator — [EV-441374] ANALYSIS COMPLETE in 60.16s — overall_status=completed
+2026-08-11 21:07:23,027 [INFO] httpx — HTTP Request: POST https://pjkioedhrqksryywxxyx.supabase.co/rest/v1/reports "HTTP/2 201 Created"
+2026-08-11 21:07:23,044 [INFO] database.db_service — [EV-441374] Forensic report persisted to Supabase.
+2026-08-11 21:07:23,044 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-441374.json
+2026-08-11 21:07:23,070 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:07:23] "POST /analyze HTTP/1.1" 200 -
+2026-08-11 21:07:23,148 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:07:23] "GET /reports HTTP/1.1" 200 -
+2026-08-11 21:07:23,150 [INFO] werkzeug — 127.0.0.1 - - [11/Aug/2026 21:07:23] "GET /health HTTP/1.1" 200 -
+2026-09-06 19:41:27,527 [INFO] werkzeug — [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.9:8080
+2026-09-06 19:41:27,528 [INFO] werkzeug — [33mPress CTRL+C to quit[0m
+2026-09-06 19:42:03,635 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:03] "GET / HTTP/1.1" 200 -
+2026-09-06 19:42:04,046 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:04] "GET /reports HTTP/1.1" 200 -
+2026-09-06 19:42:04,069 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:04] "GET /health HTTP/1.1" 200 -
+2026-09-06 19:42:05,050 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-09-06 19:42:14,082 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:14] "GET /reports HTTP/1.1" 200 -
+2026-09-06 19:42:14,896 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-09-06 19:42:14,991 [ERROR] database.supabase_client — Supabase get_report failed for EV-094575: [Errno 11001] getaddrinfo failed
+2026-09-06 19:42:15,019 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:15] "GET /report/EV-094575 HTTP/1.1" 200 -
+2026-09-06 19:42:15,054 [ERROR] database.supabase_client — Supabase get_report failed for EV-094575: [Errno 11001] getaddrinfo failed
+2026-09-06 19:42:15,058 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:42:15] "GET /report/EV-094575 HTTP/1.1" 200 -
+2026-09-06 19:47:31,110 [INFO] database.supabase_client — Supabase client initialized successfully (https://pjkioedhrqksryywxxyx.supabase.co).
+2026-09-06 19:47:31,142 [WARNING] database.supabase_client — [EV-720912] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,154 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,177 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,179 [WARNING] database.db_service — [EV-720912] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:31,183 [WARNING] database.supabase_client — [EV-583166] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,183 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,188 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,189 [WARNING] database.db_service — [EV-583166] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:31,191 [ERROR] database.supabase_client — Supabase get_evidence failed for EV-583166: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,193 [ERROR] database.supabase_client — Supabase update_evidence_status failed for EV-583166: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,196 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,196 [WARNING] database.db_service — [EV-583166] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:31,200 [WARNING] database.supabase_client — [EV-778872] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,200 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,204 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,205 [WARNING] database.db_service — [EV-778872] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:31,206 [ERROR] database.supabase_client — Supabase get_evidence failed for EV-778872: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,215 [ERROR] database.supabase_client — Supabase update_evidence_status failed for EV-778872: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,218 [ERROR] database.supabase_client — Supabase save_tamper_alert failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,219 [WARNING] database.db_service — [EV-778872] SQLite save_tamper_alert warning: No module named 'database.db'
+2026-09-06 19:47:31,220 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,221 [WARNING] database.db_service — [EV-778872] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:31,223 [ERROR] database.supabase_client — Supabase get_custody_log failed for EV-NONEXISTENT: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,223 [ERROR] database.db_service — [EV-NONEXISTENT] SQLite get_custody_log failed: No module named 'database.db'
+2026-09-06 19:47:31,225 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:47:31,225 [WARNING] database.db_service — [EV-DOESNOTEXIST] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:47:45,533 [INFO] integrations.deepfake.adapter — Loading deepfake model from D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\models\best_model_ffpp.pth on cuda…
+2026-09-06 19:47:46,041 [INFO] integrations.deepfake.adapter — Deepfake model loaded.
+2026-09-06 19:47:46,043 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\test_videos\real_sample.mp4
+2026-09-06 19:48:07,443 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\test_videos\fake_sample.mp4
+2026-09-06 19:48:25,711 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: C:\Users\Dell\AppData\Local\Temp\pytest-of-Dell\pytest-0\test_nonexistent_video_returns0\ghost.mp4
+2026-09-06 19:48:26,839 [ERROR] integrations.deepfake.adapter — deepfake.analyze_deepfake caught sys.exit(1) for EV-DF-005
+2026-09-06 19:48:26,866 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:48:26,876 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] evidence_id=EV-189104  sha256=114631462ba5916d…
+2026-09-06 19:48:26,987 [WARNING] database.supabase_client — [EV-189104] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:27,013 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:27,103 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:27,242 [WARNING] database.db_service — [EV-189104] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:48:27,242 [INFO] orchestration.analysis_orchestrator — [EV-189104][blockchain] status=success
+2026-09-06 19:48:45,498 [INFO] orchestration.analysis_orchestrator — [EV-189104][metadata] status=success
+2026-09-06 19:48:45,512 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-09-06 19:48:47,944 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-09-06 19:48:48,794 [INFO] orchestration.analysis_orchestrator — [EV-189104][image_forgery] status=success
+2026-09-06 19:48:50,167 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-09-06 19:48:54,165 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-09-06 19:48:54,174 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-09-06 19:48:56,788 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-09-06 19:48:56,788 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-09-06 19:48:56,805 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:48:56,805 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\metadata_forensics\dummy.jpg
+2026-09-06 19:48:56,805 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:48:56,805 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-09-06 19:48:56,815 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: dummy.jpg
+2026-09-06 19:48:56,816 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: dummy.jpg
+2026-09-06 19:48:58,065 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 0 characters.
+2026-09-06 19:48:58,065 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-189104: Text extraction returned empty output. Check the input file.
+2026-09-06 19:48:58,065 [INFO] orchestration.analysis_orchestrator — [EV-189104][fake_news] status=skipped
+2026-09-06 19:48:58,069 [INFO] orchestration.analysis_orchestrator — [EV-189104] ANALYSIS COMPLETE in 31.21s — overall_status=completed
+2026-09-06 19:48:58,082 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,089 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-189104.json
+2026-09-06 19:48:58,140 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:48:58,149 [INFO] orchestration.analysis_orchestrator — [dummy.jpg] evidence_id=EV-857709  sha256=114631462ba5916d…
+2026-09-06 19:48:58,155 [WARNING] database.supabase_client — [EV-857709] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,160 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,173 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,185 [WARNING] database.db_service — [EV-857709] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:48:58,185 [INFO] orchestration.analysis_orchestrator — [EV-857709][blockchain] status=success
+2026-09-06 19:48:58,186 [INFO] orchestration.analysis_orchestrator — [EV-857709][metadata] status=success
+2026-09-06 19:48:58,314 [INFO] orchestration.analysis_orchestrator — [EV-857709][image_forgery] status=success
+2026-09-06 19:48:58,314 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:48:58,314 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\metadata_forensics\dummy.jpg
+2026-09-06 19:48:58,316 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:48:58,316 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-09-06 19:48:58,317 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: dummy.jpg
+2026-09-06 19:48:58,317 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: dummy.jpg
+2026-09-06 19:48:58,530 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 0 characters.
+2026-09-06 19:48:58,531 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-857709: Text extraction returned empty output. Check the input file.
+2026-09-06 19:48:58,531 [INFO] orchestration.analysis_orchestrator — [EV-857709][fake_news] status=skipped
+2026-09-06 19:48:58,531 [INFO] orchestration.analysis_orchestrator — [EV-857709] ANALYSIS COMPLETE in 0.39s — overall_status=completed
+2026-09-06 19:48:58,534 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,536 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-857709.json
+2026-09-06 19:48:58,542 [INFO] orchestration.analysis_orchestrator — [real_sample.mp4] Routing: VIDEO [.mp4] -> blockchain -> metadata -> deepfake
+2026-09-06 19:48:58,559 [INFO] orchestration.analysis_orchestrator — [real_sample.mp4] evidence_id=EV-208396  sha256=0af09f0d11dd2f67…
+2026-09-06 19:48:58,568 [WARNING] database.supabase_client — [EV-208396] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,570 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,606 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:48:58,606 [WARNING] database.db_service — [EV-208396] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:48:58,615 [INFO] orchestration.analysis_orchestrator — [EV-208396][blockchain] status=success
+2026-09-06 19:48:58,682 [INFO] orchestration.analysis_orchestrator — [EV-208396][metadata] status=success
+2026-09-06 19:48:58,682 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\test_videos\real_sample.mp4
+2026-09-06 19:49:15,391 [INFO] orchestration.analysis_orchestrator — [EV-208396][deepfake] status=success
+2026-09-06 19:49:15,391 [INFO] orchestration.analysis_orchestrator — [EV-208396] ANALYSIS COMPLETE in 16.86s — overall_status=completed
+2026-09-06 19:49:15,438 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:15,438 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-208396.json
+2026-09-06 19:49:15,462 [INFO] orchestration.analysis_orchestrator — [fake_sample.mp4] Routing: VIDEO [.mp4] -> blockchain -> metadata -> deepfake
+2026-09-06 19:49:15,483 [INFO] orchestration.analysis_orchestrator — [fake_sample.mp4] evidence_id=EV-432076  sha256=391aebf0ea9f7c0d…
+2026-09-06 19:49:15,522 [WARNING] database.supabase_client — [EV-432076] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:15,539 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:15,563 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:15,564 [WARNING] database.db_service — [EV-432076] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:49:15,566 [INFO] orchestration.analysis_orchestrator — [EV-432076][blockchain] status=success
+2026-09-06 19:49:15,610 [INFO] orchestration.analysis_orchestrator — [EV-432076][metadata] status=success
+2026-09-06 19:49:15,610 [INFO] integrations.deepfake.adapter — Processing video for deepfake analysis: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\deepfake_detector\test_videos\fake_sample.mp4
+2026-09-06 19:49:32,200 [INFO] orchestration.analysis_orchestrator — [EV-432076][deepfake] status=success
+2026-09-06 19:49:32,209 [INFO] orchestration.analysis_orchestrator — [EV-432076] ANALYSIS COMPLETE in 16.75s — overall_status=completed
+2026-09-06 19:49:32,241 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:32,250 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-432076.json
+2026-09-06 19:49:32,290 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:49:32,309 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-504755  sha256=3865426ce3bceada…
+2026-09-06 19:49:32,310 [ERROR] orchestration.analysis_orchestrator — [EV-504755][blockchain] UNHANDLED: tuple index out of range
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 99, in analyze_evidence
+    blockchain_result = register_evidence(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_end_to_end.py", line 220, in bc_ok
+    evidence_id=kw.get("evidence_id", a[0]),
+IndexError: tuple index out of range
+2026-09-06 19:49:32,357 [ERROR] orchestration.analysis_orchestrator — [EV-504755][metadata] UNHANDLED: metadata explosion
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 123, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: metadata explosion
+2026-09-06 19:49:32,359 [ERROR] orchestration.analysis_orchestrator — [EV-504755][image_forgery] UNHANDLED: tuple index out of range
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 142, in analyze_evidence
+    image_forgery_result = analyze_image_forgery(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_end_to_end.py", line 233, in fg_ok
+    evidence_id=kw.get("evidence_id", a[0]),
+IndexError: tuple index out of range
+2026-09-06 19:49:32,361 [WARNING] orchestration.result_aggregator — evidence_id=EV-504755 — 3 module(s) failed: ['blockchain', 'metadata_forensics', 'image_forgery']
+2026-09-06 19:49:32,361 [INFO] orchestration.analysis_orchestrator — [EV-504755] ANALYSIS COMPLETE in 0.06s — overall_status=failed
+2026-09-06 19:49:32,364 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:32,365 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-504755.json
+2026-09-06 19:49:32,734 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:49:32,734 [INFO] fake_news_module.core.pipeline — PIPELINE START: direct text
+2026-09-06 19:49:32,734 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:49:32,738 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-09-06 19:49:32,749 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-09-06 19:49:32,749 [INFO] fake_news_module.core.pipeline — [Step 4/6] Extracting main claim …
+2026-09-06 19:49:32,753 [INFO] fake_news_module.processing.claim_extractor — Claim selected (score=3.52): 'scientists at nasa have confirmed the discovery of water ice on the lunar surface near the south pol...'
+2026-09-06 19:49:32,768 [INFO] fake_news_module.cache.cache_manager — CacheManager: Redis not available — using in-memory cache fallback
+2026-09-06 19:49:32,769 [INFO] fake_news_module.core.pipeline — [Step 5/6] Running RoBERTa + APIs in parallel …
+2026-09-06 19:49:32,837 [INFO] fake_news_module.processing.heuristic_detector — heuristic_detector: triggered=0 credibility=1 score=0.0000 label=Uncertain
+2026-09-06 19:49:32,877 [INFO] fake_news_module.apis.async_client — Google Fact Check API start (attempt 1/3)
+2026-09-06 19:49:32,898 [INFO] fake_news_module.apis.async_client — NewsAPI API start (attempt 1/3)
+2026-09-06 19:49:32,949 [INFO] faiss.loader — Loading faiss with AVX2 support.
+2026-09-06 19:49:32,949 [INFO] faiss.loader — Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2026-09-06 19:49:32,949 [INFO] faiss.loader — Loading faiss.
+2026-09-06 19:49:33,102 [ERROR] fake_news_module.apis.async_client — Groq async exception: 404, message='Not Found', url='https://api.groq.com/openai/v1/chat/completions'
+2026-09-06 19:49:33,349 [INFO] fake_news_module.apis.async_client — NewsAPI API finish in 0.45s
+2026-09-06 19:49:33,351 [INFO] fake_news_module.apis.async_client — NewsAPI async result: 'Uncertain' from 1 article(s)
+2026-09-06 19:49:34,108 [INFO] faiss.loader — Successfully loaded faiss.
+2026-09-06 19:49:34,108 [INFO] fake_news_module.apis.async_client — Google Fact Check API finish in 1.24s
+2026-09-06 19:49:34,143 [INFO] fake_news_module.similarity.searcher — Searcher: loading FAISS index from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\similarity\index\faiss_index.bin' ...
+2026-09-06 19:49:34,284 [INFO] fake_news_module.similarity.searcher — Searcher: index loaded. 44898 vectors, 44898 labels.
+2026-09-06 19:49:34,316 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa predict: label='Real' confidence=0.9999 (fake=0.0001 real=0.9999)
+2026-09-06 19:49:34,323 [INFO] fake_news_module.ml.inference — call_roberta: label='Real' confidence=0.9999 (fake=0.0001 real=0.9999)
+2026-09-06 19:49:34,887 [INFO] fake_news_module.similarity.embedder — Embedder: loading model 'all-MiniLM-L6-v2' ...
+2026-09-06 19:49:34,906 [INFO] sentence_transformers.base.model — No device provided, using cuda:0
+2026-09-06 19:49:35,491 [INFO] sentence_transformers.base.model — Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-09-06 19:49:40,024 [INFO] fake_news_module.similarity.embedder — Embedder: model loaded. Embedding dim = 384.
+2026-09-06 19:49:40,209 [INFO] fake_news_module.similarity.searcher — Searcher.search: top score=0.4639 | 0/5 matches above min_score=0.60
+2026-09-06 19:49:40,210 [INFO] fake_news_module.similarity.searcher — Searcher.search: no matches above threshold — Uncertain
+2026-09-06 19:49:40,213 [INFO] fake_news_module.core.pipeline — [Step 6/6] Computing score and final decision …
+2026-09-06 19:49:40,213 [INFO] fake_news_module.core.decision_engine — compute_score: weighted_sum=0.200 active_weight=0.20 final=1.0000
+2026-09-06 19:49:40,213 [INFO] fake_news_module.core.decision_engine — final_decision: score=1.0000 → decision='Real' confidence='High'
+2026-09-06 19:49:40,285 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generating explanation for verdict='Real' score=1.0000
+2026-09-06 19:49:40,286 [INFO] fake_news_module.explainability.evidence_builder — evidence_builder: built evidence for claim='scientists at nasa have confirmed the discovery of water ice...' with 6 sections.
+2026-09-06 19:49:40,287 [INFO] fake_news_module.explainability.confidence_breakdown — confidence_breakdown: built breakdown for 7 signals.
+2026-09-06 19:49:40,287 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generated 3 reason(s) for verdict='Real' confidence_pct=100.
+2026-09-06 19:49:40,287 [INFO] fake_news_module.core.pipeline — PIPELINE COMPLETE in 7.55s | decision='Real' | confidence='High' | score=1.0000
+2026-09-06 19:49:40,287 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:49:40,560 [ERROR] integrations.image_forgery.adapter — image_forgery.analyze_image_forgery failed for EV-FRG-004: [Errno 2] No such file or directory: 'C:\\Users\\Dell\\AppData\\Local\\Temp\\pytest-of-Dell\\pytest-0\\test_nonexistent_image_returns0\\ghost.jpg'
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\integrations\image_forgery\adapter.py", line 95, in analyze_image_forgery
+    raw = predictor.predict_from_path(str(file_path))
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\image_forgery_detection\forgery_detection\core\predictor.py", line 143, in predict_from_path
+    image = Image.open(file_path)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\site-packages\PIL\Image.py", line 3513, in open
+    fp = builtins.open(filename, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Dell\\AppData\\Local\\Temp\\pytest-of-Dell\\pytest-0\\test_nonexistent_image_returns0\\ghost.jpg'
+2026-09-06 19:49:40,921 [INFO] orchestration.analysis_orchestrator — [archive.zip] Routing: REJECTED: Unsupported file type: '.zip'. Supported: images ['.bmp', '.jpeg', '.jpg', '.png', '.tif', '.tiff', '.webp'], videos ['.avi', '.flv', '.mkv', '.mov', '.mp4', '.webm', '.wmv'], documents ['.pdf'].
+2026-09-06 19:49:40,942 [INFO] orchestration.analysis_orchestrator — [audio.mp3] Routing: REJECTED: Audio files are not supported by this system (extension: '.mp3'). Audio forensics has been removed from the project scope.
+2026-09-06 19:49:40,967 [INFO] orchestration.analysis_orchestrator — [test.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:49:40,976 [INFO] orchestration.analysis_orchestrator — [test.jpg] evidence_id=EV-163606  sha256=1663c73d366cd23a…
+2026-09-06 19:49:40,977 [INFO] orchestration.analysis_orchestrator — [EV-163606][blockchain] status=success
+2026-09-06 19:49:40,977 [INFO] orchestration.analysis_orchestrator — [EV-163606][metadata] status=success
+2026-09-06 19:49:40,977 [INFO] orchestration.analysis_orchestrator — [EV-163606][image_forgery] status=success
+2026-09-06 19:49:40,978 [INFO] orchestration.analysis_orchestrator — [EV-163606] ANALYSIS COMPLETE in 0.02s — overall_status=completed
+2026-09-06 19:49:40,994 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:40,994 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-163606.json
+2026-09-06 19:49:41,019 [INFO] orchestration.analysis_orchestrator — [test.png] Routing: IMAGE [.png] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:49:41,039 [INFO] orchestration.analysis_orchestrator — [test.png] evidence_id=EV-386586  sha256=3ec774d072e2e1b7…
+2026-09-06 19:49:41,039 [INFO] orchestration.analysis_orchestrator — [EV-386586][blockchain] status=success
+2026-09-06 19:49:41,039 [ERROR] orchestration.analysis_orchestrator — [EV-386586][metadata] UNHANDLED: Simulated metadata crash
+Traceback (most recent call last):
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\orchestration\analysis_orchestrator.py", line 123, in analyze_evidence
+    metadata_result = analyze_metadata(
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "C:\Users\Dell\AppData\Local\Programs\Python\Python310\lib\unittest\mock.py", line 1179, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\tests\test_orchestrator.py", line 129, in metadata_fail
+    raise RuntimeError("Simulated metadata crash")
+RuntimeError: Simulated metadata crash
+2026-09-06 19:49:41,052 [INFO] orchestration.analysis_orchestrator — [EV-386586][image_forgery] status=success
+2026-09-06 19:49:41,053 [WARNING] orchestration.result_aggregator — evidence_id=EV-386586 — 1 module(s) failed: ['metadata_forensics']
+2026-09-06 19:49:41,053 [INFO] orchestration.analysis_orchestrator — [EV-386586] ANALYSIS COMPLETE in 0.04s — overall_status=partial
+2026-09-06 19:49:41,103 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:41,103 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-386586.json
+2026-09-06 19:49:41,152 [ERROR] database.supabase_client — Supabase get_report failed for EV-NONEXISTENT: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:41,968 [WARNING] database.supabase_client — [EV-SUPA-TEST-001] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:41,981 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:41,988 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite save_evidence warning: UNIQUE constraint failed: evidence.evidence_id
+2026-09-06 19:49:42,005 [ERROR] database.supabase_client — Supabase get_evidence failed for EV-SUPA-TEST-001: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:42,021 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:42,027 [WARNING] database.db_service — [EV-SUPA-TEST-001] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:49:42,045 [ERROR] database.supabase_client — Supabase get_custody_log failed for EV-SUPA-TEST-001: [Errno 11001] getaddrinfo failed
+2026-09-06 19:49:42,050 [ERROR] database.db_service — [EV-SUPA-TEST-001] SQLite get_custody_log failed: No module named 'database.db'
+2026-09-06 19:49:42,062 [ERROR] database.supabase_client — Supabase update_evidence_status failed for EV-SUPA-TEST-001: [Errno 11001] getaddrinfo failed
+2026-09-06 19:51:48,265 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp34wenfe3.jpg (submitted_by=investigator_1)
+2026-09-06 19:51:48,286 [INFO] orchestration.analysis_orchestrator — [tmp34wenfe3.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:51:48,313 [INFO] orchestration.analysis_orchestrator — [tmp34wenfe3.jpg] evidence_id=EV-062488  sha256=32437c756cc8899a…
+2026-09-06 19:51:48,459 [WARNING] database.supabase_client — [EV-062488] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:51:48,477 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:51:48,550 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:51:48,562 [WARNING] database.db_service — [EV-062488] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:51:48,562 [INFO] orchestration.analysis_orchestrator — [EV-062488][blockchain] status=success
+2026-09-06 19:52:10,772 [INFO] orchestration.analysis_orchestrator — [EV-062488][metadata] status=success
+2026-09-06 19:52:33,959 [INFO] integrations.image_forgery.adapter — Loading image forgery models (ResNet50 + EfficientNet-B0)…
+2026-09-06 19:52:35,652 [INFO] integrations.image_forgery.adapter — Image forgery models loaded.
+2026-09-06 19:52:36,226 [INFO] orchestration.analysis_orchestrator — [EV-062488][image_forgery] status=success
+2026-09-06 19:52:37,412 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa warm_up: pre-loading model ...
+2026-09-06 19:52:54,698 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: using device 'cuda'
+2026-09-06 19:52:54,698 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: loading fine-tuned model from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\ml\saved_model'
+2026-09-06 19:52:55,866 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa: model loaded successfully (num_labels=2, device=cuda).
+2026-09-06 19:52:55,866 [INFO] fake_news_module.ml.inference — inference.py: RoBERTa model pre-loaded and ready.
+2026-09-06 19:52:55,875 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:52:55,875 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmp34wenfe3.jpg
+2026-09-06 19:52:55,875 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:52:55,875 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-09-06 19:52:55,875 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmp34wenfe3.jpg
+2026-09-06 19:52:55,875 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmp34wenfe3.jpg
+2026-09-06 19:52:56,123 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-09-06 19:52:56,123 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-09-06 19:52:56,123 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-09-06 19:52:56,123 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-09-06 19:52:56,123 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-062488: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-09-06 19:52:56,123 [INFO] orchestration.analysis_orchestrator — [EV-062488][fake_news] status=skipped
+2026-09-06 19:52:56,123 [INFO] orchestration.analysis_orchestrator — [EV-062488] ANALYSIS COMPLETE in 67.84s — overall_status=completed
+2026-09-06 19:52:56,143 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:52:56,143 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-062488.json
+2026-09-06 19:52:56,145 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:52:56] "POST /analyze HTTP/1.1" 200 -
+2026-09-06 19:52:56,170 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:52:56] "GET /health HTTP/1.1" 200 -
+2026-09-06 19:52:56,171 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:52:56] "GET /reports HTTP/1.1" 200 -
+2026-09-06 19:53:08,630 [ERROR] database.supabase_client — Supabase get_evidence failed for EV-062488: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:08,648 [ERROR] database.supabase_client — Supabase save_approval failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:08,688 [ERROR] database.supabase_client — Supabase update_evidence_status failed for EV-062488: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:08,721 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:08,721 [WARNING] database.db_service — [EV-062488] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:53:08,731 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:53:08] "POST /approve/EV-062488 HTTP/1.1" 200 -
+2026-09-06 19:53:20,131 [INFO] api.app — Received upload: 'Tp_D_CNN_M_B_nat10139_nat00097_11948.jpg' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpzhw7u58i.jpg (submitted_by=investigator_1)
+2026-09-06 19:53:20,135 [INFO] orchestration.analysis_orchestrator — [tmpzhw7u58i.jpg] Routing: IMAGE [.jpg] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:53:20,161 [INFO] orchestration.analysis_orchestrator — [tmpzhw7u58i.jpg] evidence_id=EV-540270  sha256=32437c756cc8899a…
+2026-09-06 19:53:20,178 [WARNING] database.supabase_client — [EV-540270] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:20,187 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:20,206 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:20,212 [WARNING] database.db_service — [EV-540270] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:53:20,212 [INFO] orchestration.analysis_orchestrator — [EV-540270][blockchain] status=success
+2026-09-06 19:53:20,219 [INFO] orchestration.analysis_orchestrator — [EV-540270][metadata] status=success
+2026-09-06 19:53:20,647 [INFO] orchestration.analysis_orchestrator — [EV-540270][image_forgery] status=success
+2026-09-06 19:53:20,654 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:53:20,655 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpzhw7u58i.jpg
+2026-09-06 19:53:20,655 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:53:20,655 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-09-06 19:53:20,655 [INFO] fake_news_module.ocr.extractor — Detected file type '.jpg' for: tmpzhw7u58i.jpg
+2026-09-06 19:53:20,655 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmpzhw7u58i.jpg
+2026-09-06 19:53:21,160 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 27 characters.
+2026-09-06 19:53:21,160 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-09-06 19:53:21,160 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-09-06 19:53:21,160 [WARNING] fake_news_module.processing.validator — Validation failed: Text too short: 22 characters (minimum required: 30).
+2026-09-06 19:53:21,160 [INFO] integrations.fake_news.adapter — fake_news pipeline returned no usable text for EV-540270: Text quality validation failed: Text too short: 22 characters (minimum required: 30).
+2026-09-06 19:53:21,160 [INFO] orchestration.analysis_orchestrator — [EV-540270][fake_news] status=skipped
+2026-09-06 19:53:21,169 [INFO] orchestration.analysis_orchestrator — [EV-540270] ANALYSIS COMPLETE in 1.04s — overall_status=completed
+2026-09-06 19:53:21,169 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:53:21,178 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-540270.json
+2026-09-06 19:53:21,187 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:53:21] "POST /analyze HTTP/1.1" 200 -
+2026-09-06 19:53:21,213 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:53:21] "GET /reports HTTP/1.1" 200 -
+2026-09-06 19:53:21,225 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:53:21] "GET /health HTTP/1.1" 200 -
+2026-09-06 19:54:00,638 [INFO] api.app — Received upload: 'Screenshot 2026-08-11 010714.png' → D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpdw8x9o1s.png (submitted_by=investigator_1)
+2026-09-06 19:54:00,644 [INFO] orchestration.analysis_orchestrator — [tmpdw8x9o1s.png] Routing: IMAGE [.png] -> blockchain -> metadata -> image_forgery -> fake_news[conditional]
+2026-09-06 19:54:00,670 [INFO] orchestration.analysis_orchestrator — [tmpdw8x9o1s.png] evidence_id=EV-624074  sha256=1b0142d02e78ca4b…
+2026-09-06 19:54:00,682 [WARNING] database.supabase_client — [EV-624074] Supabase Storage upload warning (ensure bucket 'evidence-files' exists): [Errno 11001] getaddrinfo failed
+2026-09-06 19:54:00,713 [ERROR] database.supabase_client — Supabase save_evidence failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:54:00,748 [ERROR] database.supabase_client — Supabase log_custody_event failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:54:00,748 [WARNING] database.db_service — [EV-624074] SQLite custody log warning: No module named 'database.db'
+2026-09-06 19:54:00,748 [INFO] orchestration.analysis_orchestrator — [EV-624074][blockchain] status=success
+2026-09-06 19:54:00,755 [INFO] orchestration.analysis_orchestrator — [EV-624074][metadata] status=success
+2026-09-06 19:54:01,119 [INFO] orchestration.analysis_orchestrator — [EV-624074][image_forgery] status=success
+2026-09-06 19:54:01,122 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:54:01,124 [INFO] fake_news_module.core.pipeline — PIPELINE START: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\uploads\tmpdw8x9o1s.png
+2026-09-06 19:54:01,124 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:54:01,124 [INFO] fake_news_module.core.pipeline — [Step 1/6] Extracting text from file …
+2026-09-06 19:54:01,124 [INFO] fake_news_module.ocr.extractor — Detected file type '.png' for: tmpdw8x9o1s.png
+2026-09-06 19:54:01,124 [INFO] fake_news_module.ocr.image_ocr — Starting OCR on image: tmpdw8x9o1s.png
+2026-09-06 19:54:02,189 [INFO] fake_news_module.ocr.image_ocr — OCR complete. Extracted 1460 characters.
+2026-09-06 19:54:02,189 [INFO] fake_news_module.core.pipeline — [Step 2/6] Cleaning text …
+2026-09-06 19:54:02,199 [INFO] fake_news_module.core.pipeline — [Step 3/6] Validating text quality …
+2026-09-06 19:54:02,199 [INFO] fake_news_module.core.pipeline — [Step 4/6] Extracting main claim …
+2026-09-06 19:54:02,206 [INFO] fake_news_module.processing.claim_extractor — Claim selected (score=6.50): 'breaking: massive superquake devastates colombi ' blame secret underwater nuclear tests after thousa...'
+2026-09-06 19:54:02,216 [INFO] fake_news_module.cache.cache_manager — CacheManager: Redis not available — using in-memory cache fallback
+2026-09-06 19:54:02,216 [INFO] fake_news_module.core.pipeline — [Step 5/6] Running RoBERTa + APIs in parallel …
+2026-09-06 19:54:02,248 [INFO] fake_news_module.processing.heuristic_detector — heuristic_detector: triggered=0 credibility=0 score=0.0000 label=Uncertain
+2026-09-06 19:54:02,260 [INFO] fake_news_module.apis.async_client — Google Fact Check API start (attempt 1/3)
+2026-09-06 19:54:02,264 [INFO] fake_news_module.apis.async_client — NewsAPI API start (attempt 1/3)
+2026-09-06 19:54:02,272 [INFO] faiss.loader — Loading faiss with AVX2 support.
+2026-09-06 19:54:02,397 [ERROR] fake_news_module.apis.async_client — Groq async exception: 404, message='Not Found', url='https://api.groq.com/openai/v1/chat/completions'
+2026-09-06 19:54:02,655 [INFO] fake_news_module.apis.async_client — NewsAPI API finish in 0.39s
+2026-09-06 19:54:02,655 [INFO] fake_news_module.apis.async_client — async NewsAPI analysis: no articles -> Uncertain
+2026-09-06 19:54:02,655 [INFO] fake_news_module.apis.async_client — NewsAPI async result: 'Uncertain' from 0 article(s)
+2026-09-06 19:54:02,821 [INFO] faiss.loader — Successfully loaded faiss with AVX2 support.
+2026-09-06 19:54:02,838 [INFO] fake_news_module.similarity.searcher — Searcher: loading FAISS index from 'D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\fake_news_detection_final\fake_news_module\similarity\index\faiss_index.bin' ...
+2026-09-06 19:54:02,972 [INFO] fake_news_module.similarity.searcher — Searcher: index loaded. 44898 vectors, 44898 labels.
+2026-09-06 19:54:03,154 [INFO] fake_news_module.ml.roberta_classifier — RoBERTa predict: label='Real' confidence=0.9997 (fake=0.0003 real=0.9997)
+2026-09-06 19:54:03,154 [INFO] fake_news_module.ml.inference — call_roberta: label='Real' confidence=0.9997 (fake=0.0003 real=0.9997)
+2026-09-06 19:54:03,188 [INFO] fake_news_module.apis.async_client — Google Fact Check API finish in 0.93s
+2026-09-06 19:54:04,390 [INFO] datasets — Disabling Tensorflow because USE_TORCH is set
+2026-09-06 19:54:06,812 [INFO] fake_news_module.similarity.embedder — Embedder: loading model 'all-MiniLM-L6-v2' ...
+2026-09-06 19:54:06,821 [INFO] sentence_transformers.base.model — No device provided, using cuda:0
+2026-09-06 19:54:07,153 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:07,162 [WARNING] huggingface_hub.utils._http — Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-06 19:54:07,179 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:07,413 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:07,438 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:07,446 [INFO] sentence_transformers.base.model — Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-09-06 19:54:07,679 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:07,704 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:07,937 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:07,963 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+2026-09-06 19:54:08,204 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:08,220 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:08,454 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:08,471 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:08,713 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:08,946 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:08,972 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:09,713 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:09,953 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:10,179 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:10,404 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:10,628 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:10,653 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:10,895 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:10,912 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:11,161 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:11,178 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:11,404 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:11,429 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:11,687 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-06 19:54:11,913 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-06 19:54:12,328 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-06 19:54:12,353 [INFO] httpx — HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-09-06 19:54:12,613 [INFO] httpx — HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-09-06 19:54:13,153 [INFO] fake_news_module.similarity.embedder — Embedder: model loaded. Embedding dim = 384.
+2026-09-06 19:54:13,445 [INFO] fake_news_module.similarity.searcher — Searcher.search: top score=0.5571 | 0/5 matches above min_score=0.60
+2026-09-06 19:54:13,453 [INFO] fake_news_module.similarity.searcher — Searcher.search: no matches above threshold — Uncertain
+2026-09-06 19:54:13,453 [INFO] fake_news_module.core.pipeline — [Step 6/6] Computing score and final decision …
+2026-09-06 19:54:13,462 [INFO] fake_news_module.core.decision_engine — compute_score: weighted_sum=0.200 active_weight=0.20 final=1.0000
+2026-09-06 19:54:13,462 [INFO] fake_news_module.core.decision_engine — final_decision: score=1.0000 → decision='Real' confidence='High'
+2026-09-06 19:54:13,462 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generating explanation for verdict='Real' score=1.0000
+2026-09-06 19:54:13,462 [INFO] fake_news_module.explainability.evidence_builder — evidence_builder: built evidence for claim='breaking: massive superquake devastates colombi ' blame secr...' with 6 sections.
+2026-09-06 19:54:13,462 [INFO] fake_news_module.explainability.confidence_breakdown — confidence_breakdown: built breakdown for 6 signals.
+2026-09-06 19:54:13,470 [INFO] fake_news_module.explainability.explanation_engine — explanation_engine: generated 2 reason(s) for verdict='Real' confidence_pct=100.
+2026-09-06 19:54:13,470 [INFO] fake_news_module.core.pipeline — PIPELINE COMPLETE in 11.28s | decision='Real' | confidence='High' | score=1.0000
+2026-09-06 19:54:13,470 [INFO] fake_news_module.core.pipeline — ============================================================
+2026-09-06 19:54:13,503 [INFO] orchestration.analysis_orchestrator — [EV-624074][fake_news] status=success
+2026-09-06 19:54:13,503 [INFO] orchestration.analysis_orchestrator — [EV-624074] ANALYSIS COMPLETE in 12.87s — overall_status=completed
+2026-09-06 19:54:13,523 [ERROR] database.supabase_client — Supabase save_report failed: [Errno 11001] getaddrinfo failed
+2026-09-06 19:54:13,523 [INFO] orchestration.analysis_orchestrator — Report saved: D:\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\new_final\reports\EV-624074.json
+2026-09-06 19:54:13,528 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:54:13] "POST /analyze HTTP/1.1" 200 -
+2026-09-06 19:54:13,579 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:54:13] "GET /reports HTTP/1.1" 200 -
+2026-09-06 19:54:13,583 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:54:13] "GET /health HTTP/1.1" 200 -
+2026-09-06 19:56:46,373 [ERROR] database.supabase_client — Supabase get_report failed for EV-817509: [Errno 11001] getaddrinfo failed
+2026-09-06 19:56:46,375 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:56:46] "GET /report/EV-817509 HTTP/1.1" 200 -
+2026-09-06 19:57:21,971 [ERROR] database.supabase_client — Supabase get_report failed for EV-062488: [Errno 11001] getaddrinfo failed
+2026-09-06 19:57:21,977 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:57:21] "GET /report/EV-062488 HTTP/1.1" 200 -
+2026-09-06 19:57:32,963 [ERROR] database.supabase_client — Supabase get_report failed for EV-817509: [Errno 11001] getaddrinfo failed
+2026-09-06 19:57:32,963 [INFO] werkzeug — 127.0.0.1 - - [06/Sep/2026 19:57:32] "GET /report/EV-817509 HTTP/1.1" 200 -

@@ -1,0 +1,97 @@
+{
+  "evidence_id": "EV-574990",
+  "file": {
+    "evidence_id": "EV-574990",
+    "file_name": "tmph02mzev9.png",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\reports\\uploads\\tmph02mzev9.png",
+    "file_type": "image",
+    "file_extension": ".png",
+    "size_bytes": 108284,
+    "sha256": "872601076ba348d2b983946c77bc40e637e7d546873702958f409ac4eefa17f8",
+    "mime_type": "image/png",
+    "submitted_by": "investigator_1",
+    "submitted_at": "2026-08-11T14:42:38.383532+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-574990",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T14:42:38.447491+00:00",
+    "duration_seconds": 0.025,
+    "result": {
+      "sha256": "872601076ba348d2b983946c77bc40e637e7d546873702958f409ac4eefa17f8",
+      "registered_at": "2026-08-11T14:42:38.423336+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 2,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-574990",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T14:42:38.453735+00:00",
+    "duration_seconds": 0.006,
+    "result": {
+      "metadata_score": 80,
+      "flags": [
+        "camera_model_missing",
+        "camera_make_missing"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [
+        "file modified after creation"
+      ],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 0,
+        "gps_present": 0,
+        "metadata_length": 6,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "image_format": "PNG",
+        "image_mode": "RGBA",
+        "image_width": 462,
+        "image_height": 452,
+        "png_srgb": 0,
+        "png_gamma": 0.45455
+      }
+    },
+    "error": null
+  },
+  "image_forgery": {
+    "evidence_id": "EV-574990",
+    "analysis_type": "image_forgery",
+    "status": "success",
+    "timestamp": "2026-08-11T14:42:38.786766+00:00",
+    "duration_seconds": 0.332,
+    "result": {
+      "prediction": "AUTHENTIC",
+      "confidence": 0.7244,
+      "scores": {
+        "authentic": 0.7244,
+        "tampered": 0.2756
+      },
+      "model": "ResNet50 + EfficientNet-B0 + Logistic Regression"
+    },
+    "error": null
+  },
+  "deepfake": null,
+  "fake_news": {
+    "evidence_id": "EV-574990",
+    "analysis_type": "fake_news_detection",
+    "status": "skipped",
+    "timestamp": "2026-08-11T14:42:39.094694+00:00",
+    "duration_seconds": 0.0,
+    "result": {},
+    "error": null,
+    "skip_reason": "no_news_content_detected: Text extraction returned empty output. Check the input file."
+  },
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T14:42:39.094694+00:00"
+}

@@ -1,0 +1,219 @@
+{
+  "evidence_id": "EV-412264",
+  "file": {
+    "evidence_id": "EV-412264",
+    "file_name": "tmpfmp74fyb.png",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\reports\\uploads\\tmpfmp74fyb.png",
+    "file_type": "image",
+    "file_extension": ".png",
+    "size_bytes": 69755,
+    "sha256": "857a5874a9a02d05bf8e226c5e3950e34087d0156a0b490a0be62c24438101b3",
+    "mime_type": "image/png",
+    "submitted_by": "investigator_1",
+    "submitted_at": "2026-08-11T14:41:47.493905+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-412264",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T14:41:47.563557+00:00",
+    "duration_seconds": 0.02,
+    "result": {
+      "sha256": "857a5874a9a02d05bf8e226c5e3950e34087d0156a0b490a0be62c24438101b3",
+      "registered_at": "2026-08-11T14:41:47.546234+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 2,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-412264",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T14:41:47.577298+00:00",
+    "duration_seconds": 0.011,
+    "result": {
+      "metadata_score": 80,
+      "flags": [
+        "camera_model_missing",
+        "camera_make_missing"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [
+        "file modified after creation"
+      ],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 0,
+        "gps_present": 0,
+        "metadata_length": 6,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "image_format": "PNG",
+        "image_mode": "RGBA",
+        "image_width": 1000,
+        "image_height": 422,
+        "png_srgb": 0,
+        "png_gamma": 0.45455
+      }
+    },
+    "error": null
+  },
+  "image_forgery": {
+    "evidence_id": "EV-412264",
+    "analysis_type": "image_forgery",
+    "status": "success",
+    "timestamp": "2026-08-11T14:41:47.951251+00:00",
+    "duration_seconds": 0.368,
+    "result": {
+      "prediction": "AUTHENTIC",
+      "confidence": 1.0,
+      "scores": {
+        "authentic": 1.0,
+        "tampered": 0.0
+      },
+      "model": "ResNet50 + EfficientNet-B0 + Logistic Regression"
+    },
+    "error": null
+  },
+  "deepfake": null,
+  "fake_news": {
+    "evidence_id": "EV-412264",
+    "analysis_type": "fake_news_detection",
+    "status": "success",
+    "timestamp": "2026-08-11T14:41:50.393364+00:00",
+    "duration_seconds": 2.445,
+    "result": {
+      "final_decision": "Real",
+      "confidence": "High",
+      "score": 1.0,
+      "claim": "death toll reports have varied as information is updated ranging from at least 22 in some early official tallies to higher figures of dozens or eee reeeneeee more than 70100 in later counts from local officials and media aggregations , with many more injured and people trapped in rubble.",
+      "extracted_text_preview": "A powerful magnitude 7.4 earthquake struck western Colombia early Monday morning (around 7:34 a.m.\nlocal time), with its epicenter near San Jos\u00e9 del Palmar in the Choco department on the Pacific coast. The\nquake, one of the strongest recorded in the country in the last decade, occurred at a significant depth\n(reports around 96-110 km) and was felt across much of Colombia, including major cities such as Bogota,\nCali, Pereira, Manizales, and Medellin, as well as in neighboring countries.\n\nBuilding",
+      "api_results": {
+        "roberta": "Real",
+        "similarity": "Uncertain",
+        "google_fact_check": "Unknown",
+        "news_api": "Uncertain",
+        "groq": "Uncertain",
+        "heuristic": "Uncertain",
+        "source": "Uncertain"
+      },
+      "source_score": 0.5,
+      "explanation": {
+        "verdict": "Real",
+        "confidence": "High",
+        "confidence_pct": 100,
+        "reasons": [
+          "The weighted analysis of 1 verification signals produced a strong consensus verdict of REAL (score: +1.0000), indicating this content is likely authentic.",
+          "The local RoBERTa transformer model (carrying 20% weight) classified this article as 'Real' based on linguistic and semantic patterns learned from 44,898 labelled articles."
+        ],
+        "evidence": {
+          "roberta_evidence": {
+            "label": "Real",
+            "model": "RoBERTa (fine-tuned on WELFake dataset)",
+            "description": "Local transformer-based classifier trained on 44,898 news articles. Evaluates linguistic patterns, phrasing, and semantic content."
+          },
+          "similarity_evidence": {
+            "label": "Uncertain",
+            "top_matches": [
+              {
+                "title": "Toll in Sanaa fighting rises to 234 killed, 400 wounded: ICRC",
+                "label": "Real",
+                "score": 0.5394
+              },
+              {
+                "title": "Death toll in Egypt mosque attack rises to 305 killed: state news agency",
+                "label": "Real",
+                "score": 0.5171
+              },
+              {
+                "title": "Death toll from Somalia bomb attacks tops 300",
+                "label": "Real",
+                "score": 0.5123
+              },
+              {
+                "title": "Iran's quake death toll rises to 530, more than 8,000 injured: IRNA",
+                "label": "Real",
+                "score": 0.5081
+              },
+              {
+                "title": "At least 138 people killed by earthquake in Mexico",
+                "label": "Real",
+                "score": 0.4939
+              }
+            ],
+            "match_count": 5,
+            "description": "FAISS semantic similarity search over 44,898 labelled news claims using all-MiniLM-L6-v2 dense embeddings (384-dim cosine similarity)."
+          },
+          "factcheck_evidence": {
+            "label": "Unknown",
+            "source": "Google Fact Check Tools API",
+            "description": "Cross-references the claim against a global database of verified fact-check articles published by registered fact-checkers worldwide."
+          },
+          "newsapi_evidence": {
+            "label": "Uncertain",
+            "article_count": 0,
+            "articles": [],
+            "description": "Searches NewsAPI.org for recent news articles related to the claim and checks coverage by trusted international news outlets."
+          },
+          "groq_evidence": {
+            "label": "Uncertain",
+            "source": "Groq LLM (Llama 3.3 70B)",
+            "description": "Evaluates claim authenticity using Groq's high-speed Llama 3.3 70B reasoning model."
+          },
+          "source_evidence": {
+            "source_score": 0.5,
+            "sources_found": [],
+            "description": "Average credibility of the news domains cited by API results, scored from 0.0 (low credibility) to 1.0 (highest credibility)."
+          }
+        },
+        "confidence_breakdown": {
+          "roberta": {
+            "weight_pct": 20,
+            "label": "Real",
+            "contributed": true,
+            "direction": "REAL"
+          },
+          "similarity": {
+            "weight_pct": 20,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "google": {
+            "weight_pct": 20,
+            "label": "Unknown",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "news": {
+            "weight_pct": 10,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "groq": {
+            "weight_pct": 25,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          },
+          "heuristic": {
+            "weight_pct": 5,
+            "label": "Uncertain",
+            "contributed": false,
+            "direction": "NEUTRAL"
+          }
+        }
+      }
+    },
+    "error": null
+  },
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T14:41:50.401424+00:00"
+}

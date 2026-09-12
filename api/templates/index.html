@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Workbench — Evidence Integrity System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(18, 24, 38, 0.75);
+            --bg-card-hover: rgba(26, 35, 55, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+            
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* ── Header ─────────────────────────────────────────── */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            background: rgba(11, 15, 25, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
+        }
+
+        .status-dot.offline {
+            background: var(--accent-rose);
+            box-shadow: 0 0 10px var(--accent-rose);
+        }
+
+        /* ── Main Layout ─────────────────────────────────────── */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* ── Upload & Input Cards ────────────────────────────── */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            transition: all 0.2s ease;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-md);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.01);
+            position: relative;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
+        }
+
+        .drop-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .drop-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .drop-hint {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .input-text {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem 0.8rem;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .input-text:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px var(--primary-glow);
+            width: 100%;
+            margin-top: 1.25rem;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px var(--primary-glow);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            box-shadow: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        /* ── Results Container ───────────────────────────────── */
+        .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .summary-banner {
+            background: linear-gradient(135deg, rgba(18, 24, 38, 0.9), rgba(30, 41, 59, 0.9));
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+        }
+
+        .summary-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            width: fit-content;
+        }
+
+        .badge-completed { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-partial   { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-failed    { background: rgba(244, 63, 94, 0.15);  color: #f87171; border: 1px solid rgba(244, 63, 94, 0.3); }
+        .badge-skipped   { background: rgba(107, 114, 128, 0.15); color: #9ca3af; border: 1px solid rgba(107, 114, 128, 0.3); }
+
+        /* Module Results Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        .module-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+        }
+
+        .metric-key {
+            color: var(--text-muted);
+        }
+
+        .metric-val {
+            font-weight: 600;
+        }
+
+        /* Progress / Score Bar */
+        .score-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.4rem;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .flags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.4rem;
+        }
+
+        .flag-tag {
+            background: rgba(244, 63, 94, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            font-size: 0.72rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Raw JSON Modal / Drawer */
+        .json-box {
+            background: #060911;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: #38bdf8;
+            max-height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Tab Switcher */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">🛡️</div>
+                <div class="brand-text">
+                    <h1>Forensic Workbench</h1>
+                    <p>AI-Driven Evidence Integrity System</p>
+                </div>
+            </div>
+            <div class="status-badge" id="server-status">
+                <div class="status-dot" id="status-dot"></div>
+                <span id="status-text">Checking System…</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        
+        <!-- Input & Controls Grid -->
+        <div class="workspace-grid">
+            
+            <!-- Upload & Path Section -->
+            <div class="card">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('upload')">📁 File Upload</button>
+                    <button class="tab-btn" onclick="switchTab('path')">💻 Server File Path</button>
+                </div>
+
+                <!-- Tab 1: Direct File Upload -->
+                <div id="tab-upload">
+                    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                        <div class="drop-icon">📤</div>
+                        <div class="drop-text" id="file-label">Click or Drag & Drop Evidence File</div>
+                        <div class="drop-hint">Supports Images (.jpg, .png), Videos (.mp4, .avi), PDFs (.pdf)</div>
+                        <input type="file" id="file-input" onchange="handleFileSelected(this.files[0])">
+                    </div>
+                </div>
+
+                <!-- Tab 2: Server File Path -->
+                <div id="tab-path" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label" for="path-input">Absolute Path on Server</label>
+                        <input type="text" class="input-text mono" id="path-input" placeholder="e.g. D:\evidence\sample.mp4">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label class="form-label" for="user-input">Investigator / Submitter</label>
+                    <input type="text" class="input-text" id="user-input" value="investigator_1">
+                </div>
+
+                <button class="btn" id="analyze-btn" onclick="runAnalysis()">
+                    <span id="btn-text">⚡ Run Forensic Analysis</span>
+                    <div class="spinner hidden" id="btn-spinner"></div>
+                </button>
+            </div>
+
+            <!-- Recent Reports / Ledger Quick View -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📜 Evidence Registry & Ledger</div>
+                    <button class="btn btn-secondary" style="width: auto; margin-top: 0; padding: 0.4rem 0.8rem; font-size: 0.78rem;" onclick="loadReportsList()">Refresh</button>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                    Analyzed Reports (<span id="report-count">0</span> total):
+                </div>
+                <div id="reports-list" style="display: flex; flex-direction: column; gap: 0.4rem; max-height: 220px; overflow-y: auto;">
+                    <div style="color: var(--text-dim); font-size: 0.8rem;">No evidence reports found yet. Upload a file to generate the first report.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Results Dashboard -->
+        <div id="results-container" class="results-section hidden">
+            
+            <!-- Summary Banner -->
+            <div class="summary-banner">
+                <div class="summary-item">
+                    <span class="summary-label">Evidence ID</span>
+                    <span class="summary-value mono" id="res-id">EV-000000</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">File Category</span>
+                    <span class="summary-value" id="res-type">IMAGE</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">SHA-256 Hash</span>
+                    <span class="summary-value mono" style="font-size: 0.85rem;" id="res-sha256">a1b2c3d4...</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Overall Status</span>
+                    <span id="res-status-badge" class="badge badge-completed">COMPLETED</span>
+                </div>
+            </div>
+
+            <!-- Module Cards Grid -->
+            <div class="modules-grid">
+
+                <!-- 1. Blockchain Module Card -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-title">🔗 Blockchain & Custody</div>
+                        <span class="badge" id="bc-badge">SUCCESS</span>
+                    </div>
+                    <div id="bc-content">
+                        <div class="metric-row">
+                            <span class="metric-key">Integrity Status</span>
+                            <span class="metric-val" id="bc-status">REGISTERED</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Chain Valid</span>
+                            <span class="metric-val" id="bc-valid">True</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Ledger Height</span>
+                            <span class="metric-val" id="bc-height">1</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                            <button class="btn btn-secondary" style="margin-top: 0; padding: 0.4rem;" onclick="verifyIntegrity()">Re-verify Hash</button>
+                            <button class="btn" style="margin-top: 0; padding: 0.4rem;" onclick="approveBlock()">Approve Block</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Metadata Module Card -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-title">📄 Metadata Forensics</div>
+                        <span class="badge" id="meta-badge">SUCCESS</span>
+                    </div>
+                    <div id="meta-content">
+                        <div class="metric-row">
+                            <span class="metric-key">Metadata Score</span>
+                            <span class="metric-val" id="meta-score">100 / 100</span>
+                        </div>
+                        <div class="score-bar-bg">
+                            <div class="score-bar-fill" id="meta-score-bar" style="width: 100%;"></div>
+                        </div>
+                        <div class="metric-row" style="margin-top: 0.5rem;">
+                            <span class="metric-key">AI Anomaly Verdict</span>
+                            <span class="metric-val" id="meta-anomaly">Clean</span>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <span class="metric-key" style="font-size: 0.78rem;">Rule Flags:</span>
+                            <div class="flags-list" id="meta-flags">
+                                <span style="font-size: 0.75rem; color: var(--text-dim);">None</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Image Forgery Card -->
+                <div class="module-card" id="card-forgery">
+                    <div class="module-header">
+                        <div class="module-title">🖼️ Image Forgery Detection</div>
+                        <span class="badge" id="forgery-badge">SUCCESS</span>
+                    </div>
+                    <div id="forgery-content">
+                        <div class="metric-row">
+                            <span class="metric-key">Verdict</span>
+                            <span class="metric-val" id="forgery-pred" style="font-size: 1.1rem;">AUTHENTIC</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Confidence</span>
+                            <span class="metric-val" id="forgery-conf">95.4%</span>
+                        </div>
+                        <div class="score-bar-bg">
+                            <div class="score-bar-fill" id="forgery-bar" style="width: 95%;"></div>
+                        </div>
+                        <div class="metric-row" style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-dim);">
+                            <span>Model: ResNet50 + EffNet + LogReg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Deepfake Card -->
+                <div class="module-card" id="card-deepfake">
+                    <div class="module-header">
+                        <div class="module-title">🎥 Deepfake Detection</div>
+                        <span class="badge" id="df-badge">SKIPPED</span>
+                    </div>
+                    <div id="df-content">
+                        <div class="metric-row">
+                            <span class="metric-key">Verdict</span>
+                            <span class="metric-val" id="df-pred" style="font-size: 1.1rem;">REAL</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Confidence</span>
+                            <span class="metric-val" id="df-conf">98.2%</span>
+                        </div>
+                        <div class="score-bar-bg">
+                            <div class="score-bar-fill" id="df-bar" style="width: 98%;"></div>
+                        </div>
+                        <div class="metric-row" style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-dim);">
+                            <span>Analyzed: 15 Frames | EffNet-B3 + BiLSTM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Fake News Card -->
+                <div class="module-card" id="card-fakenews">
+                    <div class="module-header">
+                        <div class="module-title">📰 Fake News Detection</div>
+                        <span class="badge" id="fn-badge">SKIPPED</span>
+                    </div>
+                    <div id="fn-content">
+                        <div class="metric-row">
+                            <span class="metric-key">Verdict</span>
+                            <span class="metric-val" id="fn-pred">Real</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Confidence</span>
+                            <span class="metric-val" id="fn-conf">High</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-key">Extracted Claim</span>
+                            <span class="metric-val" id="fn-claim" style="font-size: 0.78rem; text-align: right; max-width: 60%;">N/A</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- JSON Output Viewer -->
+            <div class="card" style="margin-top: 1rem;">
+                <div class="card-header">
+                    <div class="card-title">🔍 Raw Forensic Report JSON</div>
+                    <button class="btn btn-secondary" style="width: auto; margin-top: 0; padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="copyJson()">Copy JSON</button>
+                </div>
+                <pre class="json-box" id="json-viewer">// Complete JSON payload will appear here after analysis...</pre>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        let currentMode = 'upload';
+        let selectedFile = null;
+        let activeEvidenceId = null;
+        let activeFilePath = null;
+        let lastReportJson = null;
+
+        // Health Check on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkHealth();
+            loadReportsList();
+        });
+
+        async function checkHealth() {
+            try {
+                const res = await fetch('/health');
+                const data = await res.json();
+                if (data.status === 'healthy') {
+                    document.getElementById('status-dot').className = 'status-dot';
+                    document.getElementById('status-text').innerText = `API Operational (${data.report_count} Reports)`;
+                }
+            } catch (err) {
+                document.getElementById('status-dot').className = 'status-dot offline';
+                document.getElementById('status-text').innerText = 'API Offline';
+            }
+        }
+
+        function switchTab(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (mode === 'upload') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-upload').classList.remove('hidden');
+                document.getElementById('tab-path').classList.add('hidden');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-upload').classList.add('hidden');
+                document.getElementById('tab-path').classList.remove('hidden');
+            }
+        }
+
+        function handleFileSelected(file) {
+            if (!file) return;
+            selectedFile = file;
+            document.getElementById('file-label').innerHTML = `<strong>Selected:</strong> ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+        }
+
+        // Drag and drop events
+        const dropZone = document.getElementById('drop-zone');
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                handleFileSelected(e.dataTransfer.files[0]);
+            }
+        });
+
+        async function runAnalysis() {
+            const user = document.getElementById('user-input').value || 'investigator_1';
+            const btnText = document.getElementById('btn-text');
+            const spinner = document.getElementById('btn-spinner');
+            const btn = document.getElementById('analyze-btn');
+
+            btn.disabled = true;
+            btnText.innerText = 'Analyzing Evidence…';
+            spinner.classList.remove('hidden');
+
+            try {
+                let response;
+                if (currentMode === 'upload') {
+                    if (!selectedFile) {
+                        alert('Please select a file first.');
+                        return;
+                    }
+                    const formData = new FormData();
+                    formData.append('file', selectedFile);
+                    formData.append('submitted_by', user);
+
+                    response = await fetch('/analyze', {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    const path = document.getElementById('path-input').value.trim();
+                    if (!path) {
+                        alert('Please enter a server file path.');
+                        return;
+                    }
+                    response = await fetch('/analyze/path', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ file_path: path, submitted_by: user })
+                    });
+                }
+
+                const report = await response.json();
+                if (!response.ok) {
+                    alert(`Analysis Error: ${report.message || report.error}`);
+                    return;
+                }
+
+                renderReport(report);
+                loadReportsList();
+                checkHealth();
+
+            } catch (err) {
+                alert(`Network/Server Error: ${err.message}`);
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = '⚡ Run Forensic Analysis';
+                spinner.classList.add('hidden');
+            }
+        }
+
+        function renderReport(report) {
+            lastReportJson = report;
+            activeEvidenceId = report.evidence_id;
+            activeFilePath = report.file ? report.file.file_path : null;
+
+            document.getElementById('results-container').classList.remove('hidden');
+
+            // Banner
+            document.getElementById('res-id').innerText = report.evidence_id;
+            document.getElementById('res-type').innerText = (report.file ? report.file.file_type : 'UNKNOWN').toUpperCase();
+            document.getElementById('res-sha256').innerText = report.file ? report.file.sha256.substring(0, 20) + '…' : 'N/A';
+            
+            const statusBadge = document.getElementById('res-status-badge');
+            statusBadge.innerText = (report.overall_status || 'completed').toUpperCase();
+            statusBadge.className = `badge badge-${report.overall_status || 'completed'}`;
+
+            // 1. Blockchain
+            renderModule('bc', report.blockchain, (r) => {
+                document.getElementById('bc-status').innerText = r.integrity_status || 'REGISTERED';
+                document.getElementById('bc-valid').innerText = r.chain_valid !== undefined ? r.chain_valid : 'True';
+                document.getElementById('bc-height').innerText = r.chain_length || 1;
+            });
+
+            // 2. Metadata
+            renderModule('meta', report.metadata, (r) => {
+                const score = r.metadata_score !== undefined ? r.metadata_score : 100;
+                document.getElementById('meta-score').innerText = `${score} / 100`;
+                document.getElementById('meta-score-bar').style.width = `${Math.max(0, score)}%`;
+                document.getElementById('meta-anomaly').innerText = r.anomaly ? '⚠️ Anomaly Detected' : '✓ Clean Profile';
+                
+                const flagsDiv = document.getElementById('meta-flags');
+                if (r.flags && r.flags.length > 0) {
+                    flagsDiv.innerHTML = r.flags.map(f => `<span class="flag-tag">${f}</span>`).join('');
+                } else {
+                    flagsDiv.innerHTML = '<span style="font-size: 0.75rem; color: var(--text-dim);">None</span>';
+                }
+            });
+
+            // 3. Image Forgery
+            renderModule('forgery', report.image_forgery, (r) => {
+                const pred = r.prediction || 'AUTHENTIC';
+                document.getElementById('forgery-pred').innerText = pred;
+                document.getElementById('forgery-pred').style.color = pred === 'TAMPERED' ? '#f87171' : '#34d399';
+                const conf = (r.confidence * 100).toFixed(1);
+                document.getElementById('forgery-conf').innerText = `${conf}%`;
+                document.getElementById('forgery-bar').style.width = `${conf}%`;
+            });
+
+            // 4. Deepfake
+            renderModule('df', report.deepfake, (r) => {
+                const pred = r.prediction || 'REAL';
+                document.getElementById('df-pred').innerText = pred;
+                document.getElementById('df-pred').style.color = pred === 'FAKE' ? '#f87171' : '#34d399';
+                const conf = r.confidence_pct !== undefined ? r.confidence_pct : 95.0;
+                document.getElementById('df-conf').innerText = `${conf}%`;
+                document.getElementById('df-bar').style.width = `${conf}%`;
+            });
+
+            // 5. Fake News
+            renderModule('fn', report.fake_news, (r) => {
+                const pred = r.final_decision || 'Uncertain';
+                document.getElementById('fn-pred').innerText = pred;
+                document.getElementById('fn-conf').innerText = r.confidence || 'Medium';
+                document.getElementById('fn-claim').innerText = r.claim ? r.claim.substring(0, 40) + '…' : 'N/A';
+            });
+
+            // Raw JSON
+            document.getElementById('json-viewer').innerText = JSON.stringify(report, null, 2);
+
+            // Scroll to results smoothly
+            document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderModule(prefix, moduleData, populateFn) {
+            const badge = document.getElementById(`${prefix}-badge`);
+            if (!moduleData) {
+                badge.innerText = 'NOT APPLICABLE';
+                badge.className = 'badge badge-skipped';
+                return;
+            }
+
+            badge.innerText = moduleData.status.toUpperCase();
+            badge.className = `badge badge-${moduleData.status}`;
+
+            if (moduleData.status === 'success' && moduleData.result) {
+                populateFn(moduleData.result);
+            } else if (moduleData.status === 'skipped') {
+                // Keep default or show skip reason
+            }
+        }
+
+        async function verifyIntegrity() {
+            if (!activeEvidenceId || !activeFilePath) return;
+            try {
+                const res = await fetch(`/verify/${activeEvidenceId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ file_path: activeFilePath })
+                });
+                const data = await res.json();
+                alert(`Integrity Check Result:\nStatus: ${data.result.integrity_status}\nMessage: ${data.result.message}`);
+            } catch (err) {
+                alert(`Verification Error: ${err.message}`);
+            }
+        }
+
+        async function approveBlock() {
+            if (!activeEvidenceId) return;
+            const officer = prompt('Enter Officer / Approver Name:', 'officer_smith');
+            if (!officer) return;
+            try {
+                const res = await fetch(`/approve/${activeEvidenceId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ approved_by: officer, notes: 'Manual officer verification' })
+                });
+                const data = await res.json();
+                alert(`Blockchain Block Created!\nBlock Index: #${data.result.block_index}\nBlock Hash: ${data.result.block_hash.substring(0, 20)}...`);
+            } catch (err) {
+                alert(`Approval Error: ${err.message}`);
+            }
+        }
+
+        async function loadReportsList() {
+            try {
+                const res = await fetch('/reports');
+                const data = await res.json();
+                document.getElementById('report-count').innerText = data.count || 0;
+                
+                const listDiv = document.getElementById('reports-list');
+                if (!data.evidence_ids || data.evidence_ids.length === 0) {
+                    listDiv.innerHTML = '<div style="color: var(--text-dim); font-size: 0.8rem;">No evidence reports found yet.</div>';
+                    return;
+                }
+
+                listDiv.innerHTML = data.evidence_ids.map(id => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.8rem;">
+                        <span class="mono">${id}</span>
+                        <button class="btn btn-secondary" style="margin-top: 0; padding: 0.2rem 0.5rem; font-size: 0.72rem; width: auto;" onclick="loadReportById('${id}')">View Report</button>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.warn('Could not load reports list:', err);
+            }
+        }
+
+        async function loadReportById(id) {
+            try {
+                const res = await fetch(`/report/${id}`);
+                const data = await res.json();
+                renderReport(data);
+            } catch (err) {
+                alert(`Error loading report ${id}: ${err.message}`);
+            }
+        }
+
+        function copyJson() {
+            if (!lastReportJson) return;
+            navigator.clipboard.writeText(JSON.stringify(lastReportJson, null, 2));
+            alert('JSON report copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

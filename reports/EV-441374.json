@@ -1,0 +1,89 @@
+{
+  "evidence_id": "EV-441374",
+  "file": {
+    "evidence_id": "EV-441374",
+    "file_name": "01_04__kitchen_pan__GBC7ZGDP.mp4",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\reports\\uploads\\tmp8jymwyxs.mp4",
+    "file_type": "video",
+    "file_extension": ".mp4",
+    "size_bytes": 3642168,
+    "sha256": "62f50d26745b92a85977050fa59ad1cfde33b9226f0d72f99462fecb71c50af8",
+    "mime_type": "video/mp4",
+    "submitted_by": "investigator_1",
+    "submitted_at": "2026-08-11T15:36:21.920879+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-441374",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T15:36:29.819458+00:00",
+    "duration_seconds": 7.851,
+    "result": {
+      "sha256": "62f50d26745b92a85977050fa59ad1cfde33b9226f0d72f99462fecb71c50af8",
+      "registered_at": "2026-08-11T15:36:21.970510+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 1,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-441374",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T15:36:37.251462+00:00",
+    "duration_seconds": 7.424,
+    "result": {
+      "metadata_score": 0,
+      "flags": [
+        "empty_metadata",
+        "editing_software_detected",
+        "encoder_info_missing",
+        "duration_info_missing",
+        "creation_date_missing",
+        "writing_application_missing",
+        "no_extraction_tool_available"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [
+        "file modified after creation"
+      ],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 1,
+        "gps_present": 0,
+        "metadata_length": 2,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "_extractor": "none",
+        "note": "Neither exiftool, ffprobe, nor pymediainfo could extract metadata"
+      }
+    },
+    "error": null
+  },
+  "image_forgery": null,
+  "deepfake": {
+    "evidence_id": "EV-441374",
+    "analysis_type": "deepfake_detection",
+    "status": "success",
+    "timestamp": "2026-08-11T15:37:22.069590+00:00",
+    "duration_seconds": 44.806,
+    "result": {
+      "prediction": "FAKE",
+      "confidence_pct": 91.65,
+      "real_prob": 8.35,
+      "fake_prob": 91.65,
+      "frames_analyzed": 15,
+      "model": "EfficientNet-B3 + BiLSTM + Attention",
+      "device": "cuda"
+    },
+    "error": null
+  },
+  "fake_news": null,
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T15:37:22.069590+00:00"
+}

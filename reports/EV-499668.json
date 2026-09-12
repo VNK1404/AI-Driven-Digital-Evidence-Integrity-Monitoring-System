@@ -1,0 +1,95 @@
+{
+  "evidence_id": "EV-499668",
+  "file": {
+    "evidence_id": "EV-499668",
+    "file_name": "dummy.jpg",
+    "file_path": "D:\\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\\new_final\\metadata_forensics\\dummy.jpg",
+    "file_type": "image",
+    "file_extension": ".jpg",
+    "size_bytes": 823,
+    "sha256": "114631462ba5916dcbe925d0f73f046bcbdc59bb376fef3b17406a9651cc7d8c",
+    "mime_type": "image/jpeg",
+    "submitted_by": "investigator",
+    "submitted_at": "2026-08-11T15:32:22.945448+00:00"
+  },
+  "blockchain": {
+    "evidence_id": "EV-499668",
+    "analysis_type": "blockchain",
+    "status": "success",
+    "timestamp": "2026-08-11T15:32:25.641942+00:00",
+    "duration_seconds": 2.694,
+    "result": {
+      "sha256": "114631462ba5916dcbe925d0f73f046bcbdc59bb376fef3b17406a9651cc7d8c",
+      "registered_at": "2026-08-11T15:32:22.948618+00:00",
+      "integrity_status": "REGISTERED",
+      "chain_length": 1,
+      "chain_valid": true
+    },
+    "error": null
+  },
+  "metadata": {
+    "evidence_id": "EV-499668",
+    "analysis_type": "metadata_forensics",
+    "status": "success",
+    "timestamp": "2026-08-11T15:32:27.613293+00:00",
+    "duration_seconds": 1.969,
+    "result": {
+      "metadata_score": 80,
+      "flags": [
+        "camera_model_missing",
+        "camera_make_missing"
+      ],
+      "anomaly": false,
+      "anomaly_method": "z-score reference profile",
+      "timeline_flags": [
+        "file modified after creation"
+      ],
+      "features": {
+        "camera_present": 0,
+        "editing_software_present": 0,
+        "gps_present": 0,
+        "metadata_length": 4,
+        "device_info_present": 0,
+        "timestamp_present": 0,
+        "has_error": 0
+      },
+      "raw_metadata": {
+        "image_format": "JPEG",
+        "image_mode": "RGB",
+        "image_width": 100,
+        "image_height": 100
+      }
+    },
+    "error": null
+  },
+  "image_forgery": {
+    "evidence_id": "EV-499668",
+    "analysis_type": "image_forgery",
+    "status": "success",
+    "timestamp": "2026-08-11T15:33:06.383312+00:00",
+    "duration_seconds": 38.768,
+    "result": {
+      "prediction": "AUTHENTIC",
+      "confidence": 0.9572,
+      "scores": {
+        "authentic": 0.9572,
+        "tampered": 0.0428
+      },
+      "model": "ResNet50 + EfficientNet-B0 + Logistic Regression"
+    },
+    "error": null
+  },
+  "deepfake": null,
+  "fake_news": {
+    "evidence_id": "EV-499668",
+    "analysis_type": "fake_news_detection",
+    "status": "skipped",
+    "timestamp": "2026-08-11T15:33:17.528175+00:00",
+    "duration_seconds": 0.0,
+    "result": {},
+    "error": null,
+    "skip_reason": "no_news_content_detected: Text extraction returned empty output. Check the input file."
+  },
+  "overall_status": "completed",
+  "analysis_timestamp": "2026-08-11T15:33:17.528175+00:00"
+}
