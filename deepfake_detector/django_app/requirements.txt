@@ -1,0 +1,21 @@
+# ============================================================
+# Requirements for DeepShield — Deepfake Detection Web App
+# EfficientNet-B3 + BiLSTM + Temporal Attention
+# ============================================================
+
+# Web Framework
+Django>=4.0
+
+# PyTorch (install separately with CUDA support):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+# torch
+# torchvision
+
+# Computer Vision
+opencv-python>=4.8.0
+
+# Numerical Computing
+numpy>=1.24.0
+
+# Pillow (image processing)
+Pillow>=10.0.0

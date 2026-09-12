@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DeepShield — About{% endblock %}
+{% block page_title %}About{% endblock %}
+{% block nav_about %}active{% endblock %}
+
+{% block content %}
+<div class="page-detect" style="grid-template-columns: 1fr 1fr; padding-top:0;">
+
+  <!-- Left: About Info -->
+  <div class="hero-left">
+
+    <div class="badge-pill">
+      <span class="material-symbols-outlined">school</span>
+      Research Project
+    </div>
+
+    <h1 class="hero-title">
+      About <span class="gradient-text">DeepShield</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      An end-to-end deepfake video detection pipeline combining <strong>EfficientNet-B3</strong>
+      for spatial feature extraction and a <strong>Bidirectional LSTM</strong> with
+      <strong>Temporal Attention</strong> for modeling how faces change across video frames —
+      trained on FaceForensics++.
+    </p>
+
+    <!-- How it works steps -->
+    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
+      <div class="glass-card" style="padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;">
+        <span class="material-symbols-outlined" style="color:var(--primary);font-size:1.4rem;">frame_inspect</span>
+        <div>
+          <div style="font-family:'Geist',sans-serif;font-weight:700;font-size:0.9rem;">Spatial Features</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">EfficientNet-B3 scans each frame to detect pixel-level manipulation artifacts.</div>
+        </div>
+      </div>
+      <div class="glass-card" style="padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;">
+        <span class="material-symbols-outlined" style="color:var(--secondary);font-size:1.4rem;">timeline</span>
+        <div>
+          <div style="font-family:'Geist',sans-serif;font-weight:700;font-size:0.9rem;">Temporal Modeling</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">BiLSTM processes frame sequences to detect unnatural temporal shifts deepfakes create.</div>
+        </div>
+      </div>
+      <div class="glass-card" style="padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;">
+        <span class="material-symbols-outlined" style="color:var(--primary);font-size:1.4rem;">my_location</span>
+        <div>
+          <div style="font-family:'Geist',sans-serif;font-weight:700;font-size:0.9rem;">Attention Focus</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">Temporal Attention dynamically focuses the model on the most suspicious frames.</div>
+        </div>
+      </div>
+      <div class="glass-card" style="padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;">
+        <span class="material-symbols-outlined" style="color:var(--secondary);font-size:1.4rem;">visibility</span>
+        <div>
+          <div style="font-family:'Geist',sans-serif;font-weight:700;font-size:0.9rem;">Grad-CAM XAI</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">Heatmaps visually explain which regions influenced the FAKE/REAL decision.</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="{% url 'ml_app:home' %}" class="btn-analyse">
+      <span class="material-symbols-outlined">manage_search</span>
+      Try It Now
+    </a>
+  </div>
+
+  <!-- Right: Metrics Card -->
+  <div class="glass-card glow-card" style="padding:1.75rem;height:fit-content;">
+    <div class="section-header" style="margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);">
+      <span class="material-symbols-outlined section-icon">bar_chart</span>
+      <h2 class="section-title">Model Performance</h2>
+      <span class="section-badge">FaceForensics++</span>
+    </div>
+
+    <!-- Metrics rows -->
+    {% for label, val, color in metrics %}
+    <div style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">{{ label }}</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--text);">{{ val }}</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:{{ val }};background:{{ color }};border-radius:999px;"></div>
+      </div>
+    </div>
+    {% empty %}
+    <!-- Hardcoded fallback -->
+    <div style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">Best Validation Accuracy</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--primary);">86.25%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:86.25%;background:linear-gradient(90deg,#6366f1,#06b6d4);border-radius:999px;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">Precision</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--text);">92.50%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:92.5%;background:linear-gradient(90deg,#6366f1,#a78bfa);border-radius:999px;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">Recall</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--text);">82.22%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:82.22%;background:linear-gradient(90deg,#06b6d4,#4cd7f6);border-radius:999px;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">F1-Score</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--text);">87.06%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:87.06%;background:linear-gradient(90deg,#8b5cf6,#c0c1ff);border-radius:999px;"></div>
+      </div>
+    </div>
+    <div style="margin-bottom:0;">
+      <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.35rem;">
+        <span style="color:var(--text-muted);">AUC-ROC</span>
+        <span style="font-family:'Geist',sans-serif;font-weight:700;color:var(--secondary);">~91.75%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;">
+        <div style="height:100%;width:91.75%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:999px;"></div>
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- Architecture info -->
+    <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+      <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-dim);margin-bottom:0.75rem;font-family:'Geist',sans-serif;">Architecture</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+        <span class="chip chip-outline">EfficientNet-B3</span>
+        <span class="chip chip-outline">BiLSTM (2-layer)</span>
+        <span class="chip chip-outline">Temporal Attention</span>
+        <span class="chip chip-outline">Grad-CAM XAI</span>
+        <span class="chip chip-outline">Mixed Precision</span>
+        <span class="chip chip-outline">FaceForensics++</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

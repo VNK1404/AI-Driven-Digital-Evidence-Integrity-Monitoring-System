@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DeepShield — Results{% endblock %}
+{% block page_title %}Analysis Results{% endblock %}
+
+{% block content %}
+<div class="page-results">
+
+  <!-- ── Verdict Banner ── -->
+  <div class="verdict-banner {% if output == 'REAL' %}verdict-real{% else %}verdict-fake{% endif %}">
+    <div class="verdict-left">
+      <div class="verdict-icon-wrap">
+        {% if output == 'REAL' %}
+          <span class="material-symbols-outlined">verified</span>
+        {% else %}
+          <span class="material-symbols-outlined">dangerous</span>
+        {% endif %}
+      </div>
+      <div>
+        <div class="verdict-label-text">Detection Result</div>
+        <div class="verdict-output">{{ output }}</div>
+        <div class="verdict-meta">
+          Confidence: <strong>{{ confidence }}%</strong>
+          &nbsp;&mdash;&nbsp;
+          Analysed in <strong>{{ elapsed }}s</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confidence Bar -->
+    <div class="confidence-section">
+      <div class="confidence-label">
+        <span>Confidence Score</span>
+        <span class="confidence-pct">{{ confidence }}%</span>
+      </div>
+      <div class="confidence-track">
+        <div class="confidence-fill {% if output == 'REAL' %}fill-real{% else %}fill-fake{% endif %}"
+             style="width: {{ confidence }}%;"></div>
+      </div>
+
+      <!-- Verdict Chips -->
+      <div class="verdict-chips">
+        {% if output == 'REAL' %}
+          <span class="chip chip-green"><span class="material-symbols-outlined">check_circle</span> Authentic</span>
+          <span class="chip chip-outline">No Manipulation Detected</span>
+        {% else %}
+          <span class="chip chip-red"><span class="material-symbols-outlined">report</span> Deepfake</span>
+          <span class="chip chip-outline">Facial Manipulation Detected</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Results Grid ── -->
+  <div class="results-grid">
+
+    <!-- Left: Video + Model Info -->
+    <div class="results-left">
+
+      <!-- Video Player -->
+      <div class="result-section glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined section-icon">smart_display</span>
+          <h2 class="section-title">Original Video</h2>
+        </div>
+        <div class="video-container">
+          <video controls class="result-video" id="resultVideo">
+            <source src="{{ MEDIA_URL }}{{ original_video }}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Model Info Card -->
+      <div class="result-section glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined section-icon">memory</span>
+          <h2 class="section-title">Model Information</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="material-symbols-outlined info-icon">hub</span>
+            <div>
+              <div class="info-label">Architecture</div>
+              <div class="info-value">EfficientNet-B3 + BiLSTM + Attention</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-symbols-outlined info-icon">monitoring</span>
+            <div>
+              <div class="info-label">Val Accuracy</div>
+              <div class="info-value accent-primary">86.25%</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-symbols-outlined info-icon">analytics</span>
+            <div>
+              <div class="info-label">AUC-ROC</div>
+              <div class="info-value accent-secondary">~91.75%</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-symbols-outlined info-icon">video_library</span>
+            <div>
+              <div class="info-label">Frames Analysed</div>
+              <div class="info-value">15 frames / video</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Frames + Gradcam -->
+    <div class="results-right">
+
+      <!-- Extracted Frames -->
+      {% if preview_frames %}
+      <div class="result-section glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined section-icon">film_strip</span>
+          <h2 class="section-title">Extracted Frames</h2>
+          <span class="section-count">{{ preview_frames|length }} frames</span>
+        </div>
+        <div class="frames-grid">
+          {% for img in preview_frames %}
+            <div class="frame-card">
+              <img src="{% static img %}" alt="Frame {{ forloop.counter }}" class="frame-img" loading="lazy"/>
+              <div class="frame-num">#{{ forloop.counter }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Detected Faces -->
+      {% if face_frames %}
+      <div class="result-section glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined section-icon">face</span>
+          <h2 class="section-title">Detected Faces</h2>
+          <span class="section-count">{{ face_frames|length }} crops</span>
+        </div>
+        <div class="frames-grid">
+          {% for img in face_frames %}
+            <div class="frame-card face-card">
+              <img src="{% static img %}" alt="Face {{ forloop.counter }}" class="frame-img face-img" loading="lazy"/>
+              <div class="face-badge {% if output == 'REAL' %}badge-real{% else %}badge-fake{% endif %}">
+                {{ output }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Grad-CAM Heatmaps -->
+      {% if gradcam_frames %}
+      <div class="result-section glass-card ai-insight-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined section-icon accent-secondary">visibility</span>
+          <h2 class="section-title">Grad-CAM Activation Mapping</h2>
+          <span class="section-badge">XAI</span>
+        </div>
+        <p class="section-desc">Regions where the AI model focused to make its decision — highlighted via Gradient-weighted Class Activation Mapping.</p>
+        <div class="frames-grid">
+          {% for img in gradcam_frames %}
+            <div class="frame-card gradcam-card">
+              <img src="{% static img %}" alt="Grad-CAM Overlay {{ forloop.counter }}" class="frame-img face-img" loading="lazy"/>
+              <div class="gradcam-badge">Heatmap {{ forloop.counter }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- ── Action Buttons ── -->
+  <div class="result-actions">
+    <a href="{% url 'ml_app:home' %}" class="btn-analyse">
+      <span class="material-symbols-outlined">refresh</span>
+      Analyse Another Video
+    </a>
+    <a href="{% url 'ml_app:about' %}" class="btn-outline">
+      <span class="material-symbols-outlined">info</span>
+      Learn More
+    </a>
+  </div>
+
+</div>
+{% endblock %}

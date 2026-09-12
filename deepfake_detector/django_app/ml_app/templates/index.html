@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DeepShield — Detect Deepfakes{% endblock %}
+{% block page_title %}Video Analysis{% endblock %}
+{% block nav_detect %}active{% endblock %}
+
+{% block content %}
+<div class="page-detect">
+
+  <!-- ── Hero Left ── -->
+  <div class="hero-left">
+    <div class="badge-pill">
+      <span class="material-symbols-outlined">neurology</span>
+      AI-Powered Detection
+    </div>
+
+    <h1 class="hero-title">
+      Can Your Video Be
+      <span class="gradient-text">Trusted?</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Upload any video and our deep learning pipeline detects facial manipulations
+      with <strong>sub-second</strong> inference — powered by EfficientNet-B3 and Bidirectional LSTM.
+    </p>
+
+    <!-- Pipeline Steps -->
+    <div class="pipeline">
+      <div class="pipeline-step active">
+        <div class="pipeline-icon">
+          <span class="material-symbols-outlined">upload_file</span>
+        </div>
+        <div class="pipeline-info">
+          <div class="pipeline-label">Upload</div>
+          <div class="pipeline-sub">Select your video</div>
+        </div>
+      </div>
+      <div class="pipeline-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-icon">
+          <span class="material-symbols-outlined">frame_inspect</span>
+        </div>
+        <div class="pipeline-info">
+          <div class="pipeline-label">Extract</div>
+          <div class="pipeline-sub">15 key frames</div>
+        </div>
+      </div>
+      <div class="pipeline-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-icon">
+          <span class="material-symbols-outlined">psychology</span>
+        </div>
+        <div class="pipeline-info">
+          <div class="pipeline-label">Analyse</div>
+          <div class="pipeline-sub">BiLSTM + Attention</div>
+        </div>
+      </div>
+      <div class="pipeline-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+
+      <div class="pipeline-step">
+        <div class="pipeline-icon">
+          <span class="material-symbols-outlined">gavel</span>
+        </div>
+        <div class="pipeline-info">
+          <div class="pipeline-label">Verdict</div>
+          <div class="pipeline-sub">REAL or FAKE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value accent-primary">86.25%</div>
+        <div class="metric-label">Val Accuracy</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value accent-secondary">~91.75%</div>
+        <div class="metric-label">AUC-ROC</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">92.50%</div>
+        <div class="metric-label">Precision</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">87.06%</div>
+        <div class="metric-label">F1-Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Upload Card Right ── -->
+  <div class="upload-card glass-card glow-card">
+
+    <div class="upload-card-header">
+      <span class="material-symbols-outlined upload-card-icon">smart_display</span>
+      <div>
+        <h2 class="upload-card-title">Upload Video</h2>
+        <p class="upload-card-sub">MP4 · AVI · MOV · MKV &mdash; Max 100 MB</p>
+      </div>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" id="uploadForm">
+      {% csrf_token %}
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-zone-inner">
+          <div class="drop-icon-wrap">
+            <span class="material-symbols-outlined drop-icon">cloud_upload</span>
+          </div>
+          <div class="drop-text">Drag &amp; drop your video here</div>
+          <div class="drop-or"><span>or</span></div>
+          <div class="browse-btn">Browse file</div>
+          {{ form.upload_video_file }}
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <video id="videoPreview" class="video-preview" controls style="display:none;"></video>
+      <div id="fileName" class="file-label" style="display:none;"></div>
+
+      <!-- Errors -->
+      {% if form.upload_video_file.errors %}
+        {% for error in form.upload_video_file.errors %}
+          <div class="alert-error">
+            <span class="material-symbols-outlined">warning</span>
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Submit -->
+      <button type="submit" class="btn-analyse" id="submitBtn">
+        <span id="btnText">
+          <span class="material-symbols-outlined">manage_search</span>
+          Analyse Video
+        </span>
+        <span id="btnLoader" style="display:none;">
+          <span class="spinner"></span>
+          Processing…
+        </span>
+      </button>
+    </form>
+
+    <!-- Supported formats footer -->
+    <div class="upload-formats">
+      <span class="material-symbols-outlined">verified_user</span>
+      Powered by EfficientNet-B3 + BiLSTM + Temporal Attention
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const dropZone  = document.getElementById('dropZone');
+  const fileInput = document.getElementById('videoFileInput');
+  const preview   = document.getElementById('videoPreview');
+  const fileLabel = document.getElementById('fileName');
+  const form      = document.getElementById('uploadForm');
+  const btnText   = document.getElementById('btnText');
+  const btnLoader = document.getElementById('btnLoader');
+
+  // Click drop zone → open picker
+  dropZone.addEventListener('click', e => {
+    if (e.target !== fileInput) fileInput.click();
+  });
+  fileInput.addEventListener('click', e => e.stopPropagation());
+
+  // Drag & drop
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; updatePreview(e.dataTransfer.files[0]); }
+  });
+
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) updatePreview(fileInput.files[0]); });
+
+  function updatePreview(file) {
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+    fileLabel.innerHTML = `<span class="material-symbols-outlined">attach_file</span> ${file.name} &nbsp;(${(file.size/1024/1024).toFixed(1)} MB)`;
+    fileLabel.style.display = 'flex';
+    dropZone.classList.add('has-file');
+  }
+
+  form.addEventListener('submit', () => {
+    btnText.style.display  = 'none';
+    btnLoader.style.display = 'flex';
+  });
+</script>
+{% endblock %}
