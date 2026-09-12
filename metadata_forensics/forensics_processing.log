@@ -1,0 +1,74 @@
+2026-03-25 08:07:23,428 [INFO] ======================================================================
+2026-03-25 08:07:23,428 [INFO]   Metadata Forensics — Full Dataset Processing
+2026-03-25 08:07:23,428 [INFO] ======================================================================
+2026-03-25 08:07:23,428 [INFO] Datasets directory : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\datasets
+2026-03-25 08:07:23,428 [INFO] Output CSV         : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\forensics_results_full.csv
+2026-03-25 08:07:23,428 [INFO] Batch size         : 50
+2026-03-25 08:07:23,428 [INFO] 
+2026-03-25 08:07:23,428 [INFO] Scanning for supported files …
+2026-03-25 08:07:23,611 [INFO] Found 35004 supported files.
+
+2026-03-25 08:07:23,614 [INFO] Files to process: 35004
+
+2026-03-25 08:07:23,620 [INFO] Processing CASIA2 authentic_image … (7491 files)
+2026-03-25 08:17:37,924 [INFO] Processing Unknown unknown … (6214 files)
+2026-03-25 08:36:18,488 [INFO] Processing CASIA2 tampered_image … (5123 files)
+2026-03-25 10:35:13,684 [INFO] ======================================================================
+2026-03-25 10:35:13,684 [INFO]   Metadata Forensics — Full Dataset Processing
+2026-03-25 10:35:13,684 [INFO] ======================================================================
+2026-03-25 10:35:13,684 [INFO] Datasets directory : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\datasets
+2026-03-25 10:35:13,684 [INFO] Output CSV         : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\forensics_results_full.csv
+2026-03-25 10:35:13,684 [INFO] Batch size         : 50
+2026-03-25 10:35:13,684 [INFO] 
+2026-03-25 10:35:13,684 [INFO] Scanning for supported files …
+2026-03-25 10:35:14,650 [INFO] Found 35004 supported files.
+
+2026-03-25 10:35:14,809 [INFO] Resuming — skipping 16650 already-processed files.
+2026-03-25 10:35:14,809 [INFO] Files to process: 18354
+
+2026-03-25 10:35:14,814 [INFO] Processing CASIA2 tampered_image … (2178 files)
+2026-03-25 10:39:35,651 [INFO] Processing CompanyDocuments document … (2676 files)
+2026-03-25 10:48:43,468 [INFO] Processing FF++ deepfake_video … (200 files)
+2026-03-25 10:49:23,085 [INFO] Processing FF++ real_video … (200 files)
+2026-03-25 10:50:06,413 [INFO] Processing LJSpeech-1.1 audio … (13100 files)
+2026-03-25 13:04:42,261 [INFO] 
+2026-03-25 13:04:42,261 [INFO] ======================================================================
+2026-03-25 13:04:42,261 [INFO]   Processing Complete
+2026-03-25 13:04:42,261 [INFO] ======================================================================
+2026-03-25 13:04:42,261 [INFO] Total files found       : 35004
+2026-03-25 13:04:42,261 [INFO] Already processed (skip): 16650
+2026-03-25 13:04:42,261 [INFO] Successfully processed  : 18354
+2026-03-25 13:04:42,261 [INFO] Errors                  : 0
+2026-03-25 13:04:42,261 [INFO] Time elapsed            : 8968.6s
+2026-03-25 13:04:42,261 [INFO] Results saved to        : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\forensics_results_full.csv
+2026-03-25 13:04:42,261 [INFO] 
+2026-03-25 13:26:39,987 [INFO] ======================================================================
+2026-03-25 13:26:39,987 [INFO]   Metadata Forensics — Full Dataset Processing
+2026-03-25 13:26:39,987 [INFO] ======================================================================
+2026-03-25 13:26:39,987 [INFO] Datasets directory : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\datasets
+2026-03-25 13:26:39,987 [INFO] Output CSV         : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\forensics_results_full.csv
+2026-03-25 13:26:39,987 [INFO] Batch size         : 50
+2026-03-25 13:26:39,987 [INFO] 
+2026-03-25 13:26:39,987 [INFO] Scanning for supported files …
+2026-03-25 13:26:40,522 [INFO] Found 35004 supported files.
+
+2026-03-25 13:26:40,529 [INFO] Files to process: 35004
+
+2026-03-25 13:26:40,568 [INFO] Processing CASIA2 authentic_image … (7491 files)
+2026-03-25 13:26:48,807 [INFO] Processing Unknown unknown … (6214 files)
+2026-03-25 13:27:04,871 [INFO] Processing CASIA2 tampered_image … (5123 files)
+2026-03-25 13:27:46,380 [INFO] Processing CompanyDocuments document … (2676 files)
+2026-03-25 13:28:43,046 [INFO] Processing FF++ deepfake_video … (200 files)
+2026-03-25 13:28:45,515 [INFO] Processing FF++ real_video … (200 files)
+2026-03-25 13:28:47,368 [INFO] Processing LJSpeech-1.1 audio … (13100 files)
+2026-03-25 13:33:34,950 [INFO] 
+2026-03-25 13:33:34,950 [INFO] ======================================================================
+2026-03-25 13:33:34,950 [INFO]   Processing Complete
+2026-03-25 13:33:34,950 [INFO] ======================================================================
+2026-03-25 13:33:34,950 [INFO] Total files found       : 35004
+2026-03-25 13:33:34,950 [INFO] Already processed (skip): 0
+2026-03-25 13:33:34,950 [INFO] Successfully processed  : 35004
+2026-03-25 13:33:34,950 [INFO] Errors                  : 0
+2026-03-25 13:33:34,950 [INFO] Time elapsed            : 415.0s
+2026-03-25 13:33:34,950 [INFO] Results saved to        : C:\Users\Dell\Downloads\AI-Driven Digital Evidence Integrity Monitoring System for Secure Forensic Investigation\metadata_forensics\forensics_results_full.csv
+2026-03-25 13:33:34,950 [INFO] 

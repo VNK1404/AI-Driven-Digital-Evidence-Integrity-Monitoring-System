@@ -1,0 +1,8 @@
+pillow
+mutagen
+PyPDF2
+scikit-learn
+numpy
+tqdm
+pandas
+pymediainfo

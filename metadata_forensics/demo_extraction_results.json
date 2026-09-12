@@ -1,0 +1,115 @@
+{
+    "image": {
+        "metadata_score": 60,
+        "flags": [
+            "camera_model_missing",
+            "camera_make_missing"
+        ],
+        "anomaly": false,
+        "metadata": {
+            "image_format": "JPEG",
+            "image_mode": "RGB",
+            "image_width": 384,
+            "image_height": 256
+        },
+        "features": {
+            "camera_present": 0,
+            "editing_software_present": 0,
+            "gps_present": 0,
+            "metadata_length": 4,
+            "device_info_present": 0,
+            "timestamp_present": 0,
+            "has_error": 0
+        },
+        "timeline_flags": [
+            "file modified after creation"
+        ],
+        "score": 60
+    },
+    "video": {
+        "metadata_score": 0,
+        "flags": [
+            "empty_metadata",
+            "editing_software_detected",
+            "encoder_info_missing",
+            "duration_info_missing",
+            "creation_date_missing",
+            "no_extraction_tool_available"
+        ],
+        "anomaly": false,
+        "metadata": {
+            "_extractor": "none",
+            "note": "Neither exiftool nor ffprobe found on PATH"
+        },
+        "features": {
+            "camera_present": 0,
+            "editing_software_present": 1,
+            "gps_present": 0,
+            "metadata_length": 2,
+            "device_info_present": 0,
+            "timestamp_present": 0,
+            "has_error": 0
+        },
+        "timeline_flags": [
+            "file modified after creation"
+        ],
+        "score": 0
+    },
+    "audio": {
+        "metadata_score": 100,
+        "flags": [],
+        "anomaly": false,
+        "metadata": {
+            "duration": 9.65501133786848,
+            "sample_rate": 22050,
+            "channels": 1,
+            "bitrate": 352800,
+            "bits_per_sample": 16,
+            "audio_type": "WAVE"
+        },
+        "features": {
+            "camera_present": 0,
+            "editing_software_present": 0,
+            "gps_present": 0,
+            "metadata_length": 6,
+            "device_info_present": 0,
+            "timestamp_present": 0,
+            "has_error": 0
+        },
+        "timeline_flags": [
+            "file modified after creation"
+        ],
+        "score": 100
+    },
+    "document": {
+        "metadata_score": 100,
+        "flags": [],
+        "anomaly": false,
+        "metadata": {
+            "page_count": 1,
+            "author": "anonymous",
+            "creator": "ReportLab PDF Library - www.reportlab.com",
+            "producer": "ReportLab PDF Library - www.reportlab.com",
+            "title": "untitled",
+            "subject": "unspecified",
+            "creation_date": "D:20230529113055+00'00'",
+            "modification_date": "D:20230529113055+00'00'",
+            "CreationDate": "D:20230529113055+00'00'",
+            "ModDate": "D:20230529113055+00'00'",
+            "Trapped": "/False"
+        },
+        "features": {
+            "camera_present": 0,
+            "editing_software_present": 0,
+            "gps_present": 0,
+            "metadata_length": 11,
+            "device_info_present": 0,
+            "timestamp_present": 1,
+            "has_error": 0
+        },
+        "timeline_flags": [
+            "file modified after creation"
+        ],
+        "score": 100
+    }
+}
