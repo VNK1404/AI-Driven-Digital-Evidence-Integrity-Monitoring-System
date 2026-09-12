@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Forgery Detector — AI Test Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0c12;
+      --surface:   #111420;
+      --card:      #161927;
+      --border:    #1e2336;
+      --border2:   #252b42;
+      --accent:    #6c63ff;
+      --accent2:   #8b7fff;
+      --green:     #22d3a5;
+      --red:       #ff4d6d;
+      --yellow:    #f59e0b;
+      --text:      #e8eaf6;
+      --muted:     #7b82a8;
+      --radius:    14px;
+      --shadow:    0 8px 32px rgba(0,0,0,.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 64px;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(34,211,165,.06) 0%, transparent 60%);
+    }
+
+    /* ── Header ──────────────────────────────────────────────── */
+    .header {
+      text-align: center;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+    .header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(108,99,255,.15);
+      border: 1px solid rgba(108,99,255,.3);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent2);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .header .badge .dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .4; }
+    }
+    .header h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, #fff 30%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .header p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ── Main Layout ─────────────────────────────────────────── */
+    .main {
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 700px) {
+      .main { grid-template-columns: 1fr; }
+    }
+
+    /* ── Cards ────────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title svg { opacity: .6; }
+
+    /* ── Drop Zone ───────────────────────────────────────────── */
+    .drop-zone {
+      border: 2px dashed var(--border2);
+      border-radius: 10px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+      background: rgba(255,255,255,.018);
+      position: relative;
+    }
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(108,99,255,.07);
+      transform: translateY(-2px);
+    }
+    .drop-zone .icon {
+      font-size: 38px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .drop-zone h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .drop-zone p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .drop-zone .browse {
+      color: var(--accent2);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    #fileInput { display: none; }
+
+    /* ── Preview ─────────────────────────────────────────────── */
+    .preview-wrap {
+      margin-top: 18px;
+      display: none;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+      background: #0d0f18;
+    }
+    .preview-wrap.visible { display: block; }
+    .preview-wrap img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      display: block;
+    }
+    .preview-info {
+      padding: 10px 14px;
+      background: rgba(0,0,0,.3);
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ── Analyze Button ──────────────────────────────────────── */
+    .btn-analyze {
+      margin-top: 16px;
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), #8257e5);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(108,99,255,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-analyze:hover:not(:disabled) {
+      opacity: .88;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(108,99,255,.5);
+    }
+    .btn-analyze:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-analyze .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    .btn-analyze.loading .spinner { display: block; }
+    .btn-analyze.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Result Panel ─────────────────────────────────────────── */
+    .result-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 280px;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .result-placeholder .icon { font-size: 44px; opacity: .3; }
+
+    .result-card { display: none; }
+    .result-card.visible { display: block; animation: fadeUp .4s ease; }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(12px); }
+      to   { opacity:1; transform:translateY(0);    }
+    }
+
+    .verdict {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      border: 1px solid;
+    }
+    .verdict.authentic {
+      background: rgba(34,211,165,.08);
+      border-color: rgba(34,211,165,.25);
+    }
+    .verdict.tampered {
+      background: rgba(255,77,109,.08);
+      border-color: rgba(255,77,109,.25);
+    }
+    .verdict .v-icon { font-size: 32px; flex-shrink: 0; }
+    .verdict .v-label {
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: capitalize;
+      letter-spacing: -.01em;
+    }
+    .verdict.authentic .v-label { color: var(--green); }
+    .verdict.tampered  .v-label { color: var(--red);   }
+    .verdict .v-conf {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Score Bars ──────────────────────────────────────────── */
+    .scores-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .score-label {
+      width: 74px;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: capitalize;
+      flex-shrink: 0;
+    }
+    .score-bar-track {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 0%;
+      transition: width .8s cubic-bezier(.22,1,.36,1);
+    }
+    .score-bar-fill.authentic { background: linear-gradient(90deg, var(--green), #1aff9c); }
+    .score-bar-fill.tampered  { background: linear-gradient(90deg, var(--red),  #ff8fa3); }
+    .score-pct {
+      width: 46px;
+      text-align: right;
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── Meta ─────────────────────────────────────────────────── */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .meta-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .meta-item .m-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .meta-item .m-val {
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      word-break: break-all;
+    }
+
+    /* ── Config Bar ───────────────────────────────────────────── */
+    .config-bar {
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      flex-wrap: wrap;
+    }
+    .config-bar label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .config-bar input {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border2);
+      border-radius: 7px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .config-bar input:focus { border-color: var(--accent); }
+    .api-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: opacity .2s;
+    }
+    .api-status:hover { opacity: .8; }
+    .api-status.online  { color: var(--green); border-color: rgba(34,211,165,.35); background: rgba(34,211,165,.06); }
+    .api-status.offline { color: var(--red); border-color: rgba(255,77,109,.35);   background: rgba(255,77,109,.06); }
+    .api-status.checking{ color: var(--yellow); border-color: rgba(245,158,11,.35);background: rgba(245,158,11,.06); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+
+    /* ── History ──────────────────────────────────────────────── */
+    .history-section {
+      width: 100%;
+      max-width: 960px;
+      margin-top: 20px;
+      display: none;
+    }
+    .history-section.visible { display: block; }
+    .history-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .history-header h3 { font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .btn-clear {
+      background: none;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-clear:hover { color: var(--red); border-color: var(--red); }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .history-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: fadeUp .3s ease;
+    }
+    .history-item .h-thumb {
+      width: 44px; height: 44px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--border2);
+    }
+    .history-item .h-info { flex: 1; min-width: 0; }
+    .history-item .h-name {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-item .h-time { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
+    .h-badge {
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      flex-shrink: 0;
+    }
+    .h-badge.authentic { background: rgba(34,211,165,.12); color: var(--green); }
+    .h-badge.tampered  { background: rgba(255,77,109,.12);  color: var(--red); }
+    .h-conf { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--muted); flex-shrink: 0; width: 46px; text-align: right; }
+
+    /* ── Error toast ─────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1c0f14;
+      border: 1px solid rgba(255,77,109,.4);
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: #ff8fa3;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 999;
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      margin-top: 56px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      opacity: .5;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="badge"><span class="dot"></span> AI Forensic Tool</div>
+  <h1>Image Forgery Detector</h1>
+  <p>Upload any image to run the 3-stage ensemble model<br>
+     (ResNet50 + EfficientNet-B0 + Meta-Learner) and detect tampering.</p>
+</div>
+
+<!-- Config Bar -->
+<div class="config-bar">
+  <label for="apiUrl">API URL</label>
+  <input id="apiUrl" type="text" value="http://localhost:8000/predict" spellcheck="false" />
+  <div class="api-status checking" id="apiStatus" onclick="checkApi()" title="Click to recheck">
+    <span class="status-dot"></span>
+    <span id="statusText">Checking…</span>
+  </div>
+</div>
+
+<!-- Main Grid -->
+<div class="main">
+
+  <!-- Left: Upload -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+      Upload Image
+    </div>
+
+    <div class="drop-zone" id="dropZone">
+      <span class="icon">🖼️</span>
+      <h3>Drag & drop an image here</h3>
+      <p>or <span class="browse" onclick="document.getElementById('fileInput').click()">browse files</span></p>
+      <p style="margin-top:8px; font-size:11px;">JPG · PNG · TIFF · WEBP</p>
+    </div>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/tiff,image/webp,image/jpg" />
+
+    <div class="preview-wrap" id="previewWrap">
+      <img id="preview" src="" alt="Preview" />
+      <div class="preview-info">
+        <span id="previewName">—</span>
+        <span id="previewSize">—</span>
+      </div>
+    </div>
+
+    <button class="btn-analyze" id="analyzeBtn" disabled onclick="analyze()">
+      <div class="spinner"></div>
+      <span class="btn-text">🔍 Analyze Image</span>
+    </button>
+  </div>
+
+  <!-- Right: Result -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Detection Result
+    </div>
+
+    <div class="result-placeholder" id="placeholder">
+      <span class="icon">🧠</span>
+      <span>Upload an image and click <strong>Analyze</strong><br>to see the AI verdict.</span>
+    </div>
+
+    <div class="result-card" id="resultCard">
+
+      <div class="verdict" id="verdict">
+        <div class="v-icon" id="vIcon"></div>
+        <div>
+          <div class="v-label" id="vLabel"></div>
+          <div class="v-conf" id="vConf"></div>
+        </div>
+      </div>
+
+      <div class="scores-title">Model Score Breakdown</div>
+
+      <div class="score-row">
+        <div class="score-label">Authentic</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill authentic" id="barAuthentic"></div>
+        </div>
+        <div class="score-pct" id="pctAuthentic"></div>
+      </div>
+      <div class="score-row">
+        <div class="score-label">Tampered</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill tampered" id="barTampered"></div>
+        </div>
+        <div class="score-pct" id="pctTampered"></div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="m-label">File</div>
+          <div class="m-val" id="metaFile">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="m-label">Confidence</div>
+          <div class="m-val" id="metaConf">—</div>
+        </div>
+        <div class="meta-item">
+          <div class="m-label">Model</div>
+          <div class="m-val">Ensemble v1</div>
+        </div>
+        <div class="meta-item">
+          <div class="m-label">Timestamp</div>
+          <div class="m-val" id="metaTime">—</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- History -->
+<div class="history-section" id="historySection">
+  <div class="history-header">
+    <h3>📋 History</h3>
+    <button class="btn-clear" onclick="clearHistory()">Clear all</button>
+  </div>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<footer>Image Forgery Detector · 3-Stage Ensemble · For testing purposes only</footer>
+
+<script>
+  /* ── State ──────────────────────────────────────────────────── */
+  let currentFile = null;
+  const history   = [];
+
+  /* ── Elements ───────────────────────────────────────────────── */
+  const dropZone    = document.getElementById('dropZone');
+  const fileInput   = document.getElementById('fileInput');
+  const previewWrap = document.getElementById('previewWrap');
+  const preview     = document.getElementById('preview');
+  const previewName = document.getElementById('previewName');
+  const previewSize = document.getElementById('previewSize');
+  const analyzeBtn  = document.getElementById('analyzeBtn');
+  const placeholder = document.getElementById('placeholder');
+  const resultCard  = document.getElementById('resultCard');
+  const toastEl     = document.getElementById('toast');
+  const apiUrlInput = document.getElementById('apiUrl');
+
+  /* ── API Status ─────────────────────────────────────────────── */
+  async function checkApi() {
+    const el   = document.getElementById('apiStatus');
+    const text = document.getElementById('statusText');
+    el.className   = 'api-status checking';
+    text.textContent = 'Checking…';
+    try {
+      const base = apiUrlInput.value.replace('/predict', '');
+      const res  = await fetch(base + '/', { signal: AbortSignal.timeout(3000) });
+      if (res.ok) {
+        el.className   = 'api-status online';
+        text.textContent = 'API Online';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      el.className   = 'api-status offline';
+      text.textContent = 'API Offline';
+    }
+  }
+  checkApi();
+  setInterval(checkApi, 15000);
+
+  /* ── Drag & Drop ────────────────────────────────────────────── */
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  });
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) handleFile(fileInput.files[0]);
+  });
+
+  function handleFile(file) {
+    const allowed = ['image/jpeg','image/png','image/tiff','image/webp','image/jpg'];
+    if (!allowed.includes(file.type)) {
+      showToast('❌ Unsupported format. Use JPG, PNG, TIFF, or WEBP.');
+      return;
+    }
+    currentFile = file;
+    const reader = new FileReader();
+    reader.onload = e => {
+      preview.src    = e.target.result;
+      previewName.textContent = file.name.length > 28 ? file.name.slice(0,25)+'…' : file.name;
+      previewSize.textContent = formatBytes(file.size);
+      previewWrap.classList.add('visible');
+    };
+    reader.readAsDataURL(file);
+
+    // Reset result
+    resultCard.classList.remove('visible');
+    placeholder.style.display = 'flex';
+    analyzeBtn.disabled = false;
+  }
+
+  /* ── Analyze ────────────────────────────────────────────────── */
+  async function analyze() {
+    if (!currentFile) return;
+
+    analyzeBtn.disabled = true;
+    analyzeBtn.classList.add('loading');
+
+    const fd = new FormData();
+    fd.append('file', currentFile);
+
+    try {
+      const res  = await fetch(apiUrlInput.value, { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showToast('❌ ' + (data.detail || data.error || 'Server error'));
+        return;
+      }
+
+      showResult(data, currentFile.name);
+      addHistory(data, currentFile);
+
+    } catch (err) {
+      showToast('❌ Cannot reach the API. Is the server running on port 8000?');
+    } finally {
+      analyzeBtn.disabled = false;
+      analyzeBtn.classList.remove('loading');
+    }
+  }
+
+  /* ── Show Result ─────────────────────────────────────────────── */
+  function showResult(data, filename) {
+    const isAuthentic = data.label === 'authentic';
+
+    placeholder.style.display = 'none';
+
+    const verdict = document.getElementById('verdict');
+    verdict.className = 'verdict ' + data.label;
+    document.getElementById('vIcon').textContent  = isAuthentic ? '✅' : '⚠️';
+    document.getElementById('vLabel').textContent = data.label;
+    document.getElementById('vConf').textContent  = `Confidence: ${(data.confidence * 100).toFixed(1)}%`;
+
+    const auth = data.scores?.authentic ?? (isAuthentic ? data.confidence : 1 - data.confidence);
+    const tamp = data.scores?.tampered  ?? (isAuthentic ? 1 - data.confidence : data.confidence);
+
+    // Animate bars (small delay so CSS transition triggers)
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.getElementById('barAuthentic').style.width = (auth * 100) + '%';
+        document.getElementById('barTampered').style.width  = (tamp * 100) + '%';
+      }, 80);
+    });
+
+    document.getElementById('pctAuthentic').textContent = (auth * 100).toFixed(1) + '%';
+    document.getElementById('pctTampered').textContent  = (tamp * 100).toFixed(1) + '%';
+
+    document.getElementById('metaFile').textContent = filename.length > 18 ? filename.slice(0,16)+'…' : filename;
+    document.getElementById('metaConf').textContent = (data.confidence * 100).toFixed(2) + '%';
+    document.getElementById('metaTime').textContent = new Date().toLocaleTimeString();
+
+    resultCard.classList.add('visible');
+  }
+
+  /* ── History ─────────────────────────────────────────────────── */
+  function addHistory(data, file) {
+    const entry = { data, file, thumbSrc: preview.src, time: new Date() };
+    history.unshift(entry);
+
+    const section = document.getElementById('historySection');
+    const list    = document.getElementById('historyList');
+    section.classList.add('visible');
+
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.innerHTML = `
+      <img class="h-thumb" src="${entry.thumbSrc}" alt="" />
+      <div class="h-info">
+        <div class="h-name">${file.name}</div>
+        <div class="h-time">${entry.time.toLocaleTimeString()}</div>
+      </div>
+      <span class="h-badge ${data.label}">${data.label}</span>
+      <span class="h-conf">${(data.confidence*100).toFixed(1)}%</span>
+    `;
+    list.prepend(item);
+  }
+
+  function clearHistory() {
+    document.getElementById('historyList').innerHTML = '';
+    document.getElementById('historySection').classList.remove('visible');
+  }
+
+  /* ── Toast ─────────────────────────────────────────────────────── */
+  let toastTimer;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 4000);
+  }
+
+  /* ── Helpers ─────────────────────────────────────────────────── */
+  function formatBytes(b) {
+    if (b < 1024)        return b + ' B';
+    if (b < 1048576)     return (b/1024).toFixed(1) + ' KB';
+    return (b/1048576).toFixed(1) + ' MB';
+  }
+</script>
+</body>
+</html>
