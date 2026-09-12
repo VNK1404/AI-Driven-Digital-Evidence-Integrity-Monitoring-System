@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake News Detector — AI Evidence Integrity Monitor</title>
+  <meta name="description" content="AI-powered multi-modal fake news detection using OCR, RoBERTa, FAISS, Google Fact Check, NewsAPI, Groq, heuristic analysis, and source credibility scoring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────── */
+    :root {
+      --bg-base:        #070b14;
+      --bg-card:        #0d1526;
+      --bg-card2:       #111d35;
+      --bg-glass:       rgba(13, 21, 38, 0.7);
+      --border:         rgba(99, 179, 237, 0.12);
+      --border-glow:    rgba(99, 179, 237, 0.35);
+      --accent:         #63b3ed;
+      --accent-bright:  #90cdf4;
+      --accent-dim:     #2b6cb0;
+      --purple:         #b794f4;
+      --green:          #68d391;
+      --red:            #fc8181;
+      --yellow:         #f6ad55;
+      --text-primary:   #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted:     #4a5568;
+      --radius:         16px;
+      --radius-sm:      10px;
+      --shadow:         0 24px 64px rgba(0, 0, 0, 0.6);
+      --transition:     0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── RESET ────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATED BACKGROUND ────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(99,179,237,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(183,148,244,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────── */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99,179,237,0.08);
+      border: 1px solid var(--border-glow);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .header-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .header h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #e2e8f0 0%, var(--accent) 60%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ─── CARD ───────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ─── DROP ZONE ───────────────────────────────────── */
+    #drop-zone {
+      border: 2px dashed var(--border-glow);
+      border-radius: var(--radius);
+      padding: 56px 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      background: rgba(99,179,237,0.02);
+    }
+
+    #drop-zone:hover,
+    #drop-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(99,179,237,0.06);
+      box-shadow: 0 0 0 4px rgba(99,179,237,0.08), inset 0 0 40px rgba(99,179,237,0.04);
+    }
+
+    #drop-zone .drop-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--accent-dim), var(--purple));
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(99,179,237,0.25);
+      transition: var(--transition);
+    }
+
+    #drop-zone:hover .drop-icon {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(99,179,237,0.35);
+    }
+
+    #drop-zone .drop-icon svg {
+      width: 32px; height: 32px;
+      stroke: white;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #drop-zone h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    #drop-zone p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    #drop-zone p span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Hidden file input */
+    #file-input { display: none; }
+
+    /* ─── BUTTONS ─────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-dim), #553c9a);
+      color: white;
+      box-shadow: 0 4px 16px rgba(99,179,237,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,179,237,0.4);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-glow);
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(99,179,237,0.08);
+      border-color: var(--accent);
+    }
+
+    /* ─── FILE PREVIEW ───────────────────────────────── */
+    #file-preview {
+      display: none;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      gap: 14px;
+    }
+
+    #file-preview.show { display: flex; }
+
+    .file-icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 22px;
+    }
+
+    .file-icon-wrap.img { background: rgba(104, 211, 145, 0.15); }
+    .file-icon-wrap.pdf { background: rgba(252, 129, 129, 0.15); }
+
+    .file-info { flex: 1; min-width: 0; }
+
+    .file-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .file-remove {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .file-remove:hover { color: var(--red); background: rgba(252,129,129,0.1); }
+
+    /* ─── ANALYZE BUTTON ROW ─────────────────────────── */
+    .action-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    #analyze-btn {
+      padding: 14px 48px;
+      font-size: 15px;
+    }
+
+    #analyze-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ─── PROGRESS ───────────────────────────────────── */
+    #progress-section {
+      display: none;
+      margin-top: 32px;
+    }
+
+    #progress-section.show { display: block; }
+
+    .progress-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .progress-bar-wrap {
+      height: 6px;
+      background: rgba(99,179,237,0.1);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--purple));
+      background-size: 200% 100%;
+      animation: shimmer 1.5s linear infinite;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .progress-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .progress-step.active { color: var(--accent); }
+    .progress-step.done   { color: var(--green); }
+
+    .step-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+      transition: var(--transition);
+    }
+
+    .progress-step.active .step-icon {
+      border-color: var(--accent);
+      background: rgba(99,179,237,0.15);
+      animation: spin-border 1s linear infinite;
+    }
+
+    @keyframes spin-border {
+      to { transform: rotate(360deg); }
+    }
+
+    .progress-step.done .step-icon {
+      background: rgba(104,211,145,0.15);
+      border-color: var(--green);
+    }
+
+    /* ─── RESULT CARD ─────────────────────────────────── */
+    #result-section {
+      display: none;
+      margin-top: 36px;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    #result-section.show { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── VERDICT BANNER ──────────────────────────────── */
+    .verdict-banner {
+      border-radius: 14px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verdict-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+    }
+
+    .verdict-banner.real {
+      background: rgba(104, 211, 145, 0.08);
+      border: 1.5px solid rgba(104, 211, 145, 0.3);
+    }
+    .verdict-banner.real::before { background: var(--green); }
+
+    .verdict-banner.fake {
+      background: rgba(252, 129, 129, 0.08);
+      border: 1.5px solid rgba(252, 129, 129, 0.3);
+    }
+    .verdict-banner.fake::before { background: var(--red); }
+
+    .verdict-banner.uncertain {
+      background: rgba(246, 173, 85, 0.08);
+      border: 1.5px solid rgba(246, 173, 85, 0.3);
+    }
+    .verdict-banner.uncertain::before { background: var(--yellow); }
+
+    .verdict-emoji { font-size: 44px; line-height: 1; flex-shrink: 0; }
+
+    .verdict-text h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .verdict-banner.real    .verdict-text h2 { color: var(--green); }
+    .verdict-banner.fake    .verdict-text h2 { color: var(--red); }
+    .verdict-banner.uncertain .verdict-text h2 { color: var(--yellow); }
+
+    .verdict-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .verdict-meta {
+      margin-left: auto;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .confidence-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .confidence-badge.high   { background: rgba(104,211,145,0.15); color: var(--green); }
+    .confidence-badge.medium { background: rgba(246,173,85,0.15);  color: var(--yellow); }
+    .confidence-badge.low    { background: rgba(148,163,184,0.15); color: var(--text-secondary); }
+
+    .score-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .score-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── RESULT GRID ─────────────────────────────────── */
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 560px) { .result-grid { grid-template-columns: 1fr; } }
+
+    /* ─── API RESULTS ─────────────────────────────────── */
+    .api-results-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .api-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .api-row:last-child { border-bottom: none; }
+
+    .api-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .api-dot {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .api-dot.google { background: rgba(246,173,85,0.15); }
+    .api-dot.news   { background: rgba(104,211,145,0.15); }
+
+    .api-label {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 100px;
+    }
+
+    .api-label.real       { background: rgba(104,211,145,0.12); color: var(--green); }
+    .api-label.fake       { background: rgba(252,129,129,0.12); color: var(--red); }
+    .api-label.uncertain  { background: rgba(246,173,85,0.12);  color: var(--yellow); }
+    .api-label.misleading { background: rgba(246,173,85,0.12);  color: var(--yellow); }
+    .api-label.unknown    { background: rgba(148,163,184,0.1);  color: var(--text-muted); }
+
+    /* ─── CLAIM + TEXT CARDS ──────────────────────────── */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .claim-text {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-primary);
+      font-style: italic;
+    }
+
+    .extracted-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-height: 140px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .extracted-text::-webkit-scrollbar { width: 4px; }
+    .extracted-text::-webkit-scrollbar-track { background: transparent; }
+    .extracted-text::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 4px; }
+
+    /* ─── SCORE BAR ───────────────────────────────────── */
+    .score-bar-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .score-bar-track {
+      position: relative;
+      height: 10px;
+      background: linear-gradient(90deg, rgba(252,129,129,0.3), rgba(148,163,184,0.15), rgba(104,211,145,0.3));
+      border-radius: 100px;
+      margin: 16px 0 8px;
+    }
+
+    .score-bar-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      border: 2px solid var(--accent);
+      transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .score-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ─── ERROR CARD ──────────────────────────────────── */
+    #error-section {
+      display: none;
+      margin-top: 24px;
+      background: rgba(252,129,129,0.06);
+      border: 1px solid rgba(252,129,129,0.25);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    #error-section.show { display: flex; align-items: flex-start; gap: 14px; }
+
+    .error-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+
+    .error-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+
+    .error-msg { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ─── RESET ROW ───────────────────────────────────── */
+    .reset-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── API WEIGHTS LEGEND ──────────────────────────── */
+    .weights-bar {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 8px;
+      margin-top: 10px;
+      gap: 2px;
+    }
+
+    .w-seg {
+      border-radius: 2px;
+      height: 100%;
+    }
+
+    .w-seg.google { flex: 0.3; background: var(--yellow); }
+    .w-seg.news   { flex: 0.2; background: var(--green); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      margin-top: 64px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ─── UTILITY ─────────────────────────────────────── */
+    .dashboard-section {
+      margin-top: 36px;
+    }
+
+    .dashboard-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .dashboard-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .dashboard-updated {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 760px) { .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 420px) { .metric-grid { grid-template-columns: 1fr; } }
+
+    .metric-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 82px;
+    }
+
+    .metric-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 760px) { .chart-grid { grid-template-columns: 1fr; } }
+
+    .chart-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 260px;
+    }
+
+    .chart-panel.wide {
+      grid-column: 1 / -1;
+    }
+
+    .chart-panel canvas {
+      width: 100%;
+      max-height: 220px;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ── HEADER ───────────────────────────────────── -->
+  <header class="header">
+    <div class="header-badge">
+      <span class="dot"></span>
+      AI Evidence Integrity Monitor
+    </div>
+    <h1>Multi-Modal Fake News<br>Detection Engine</h1>
+    <p>Upload an image or PDF document. The system extracts text via OCR,
+       cross-checks with RoBERTa, FAISS, Google Fact Check, NewsAPI, Groq, heuristic analysis, and source credibility,
+       and returns a weighted credibility verdict.</p>
+  </header>
+
+  <!-- ── UPLOAD CARD ───────────────────────────────── -->
+  <div class="card">
+
+    <!-- Drop Zone -->
+    <div id="drop-zone" role="button" aria-label="File upload area" tabindex="0">
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <h3>Drop your file here</h3>
+      <p>Supports <span>JPG, PNG, BMP</span> images and <span>PDF</span> documents · Max 20 MB</p>
+      <label for="file-input" class="btn btn-primary" style="cursor:pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Browse File
+      </label>
+      <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.bmp,.tiff,.webp,.pdf" />
+    </div>
+
+    <!-- File Preview -->
+    <div id="file-preview">
+      <div class="file-icon-wrap" id="file-icon-wrap">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name-display">filename.jpg</div>
+        <div class="file-size" id="file-size-display">0 KB</div>
+      </div>
+      <button class="file-remove" id="remove-file-btn" title="Remove file">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Analyze Button -->
+    <div class="action-row">
+      <button id="analyze-btn" class="btn btn-primary" disabled>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Analyze Document
+      </button>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress-section">
+      <p class="progress-title">Processing</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-steps" id="progress-steps">
+        <div class="progress-step" id="step-ocr">
+          <div class="step-icon">1</div>
+          <span>Extracting text via OCR</span>
+        </div>
+        <div class="progress-step" id="step-clean">
+          <div class="step-icon">2</div>
+          <span>Cleaning &amp; validating text</span>
+        </div>
+        <div class="progress-step" id="step-claim">
+          <div class="step-icon">3</div>
+          <span>Extracting main claim</span>
+        </div>
+        <div class="progress-step" id="step-apis">
+          <div class="step-icon">4</div>
+          <span>Querying AI APIs in parallel</span>
+        </div>
+        <div class="progress-step" id="step-decision">
+          <div class="step-icon">5</div>
+          <span>Computing weighted decision</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="error-section">
+      <div class="error-icon">⚠️</div>
+      <div>
+        <div class="error-title">Analysis Failed</div>
+        <div class="error-msg" id="error-msg">Something went wrong.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RESULTS ─────────────────────────────────────── -->
+  <div id="result-section">
+
+    <!-- Verdict Banner -->
+    <div class="verdict-banner" id="verdict-banner">
+      <div class="verdict-emoji" id="verdict-emoji">🔍</div>
+      <div class="verdict-text">
+        <h2 id="verdict-label">Processing…</h2>
+        <p id="verdict-file">—</p>
+      </div>
+      <div class="verdict-meta">
+        <div class="confidence-badge" id="confidence-badge">—</div>
+        <div class="score-display" id="score-display">—</div>
+        <div class="score-label">Weighted Score</div>
+      </div>
+    </div>
+
+    <!-- Score Bar -->
+    <div class="score-bar-section">
+      <p class="section-title">Credibility Score</p>
+      <div class="score-bar-track">
+        <div class="score-bar-thumb" id="score-thumb"></div>
+      </div>
+      <div class="score-bar-labels">
+        <span style="color: var(--red);">← Fake (−1)</span>
+        <span>Uncertain (0)</span>
+        <span style="color: var(--green);">Real (+1) →</span>
+      </div>
+    </div>
+
+    <!-- API Results & Claim (2-col) -->
+    <div class="result-grid">
+
+      <!-- API Results -->
+      <div class="api-results-card">
+        <p class="section-title">API Verdicts</p>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--blue);">🤖</div> RoBERTa (Local)</div>
+          <span class="api-label" id="lbl-roberta">—</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--purple);">🧬</div> FAISS Similarity</div>
+          <span class="api-label" id="lbl-similarity">—</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--red);">🔍</div> Google Fact Check</div>
+          <span class="api-label" id="lbl-google">—</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--green);">📰</div> NewsAPI</div>
+          <span class="api-label" id="lbl-news">—</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--yellow);">🗞️</div> Groq LLM</div>
+          <span class="api-label" id="lbl-groq">—</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--purple);">!</div> Heuristic</div>
+          <span class="api-label" id="lbl-heuristic">-</span>
+        </div>
+        <div class="api-row">
+          <div class="api-name"><div class="api-dot" style="background:var(--border);">🏢</div> Source Credibility</div>
+          <span class="api-label" id="lbl-source">—</span>
+        </div>
+
+        <!-- Weight bar -->
+        <div style="margin-top: 16px;">
+          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 6px;">WEIGHTS: RoBERTa 20% · FAISS 20% · Google 20% · News 10% · Groq 25% · Heuristic 5%</p>
+          <div class="weights-bar">
+            <div class="w-seg" style="flex:20; background:var(--blue);"></div>
+            <div class="w-seg" style="flex:20; background:var(--purple);"></div>
+            <div class="w-seg" style="flex:20; background:var(--red);"></div>
+            <div class="w-seg" style="flex:10; background:var(--green);"></div>
+            <div class="w-seg" style="flex:25; background:var(--yellow);"></div>
+            <div class="w-seg" style="flex:5; background:var(--purple);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extracted Claim -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="info-card" style="margin-bottom: 0; flex: 1;">
+          <p class="section-title">Extracted Claim</p>
+          <p class="claim-text" id="claim-text">—</p>
+        </div>
+        <div class="info-card" style="margin-bottom: 0; flex: 1;">
+          <p class="section-title">Raw Extracted Text</p>
+          <div class="extracted-text" id="extracted-text-display">—</div>
+        </div>
+      </div>
+    </div>
+
+<!-- Explanation Panel -->
+<div class="info-card">
+  <p class="section-title">Explanation</p>
+  <ul id="explanation-reasons" style="list-style-type: disc; margin-left: 20px; color: var(--text-secondary);"></ul>
+</div>
+
+<!-- Confidence Breakdown Panel -->
+<div class="info-card">
+  <p class="section-title">Confidence Breakdown</p>
+  <ul id="breakdown-list" style="list-style-type: disc; margin-left: 20px; color: var(--text-secondary);"></ul>
+</div>
+
+<!-- Similar Claims Panel -->
+<div class="info-card">
+  <p class="section-title">Similar Past Claims (FAISS)</p>
+  <ul id="similar-claims-list" style="list-style-type: disc; margin-left: 20px; color: var(--text-secondary);"></ul>
+</div>
+
+<!-- Source Credibility Panel -->
+<div class="info-card">
+  <p class="section-title">Source Credibility Evidence</p>
+  <ul id="source-evidence-list" style="list-style-type: disc; margin-left: 20px; color: var(--text-secondary);"></ul>
+</div>
+
+<!-- Reset -->
+    <div class="reset-row">
+      <button id="download-report-btn" class="btn btn-primary" style="display:none;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF Report
+      </button>
+      <button id="reset-btn" class="btn btn-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.38"/></svg>
+        Analyze Another File
+      </button>
+    </div>
+
+  </div><!-- /result-section -->
+
+  <section class="dashboard-section" id="analytics-dashboard">
+    <div class="dashboard-header">
+      <h2>Analytics Dashboard</h2>
+      <span class="dashboard-updated" id="analytics-updated">Loading metrics</span>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-tile">
+        <div class="metric-label">Total Analyses</div>
+        <div class="metric-value" id="metric-total">0</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Fake</div>
+        <div class="metric-value" id="metric-fake">0%</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Real</div>
+        <div class="metric-value" id="metric-real">0%</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Uncertain</div>
+        <div class="metric-value" id="metric-uncertain">0%</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Avg Confidence</div>
+        <div class="metric-value" id="metric-confidence">0%</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Avg Response</div>
+        <div class="metric-value" id="metric-latency">0.00s</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">Cache Hit</div>
+        <div class="metric-value" id="metric-cache">0%</div>
+      </div>
+      <div class="metric-tile">
+        <div class="metric-label">API Success</div>
+        <div class="metric-value" id="metric-api-success">0%</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-panel">
+        <p class="section-title">Verdict Mix</p>
+        <canvas id="verdict-chart" aria-label="Verdict distribution chart"></canvas>
+      </div>
+      <div class="chart-panel">
+        <p class="section-title">Common Topics</p>
+        <canvas id="topics-chart" aria-label="Most common topics chart"></canvas>
+      </div>
+      <div class="chart-panel wide">
+        <p class="section-title">Latency Trend</p>
+        <canvas id="latency-chart" aria-label="Latency trend chart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    AI-Driven Digital Evidence Integrity Monitoring System &nbsp;·&nbsp; Multi-Modal Fake News Detection Module
+  </footer>
+</div><!-- /page-wrapper -->
+
+<script>
+// ── DOM REFS ───────────────────────────────────────────────────────────────
+const dropZone        = document.getElementById('drop-zone');
+const fileInput       = document.getElementById('file-input');
+const filePreview     = document.getElementById('file-preview');
+const fileIconWrap    = document.getElementById('file-icon-wrap');
+const fileNameDisplay = document.getElementById('file-name-display');
+const fileSizeDisplay = document.getElementById('file-size-display');
+const removeFileBtn   = document.getElementById('remove-file-btn');
+const analyzeBtn      = document.getElementById('analyze-btn');
+const progressSection = document.getElementById('progress-section');
+const progressFill    = document.getElementById('progress-fill');
+const errorSection    = document.getElementById('error-section');
+const errorMsg        = document.getElementById('error-msg');
+const resultSection   = document.getElementById('result-section');
+const downloadReportBtn = document.getElementById('download-report-btn');
+const resetBtn        = document.getElementById('reset-btn');
+
+const steps = ['step-ocr','step-clean','step-claim','step-apis','step-decision'];
+const STEP_DURATION = [1200, 600, 500, 8000, 800];  // ms per step
+
+let selectedFile = null;
+let lastAnalysisResult = null;
+let lastAnalysisId = null;
+let verdictChart = null;
+let topicsChart = null;
+let latencyChart = null;
+
+// ── FILE SELECTION ─────────────────────────────────────────────────────────
+function formatBytes(b) {
+  return b < 1024 * 1024
+    ? (b / 1024).toFixed(1) + ' KB'
+    : (b / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function showFilePreview(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const isImg = ['jpg','jpeg','png','bmp','tiff','webp'].includes(ext);
+  fileIconWrap.textContent = isImg ? '🖼️' : '📄';
+  fileIconWrap.className = 'file-icon-wrap ' + (isImg ? 'img' : 'pdf');
+  fileNameDisplay.textContent = file.name;
+  fileSizeDisplay.textContent = formatBytes(file.size);
+  filePreview.classList.add('show');
+  analyzeBtn.disabled = false;
+}
+
+function clearFile() {
+  selectedFile = null;
+  fileInput.value = '';
+  filePreview.classList.remove('show');
+  analyzeBtn.disabled = true;
+}
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) {
+    selectedFile = fileInput.files[0];
+    showFilePreview(selectedFile);
+  }
+});
+
+removeFileBtn.addEventListener('click', clearFile);
+
+// ── DRAG AND DROP ──────────────────────────────────────────────────────────
+['dragenter','dragover'].forEach(ev =>
+  dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.add('dragover'); })
+);
+['dragleave','drop'].forEach(ev =>
+  dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.remove('dragover'); })
+);
+
+dropZone.addEventListener('drop', e => {
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const allowed = /\.(jpg|jpeg|png|bmp|tiff|webp|pdf)$/i;
+  if (!allowed.test(file.name)) {
+    showError('Unsupported file type. Please upload JPG, PNG, BMP, TIFF, WEBP or PDF.');
+    return;
+  }
+  selectedFile = file;
+  showFilePreview(file);
+});
+
+dropZone.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') fileInput.click();
+});
+
+// ── PROGRESS ANIMATION ──────────────────────────────────────────────────────
+async function animateProgress() {
+  progressSection.classList.add('show');
+  progressFill.style.width = '0%';
+
+  const totalSteps = steps.length;
+  for (let i = 0; i < totalSteps; i++) {
+    const el = document.getElementById(steps[i]);
+    // Mark previous as done
+    if (i > 0) {
+      const prev = document.getElementById(steps[i - 1]);
+      prev.classList.remove('active');
+      prev.classList.add('done');
+      prev.querySelector('.step-icon').textContent = '✓';
+    }
+    el.classList.add('active');
+    const pct = Math.round(((i + 1) / totalSteps) * 90);
+    progressFill.style.width = pct + '%';
+    await new Promise(r => setTimeout(r, STEP_DURATION[i]));
+  }
+  // All done
+  const last = document.getElementById(steps[totalSteps - 1]);
+  last.classList.remove('active');
+  last.classList.add('done');
+  last.querySelector('.step-icon').textContent = '✓';
+  progressFill.style.width = '100%';
+}
+
+// ── SHOW RESULT ────────────────────────────────────────────────────────────
+function labelClass(v) {
+  const l = (v || '').toLowerCase();
+  if (l === 'real')        return 'real';
+  if (l === 'fake')        return 'fake';
+  if (l === 'misleading')  return 'misleading';
+  if (l === 'uncertain')   return 'uncertain';
+  return 'unknown';
+}
+
+function populateResults(data) {
+  lastAnalysisResult = data;
+  const decision    = data.final_decision || 'Uncertain';
+  const confidence  = data.confidence     || 'Low';
+  const score       = typeof data.score === 'number' ? data.score : 0;
+  const claim       = data.claim          || '—';
+  const extracted   = data.extracted_text || '—';
+  const filename    = data.filename       || '—';
+  const apis        = data.api_results    || {};
+
+  // Banner
+  const banner = document.getElementById('verdict-banner');
+  banner.className = 'verdict-banner ' + decision.toLowerCase();
+
+  const emoji = { Real: '✅', Fake: '❌', Uncertain: '⚠️' };
+  document.getElementById('verdict-emoji').textContent = emoji[decision] || '🔍';
+  document.getElementById('verdict-label').textContent = decision.toUpperCase();
+  document.getElementById('verdict-file').textContent  = 'File: ' + filename;
+
+  const confBadge = document.getElementById('confidence-badge');
+  confBadge.textContent  = confidence + ' Confidence';
+  confBadge.className    = 'confidence-badge ' + confidence.toLowerCase();
+
+  const sign = score > 0 ? '+' : '';
+  document.getElementById('score-display').textContent = sign + score.toFixed(4);
+
+  // Score thumb: map [-1, +1] → [0%, 100%]
+  const thumbPct = ((score + 1) / 2) * 100;
+  document.getElementById('score-thumb').style.left = thumbPct.toFixed(1) + '%';
+
+  // API labels
+  function setLabel(id, val) {
+    const el = document.getElementById(id);
+    el.textContent = val || 'Unknown';
+    el.className = 'api-label ' + labelClass(val);
+  }
+  setLabel('lbl-roberta', apis.roberta);
+  setLabel('lbl-similarity', apis.similarity);
+  setLabel('lbl-google', apis.google_fact_check);
+  setLabel('lbl-news',   apis.news_api);
+  setLabel('lbl-groq', apis.groq);
+  setLabel('lbl-heuristic', apis.heuristic);
+  setLabel('lbl-source', apis.source);
+
+  // Claim & text
+  document.getElementById('claim-text').textContent = claim;
+  document.getElementById('extracted-text-display').textContent = extracted;
+
+  // Explanation and confidence breakdown
+const explanation = data.explanation || {};
+const reasons = explanation.reasons || [];
+const breakdown = explanation.confidence_breakdown || {};
+// Populate reasons list
+const reasonsList = document.getElementById('explanation-reasons');
+reasonsList.innerHTML = '';
+reasons.forEach(r => {
+  const li = document.createElement('li');
+  li.textContent = r;
+  reasonsList.appendChild(li);
+});
+// Populate breakdown list
+const breakdownList = document.getElementById('breakdown-list');
+breakdownList.innerHTML = '';
+Object.entries(breakdown).forEach(([key, val]) => {
+  if (val && typeof val === 'object' && 'weight_pct' in val) {
+    const li = document.createElement('li');
+    li.textContent = `${key}: ${val.weight_pct}%`;
+    breakdownList.appendChild(li);
+  }
+});
+
+// Populate Similar Claims list
+const similarList = document.getElementById('similar-claims-list');
+similarList.innerHTML = '';
+const matches = (explanation.evidence && explanation.evidence.similarity_evidence && explanation.evidence.similarity_evidence.top_matches) || [];
+if (matches.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'No strongly similar past claims found.';
+    similarList.appendChild(li);
+} else {
+    matches.forEach(m => {
+        const li = document.createElement('li');
+        const score = typeof m.score === 'number' ? m.score.toFixed(2) : '0.00';
+        li.textContent = `${m.label} (Score: ${score}): ${m.title || ''}`;
+        similarList.appendChild(li);
+    });
+}
+
+// Populate Source Credibility Evidence list
+const sourceList = document.getElementById('source-evidence-list');
+sourceList.innerHTML = '';
+const sourceEv = (explanation.evidence && explanation.evidence.source_evidence) || {};
+const sourcesFound = sourceEv.sources_found || [];
+if (sourcesFound.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'No trusted sources detected in the query or API outputs.';
+    sourceList.appendChild(li);
+} else {
+    sourcesFound.forEach(s => {
+        const li = document.createElement('li');
+        if (s && typeof s === 'object') {
+          const score = typeof s.score === 'number' ? s.score.toFixed(2) : '0.50';
+          li.textContent = `${s.domain || 'Unknown source'} (Credibility: ${score})`;
+        } else {
+          li.textContent = String(s);
+        }
+        sourceList.appendChild(li);
+    });
+}
+
+resultSection.classList.add('show');
+  if (downloadReportBtn) {
+    downloadReportBtn.style.display = 'inline-flex';
+    downloadReportBtn.disabled = false;
+  }
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function downloadPdfReport() {
+  if (!lastAnalysisResult) return;
+
+  downloadReportBtn.disabled = true;
+  try {
+    const response = await fetch('/download_report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        analysis_id: lastAnalysisId,
+        result: lastAnalysisResult,
+      }),
+    });
+
+    if (!response.ok) {
+      const payload = await response.json().catch(() => ({}));
+      throw new Error(payload.error || `Report download failed (${response.status})`);
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'fake_news_report.pdf';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    showError(err.message || 'Could not generate the PDF report.');
+  } finally {
+    downloadReportBtn.disabled = false;
+  }
+}
+
+function showError(msg) {
+  errorMsg.textContent = msg;
+  errorSection.classList.add('show');
+  progressSection.classList.remove('show');
+}
+
+function pct(value) {
+  return Math.round((Number(value) || 0) * 100) + '%';
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function chartOptions() {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8' } }
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(99,179,237,0.08)' } },
+      y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(99,179,237,0.08)' }, beginAtZero: true }
+    }
+  };
+}
+
+function replaceChart(existing, canvasId, config) {
+  if (existing) existing.destroy();
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || typeof Chart === 'undefined') return null;
+  return new Chart(canvas, config);
+}
+
+function updateDashboardCharts(summary, performance) {
+  const verdictData = [
+    summary.real_count || 0,
+    summary.fake_count || 0,
+    summary.uncertain_count || 0
+  ];
+
+  verdictChart = replaceChart(verdictChart, 'verdict-chart', {
+    type: 'pie',
+    data: {
+      labels: ['Real', 'Fake', 'Uncertain'],
+      datasets: [{
+        data: verdictData,
+        backgroundColor: ['#68d391', '#fc8181', '#f6ad55']
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#94a3b8' } } }
+    }
+  });
+
+  const topics = summary.most_common_topics || [];
+  topicsChart = replaceChart(topicsChart, 'topics-chart', {
+    type: 'bar',
+    data: {
+      labels: topics.length ? topics.map(t => t.topic) : ['No data'],
+      datasets: [{
+        label: 'Count',
+        data: topics.length ? topics.map(t => t.count) : [0],
+        backgroundColor: '#63b3ed'
+      }]
+    },
+    options: chartOptions()
+  });
+
+  const trend = performance.latency_trend || [];
+  latencyChart = replaceChart(latencyChart, 'latency-chart', {
+    type: 'line',
+    data: {
+      labels: trend.length ? trend.map((_, i) => i + 1) : [1],
+      datasets: [{
+        label: 'Pipeline seconds',
+        data: trend.length ? trend.map(item => Number(item.pipeline_duration || 0).toFixed(3)) : [0],
+        borderColor: '#b794f4',
+        backgroundColor: 'rgba(183,148,244,0.14)',
+        tension: 0.35,
+        fill: true
+      }]
+    },
+    options: chartOptions()
+  });
+}
+
+async function loadAnalyticsDashboard() {
+  try {
+    const response = await fetch('/api/analytics');
+    if (!response.ok) throw new Error('analytics unavailable');
+    const payload = await response.json();
+    const summary = payload.summary || {};
+    const performance = payload.performance || {};
+    const total = summary.total_analyses || 0;
+    const rate = count => total ? (count / total) : 0;
+
+    setText('metric-total', String(total));
+    setText('metric-fake', pct(rate(summary.fake_count || 0)));
+    setText('metric-real', pct(rate(summary.real_count || 0)));
+    setText('metric-uncertain', pct(rate(summary.uncertain_count || 0)));
+    setText('metric-confidence', pct(summary.average_confidence || 0));
+    setText('metric-latency', (summary.average_latency || 0).toFixed(2) + 's');
+    setText('metric-cache', pct(summary.cache_hit_rate || 0));
+    setText('metric-api-success', pct(summary.api_success_rate || 0));
+    setText('analytics-updated', 'Updated ' + new Date().toLocaleTimeString());
+
+    updateDashboardCharts(summary, performance);
+  } catch (err) {
+    setText('analytics-updated', 'Metrics unavailable');
+    console.warn(err);
+  }
+}
+
+// ── RESET ──────────────────────────────────────────────────────────────────
+function resetUI() {
+  clearFile();
+  lastAnalysisResult = null;
+  lastAnalysisId = null;
+  resultSection.classList.remove('show');
+  errorSection.classList.remove('show');
+  progressSection.classList.remove('show');
+  if (downloadReportBtn) {
+    downloadReportBtn.style.display = 'none';
+    downloadReportBtn.disabled = false;
+  }
+  progressFill.style.width = '0%';
+  steps.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active', 'done');
+    el.querySelector('.step-icon').textContent = id.replace('step-', '').slice(-1).toUpperCase()[0];
+  });
+  // Restore step numbers
+  steps.forEach((id, i) => {
+    document.getElementById(id).querySelector('.step-icon').textContent = i + 1;
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+resetBtn.addEventListener('click', resetUI);
+downloadReportBtn.addEventListener('click', downloadPdfReport);
+
+// ── ANALYZE ────────────────────────────────────────────────────────────────
+analyzeBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+
+  // Reset state
+  errorSection.classList.remove('show');
+  resultSection.classList.remove('show');
+  analyzeBtn.disabled = true;
+  steps.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active', 'done');
+    el.querySelector('.step-icon').textContent = i + 1;
+  });
+
+  // Animate progress in parallel with actual fetch
+  animateProgress();
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+
+  try {
+    const response = await fetch('/analyze', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+    lastAnalysisId = response.headers.get('X-Analysis-Id');
+
+    // Ensure progress reaches 100%
+    progressFill.style.width = '100%';
+    await new Promise(r => setTimeout(r, 500));
+    progressSection.classList.remove('show');
+
+    if (!response.ok) {
+      showError(data.error || `Server error (${response.status})`);
+      analyzeBtn.disabled = false;
+      return;
+    }
+
+    populateResults(data);
+    loadAnalyticsDashboard();
+
+  } catch (err) {
+    progressSection.classList.remove('show');
+    showError('Network error — could not reach the server. Is it running?');
+    console.error(err);
+  }
+
+  analyzeBtn.disabled = false;
+});
+
+document.addEventListener('DOMContentLoaded', loadAnalyticsDashboard);
+</script>
+</body>
+</html>

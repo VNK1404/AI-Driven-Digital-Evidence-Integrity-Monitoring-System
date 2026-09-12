@@ -35,6 +35,9 @@ htmlcov/
 .env
 !.env.example
 
+# ML Model Weight Files exceeding GitHub 100MB file limit
+*.safetensors
+
 # IDEs
 .vscode/
 .idea/
